@@ -1,0 +1,257 @@
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/limsdev/!svn/ver/352/SGI/EMRE2/tags/2_1_5/com/sgsi/emre/task
+END
+CultureCollection.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/limsdev/!svn/ver/352/SGI/EMRE2/tags/2_1_5/com/sgsi/emre/task/CultureCollection.java
+END
+UpdateStrain.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/limsdev/!svn/ver/352/SGI/EMRE2/tags/2_1_5/com/sgsi/emre/task/UpdateStrain.java
+END
+SecondaryEnrichment.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/limsdev/!svn/ver/352/SGI/EMRE2/tags/2_1_5/com/sgsi/emre/task/SecondaryEnrichment.java
+END
+UpdateAnimalSample.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/limsdev/!svn/ver/352/SGI/EMRE2/tags/2_1_5/com/sgsi/emre/task/UpdateAnimalSample.java
+END
+UpdateCompositeSample.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/limsdev/!svn/ver/352/SGI/EMRE2/tags/2_1_5/com/sgsi/emre/task/UpdateCompositeSample.java
+END
+UpdateSecondaryEnrichment.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/limsdev/!svn/ver/352/SGI/EMRE2/tags/2_1_5/com/sgsi/emre/task/UpdateSecondaryEnrichment.java
+END
+EMRETask.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/limsdev/!svn/ver/352/SGI/EMRE2/tags/2_1_5/com/sgsi/emre/task/EMRETask.java
+END
+EditGrabData.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/limsdev/!svn/ver/352/SGI/EMRE2/tags/2_1_5/com/sgsi/emre/task/EditGrabData.java
+END
+StrainCollection.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/limsdev/!svn/ver/352/SGI/EMRE2/tags/2_1_5/com/sgsi/emre/task/StrainCollection.java
+END
+ExperimentalCultureCollection.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/limsdev/!svn/ver/352/SGI/EMRE2/tags/2_1_5/com/sgsi/emre/task/ExperimentalCultureCollection.java
+END
+PrintCultureLabels.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/limsdev/!svn/ver/352/SGI/EMRE2/tags/2_1_5/com/sgsi/emre/task/PrintCultureLabels.java
+END
+Isolates.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/limsdev/!svn/ver/352/SGI/EMRE2/tags/2_1_5/com/sgsi/emre/task/Isolates.java
+END
+UpdatePlantSample.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/limsdev/!svn/ver/352/SGI/EMRE2/tags/2_1_5/com/sgsi/emre/task/UpdatePlantSample.java
+END
+PhotoHostStrainCollection.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/limsdev/!svn/ver/352/SGI/EMRE2/tags/2_1_5/com/sgsi/emre/task/PhotoHostStrainCollection.java
+END
+LogEnvironmentalSample.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/limsdev/!svn/ver/352/SGI/EMRE2/tags/2_1_5/com/sgsi/emre/task/LogEnvironmentalSample.java
+END
+PhotoStrainCollection.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/limsdev/!svn/ver/352/SGI/EMRE2/tags/2_1_5/com/sgsi/emre/task/PhotoStrainCollection.java
+END
+UpdateEnvironmentalSample.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/limsdev/!svn/ver/352/SGI/EMRE2/tags/2_1_5/com/sgsi/emre/task/UpdateEnvironmentalSample.java
+END
+RemoveStrainVial.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/limsdev/!svn/ver/352/SGI/EMRE2/tags/2_1_5/com/sgsi/emre/task/RemoveStrainVial.java
+END
+PrintSubmissionLabels.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/limsdev/!svn/ver/352/SGI/EMRE2/tags/2_1_5/com/sgsi/emre/task/PrintSubmissionLabels.java
+END
+LogAquaticSample.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/limsdev/!svn/ver/352/SGI/EMRE2/tags/2_1_5/com/sgsi/emre/task/LogAquaticSample.java
+END
+UpdateAquaticSample.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/limsdev/!svn/ver/352/SGI/EMRE2/tags/2_1_5/com/sgsi/emre/task/UpdateAquaticSample.java
+END
+StrainTaxonomicId.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/limsdev/!svn/ver/352/SGI/EMRE2/tags/2_1_5/com/sgsi/emre/task/StrainTaxonomicId.java
+END
+StrainFeatures.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/limsdev/!svn/ver/352/SGI/EMRE2/tags/2_1_5/com/sgsi/emre/task/StrainFeatures.java
+END
+PrimaryEnrichment.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/limsdev/!svn/ver/352/SGI/EMRE2/tags/2_1_5/com/sgsi/emre/task/PrimaryEnrichment.java
+END
+UpdateAChemResults.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/limsdev/!svn/ver/352/SGI/EMRE2/tags/2_1_5/com/sgsi/emre/task/UpdateAChemResults.java
+END
+UpdatePrimaryEnrichment.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/limsdev/!svn/ver/352/SGI/EMRE2/tags/2_1_5/com/sgsi/emre/task/UpdatePrimaryEnrichment.java
+END
+EMREItem.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/limsdev/!svn/ver/352/SGI/EMRE2/tags/2_1_5/com/sgsi/emre/task/EMREItem.java
+END
+UpdateSubsurfaceSample.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/limsdev/!svn/ver/352/SGI/EMRE2/tags/2_1_5/com/sgsi/emre/task/UpdateSubsurfaceSample.java
+END
+SubmitAChemRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/limsdev/!svn/ver/352/SGI/EMRE2/tags/2_1_5/com/sgsi/emre/task/SubmitAChemRequest.java
+END
+UpdateTOCResults.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/limsdev/!svn/ver/352/SGI/EMRE2/tags/2_1_5/com/sgsi/emre/task/UpdateTOCResults.java
+END
+DefineProtocol.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/limsdev/!svn/ver/352/SGI/EMRE2/tags/2_1_5/com/sgsi/emre/task/DefineProtocol.java
+END
+PrintLabels.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/limsdev/!svn/ver/352/SGI/EMRE2/tags/2_1_5/com/sgsi/emre/task/PrintLabels.java
+END
+LibraryConstruction.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/limsdev/!svn/ver/352/SGI/EMRE2/tags/2_1_5/com/sgsi/emre/task/LibraryConstruction.java
+END
+StrainCultureCollection.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/limsdev/!svn/ver/352/SGI/EMRE2/tags/2_1_5/com/sgsi/emre/task/StrainCultureCollection.java
+END
+CreateStrain.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/limsdev/!svn/ver/352/SGI/EMRE2/tags/2_1_5/com/sgsi/emre/task/CreateStrain.java
+END
+UpdateIsolates.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/limsdev/!svn/ver/352/SGI/EMRE2/tags/2_1_5/com/sgsi/emre/task/UpdateIsolates.java
+END
+SubmitGrabData.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/limsdev/!svn/ver/352/SGI/EMRE2/tags/2_1_5/com/sgsi/emre/task/SubmitGrabData.java
+END
+UpdateSamplingTimepoints.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/limsdev/!svn/ver/352/SGI/EMRE2/tags/2_1_5/com/sgsi/emre/task/UpdateSamplingTimepoints.java
+END
+DNARNAPrep.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/limsdev/!svn/ver/352/SGI/EMRE2/tags/2_1_5/com/sgsi/emre/task/DNARNAPrep.java
+END
+DHCStrainCollection.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/limsdev/!svn/ver/352/SGI/EMRE2/tags/2_1_5/com/sgsi/emre/task/DHCStrainCollection.java
+END
+EditAChemRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/limsdev/!svn/ver/352/SGI/EMRE2/tags/2_1_5/com/sgsi/emre/task/EditAChemRequest.java
+END
+PrintBulkLabels.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/limsdev/!svn/ver/352/SGI/EMRE2/tags/2_1_5/com/sgsi/emre/task/PrintBulkLabels.java
+END

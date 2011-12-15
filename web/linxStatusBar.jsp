@@ -1,0 +1,16 @@
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+
+<tr class="statusBarRow">
+<td>
+    <table id="statusBarTable" width="800" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="30%" align="left">Currently logged in as: ${user.userName}</td>
+        <td width="30%" align="left" nowrap>Last Tran ID: <c:out value="${sessionScope.lastTranId}" default="NA"/></td>
+        <td align="right" >
+        <img src="webapps/images/WT_logo_small_1.jpg">
+        <a href="http://www.wildtypeinfo.com">Powered by Wildtype Linx 3</a>
+        </td>
+      </tr>
+    </table>
+</td>
+</tr>

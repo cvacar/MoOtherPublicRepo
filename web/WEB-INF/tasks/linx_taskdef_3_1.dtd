@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+linx_taskdef_3_1.dtd
+
+Linx Task Definition DTD 3.1.1
+
+(c)Copyright 2004 Wildtype Informatics LLC All rights reserved.
+ - Updated Dec 2008 to ensure all Linx elements/attributes were included in DTD.  TR Wildtype Informatics
+
+This document is the DTD for Linx 3.x task definition XML files.
+
+Task definitions are loaded by the Linx server on start-up
+to configure the rules of one workflow (lab process).
+
+REVISION HISTORY
+
+11/25/2010	TJR/WT	v3.1.1	Added "saveOnce" attribute to addAsAppFile node for an item
+											saveOnce="true" in conjunction with itemType attribute new="optional"
+										 	will allow DB to assign a single applicationFileId to all rows imported
+										 	in a bulk insert transaction for a single import file
+-->
+
+<!--
+linx
+
+Task defs may be divided among multiple .xml files or inside ZIP files,
+but all must start with the parent 'linx' element, and contain at least
+one 'task' element under 'linx'.
+-->
+<!ELEMENT linx ( task+ ) >
+
+<!--
+task
+
+Tasks are steps in a process or workflow, each uniquely named.
+-->
+<!ELEMENT task ( client, server ) >
+<!--
+task attributes
+
+If a custom JSP or HTML page should be displayed to the user, the optional
+'pg' attribute will specify the path, relative to the Linx directory. If
+pg='default', Linx will attempt to construct the JSP name by using the task name
+with underscores. Example: 'PgTask_Make_Box_A.jsp'.
+
+Likewise, if a custom servlet should perform processing on the collected data,
+optional 'svURL' attribute will specify the URL to the servlet,
+exactly as mapped in the server container's web.xml (NOT the name of a
+servlet class).
+Example of a web.xml mapping (slash would be included in attribute value):
+
+<servlet-mapping>
+    <servlet-name>Task_Make_Box_A</servlet-name>
+    <url-pattern>/Task_Make_Box_A</url-pattern>
+</servlet-mapping>
+-->
+<!ATTLIST task name CDATA #REQUIRED
+               taskVersion NMTOKEN #REQUIRED
+               pg CDATA #IMPLIED
+               svURL CDATA #IMPLIED
+               taskClass CDATA #IMPLIED>
+
+<!--
+client
+
+Task user interfaces can be displayed automatically by the Linx server based on
+widgets specified in the 'client' section of the task def.
+Alternately, developers may override the display in any manner desired.
+-->
+<!ELEMENT client ( displayItems ) >
+<!ATTLIST client clientVersion CDATA #REQUIRED >
+
+<!ELEMENT displayItems ( displayItem* ) >
+<!--
+displayItem
+
+Each displayItem represents a widget used to collect data from the user.
+
+The widgets enumerated here are those supported by Linx, which will
+automatically draw HTML based on the widget def. This DTD can be updated
+with more widget names as new widgets are developed for specific data collection needs.
+
+If 'label' is missing, Linx will use this displayItem's itemType.
+Attribute 'rowcount' is used only for 'table' widget,
+for which it specifies the number of rows to display.
+Attribute 'scrollable' applies only to text and 'textarea' widget.
+Attribute 'action' applies only to button-type widgets.
+Attribute 'persist' signals Linx that the widget's value should not be erased
+between displays of the task page.
+Attribute 'uppercase' applies to all text-type widgets.
+
+-->
+<!ELEMENT displayItem ( sql?, values?, value?, columns?, group?) >
+<!ATTLIST displayItem itemType NMTOKEN #REQUIRED
+                      widget (button|savebutton|verifybutton|buttongroup|dropdown|text|textinput|
+                              label|textarea|filebrowse|table|rowset|rowsets|rawhtml|checkbox|
+                              radio|hidden|passFailTable|rowColTable|itemLabel|message|inputtable|
+                              rowsetNaveControls|rowsetRow|rowsetsItor|rowsetTable|
+                              rowsetTableCompact|showObject|textbox|password|href|datepicker|datetimepicker|
+                              rowset_sort|rowsets_sort) #REQUIRED
+                      label CDATA #IMPLIED
+                      uppercase (true) #IMPLIED
+                      columnHeader CDATA #IMPLIED
+                      rowCount CDATA #IMPLIED
+                      action CDATA #IMPLIED
+                      persist (true) #IMPLIED
+                      scrollable (true) #IMPLIED
+                      maxLength NMTOKEN #IMPLIED
+                      minLength NMTOKEN #IMPLIED
+                      rowcount NMTOKEN #IMPLIED
+                      scrollSize NMTOKEN #IMPLIED
+                      accept NMTOKEN #IMPLIED
+                      selected (true|false) #IMPLIED
+                      visible (true|false) #IMPLIED
+                      dateFormat CDATA #IMPLIED>
+<!--
+value, values
+
+If the displayItem should display a default value to the user,
+these optional values/value elements will be included. If only
+one value is needed (for example, in a textinput box), 'value' may
+appear without the parent 'values'.
+-->
+<!ELEMENT values ( value+ ) >
+<!ELEMENT value ( #PCDATA ) >
+<!ATTLIST value selected (true|false) #IMPLIED>
+
+<!-- Optional element 'sql' contains a valid SQL statement (or stored proc call)
+that will be executed to populate values in this widget, usually a dropdown-->
+<!ELEMENT sql (#PCDATA ) >
+<!--
+group
+
+Two widgets, 'radio' and 'button', may appear in groups. This element
+specifies the members of each group.
+
+Groups are important for radio buttons, to ensure that only one value
+may be selected at a time per group name. Default radio button can
+be set with 'selected' attribute. Do NOT set selected=false for other
+group members.
+-->
+<!ELEMENT group ( member+ ) >
+<!ATTLIST group name NMTOKEN #REQUIRED >
+
+<!ELEMENT member EMPTY >
+<!ATTLIST member label NMTOKEN #REQUIRED
+                 value NMTOKEN #REQUIRED
+                 selected (true) #IMPLIED
+                 action NMTOKEN #IMPLIED >
+<!--
+columns
+
+Linx offers a simple textbox-field table for which column names
+as well as rowcount may be specified.
+-->
+<!ELEMENT columns ( column+ ) >
+<!ELEMENT column ( #PCDATA ) >
+
+
+<!--
+server
+
+Linx merges values collected from the client into the 'server' section
+of the task def wherever itemTypes match the submitted values' itemTypes.
+
+Values may be automatically processed by Linx according to
+rules configured here, or partially or completely overridden by custom code.
+-->
+<!ELEMENT server ( items ) >
+
+<!ELEMENT items ( item* ) >
+
+<!--
+item
+
+Each item provides a value required to update the state of the workflow,
+usually to move items (containers) from one step to another in the lab process.
+Example items of type 'container' are: plastic microtiter plates, work orders, samples.
+
+Values can also be collected that are not containers, but help provide
+a complete audit trail or aid in decisions about routing true containers.
+Example 'string' or 'number' items: a reagent's lot identifier,
+the name of a thermocycler program, an incubation temperature.
+-->
+<!ELEMENT item ( allowQueue*, addAsContent*, queueTo*, dequeueFrom*, addAsData*, addAsCondition*, addAsAppFile* ) >
+<!--
+item attributes
+
+Items of type='container' are validated against the ITEMS table for existence,
+unless the 'new' attribute is present. If new=y, the item may not already exist,
+and will be created. If new=optional, the item may or may not exist; it will
+be created if not.
+
+If a mask attribute is present, Linx checks the item value
+against the attribute's value, which must be a Java regular expression.
+This feature is useful for validating barcode patterns.
+Example of mask pattern:
+
+mask="GS[0-9]{7}-NAA"
+
+Barcode 'GS0000001-NAA' would qualify, but 'GT0000001-NAA' would generate an error.
+-->
+<!ATTLIST item itemType NMTOKEN #REQUIRED
+               type (container|comment|string|number|condition|file) #REQUIRED
+               mask CDATA #IMPLIED
+               optional (true|false) #IMPLIED
+               new (true|optional) #IMPLIED >
+
+<!--
+addAsContent
+
+When this optional element appears under an item, the item's value(s) will
+be added as a content to the item value(s) that appear under the target itemType
+(after Linx merges the data). Only items of type='container' may be added as contents.
+Contents of a source container will NOT be copied.
+
+If contentType is missing, Linx will use this item's itemType as the new
+contentType for the new CONTENTS record.
+
+Coordinate is often a simple '0', which by Linx convention means the new content
+belongs to the entire target container. Coordinate may also specify a well or any other
+physical or virtual location ('A01' or 'blue').
+-->
+<!ELEMENT addAsContent EMPTY >
+<!ATTLIST addAsContent contentType NMTOKEN #IMPLIED
+                       appliesTo NMTOKEN #REQUIRED
+                       coordinate NMTOKEN #REQUIRED >
+<!--
+addAsData
+
+When this optional element appears under an item, the item's value(s) will
+be added as data to the item value(s) that appear under the target itemType
+(after Linx merges the data). If appliesTo='task', the new data record will
+apply to the entire task rather than a target container. This feature is useful
+for recording variables that affect an entire task, e.g. which instrument was used.
+
+If dataType is missing, Linx will use this item's itemType as the new
+dataType for the new CONTENTS record (only 'data'/'dataType' fields are populated).
+
+Coordinate is often a simple '0', which by Linx convention means the new data
+belongs to the entire target item. Coordinate may also specify a well or any other
+location, physical or virtual ('A01' or 'blue').
+-->
+<!ELEMENT addAsData EMPTY >
+<!ATTLIST addAsData dataType NMTOKEN #IMPLIED
+                    appliesTo NMTOKEN #REQUIRED
+                    coordinate NMTOKEN #REQUIRED >
+<!--
+addAsCondition
+
+When this optional element appears under an item, the item's value(s) will
+be added as condition to the item value(s) that appear under the target itemType
+(after Linx merges the data). If appliesTo='task', the new condition record will
+apply to the entire task rather than a target container. This feature is useful
+for recording variables that affect an entire task, e.g. which instrument was used.
+
+If conditionType is missing, Linx will use this item's itemType as the
+conditionType for the new CONDITIONS record.
+
+Coordinate is often a simple '0', which by Linx convention means the condition
+belongs to the entire target item. Coordinate may also specify a well or any other
+location, physical or virtual ('A01' or 'blue').
+-->
+<!ELEMENT addAsCondition EMPTY >
+<!ATTLIST addAsCondition conditionType NMTOKEN #IMPLIED
+                         appliesTo NMTOKEN #REQUIRED
+                         coordinate NMTOKEN #REQUIRED >
+                         
+<!--
+addAsAppFile
+
+When this optional element appears under an item, the item's value(s) will
+be added as application file to the item value(s) that appear under the target itemType
+(after Linx merges the data). 
+
+If fileType is missing, Linx will use this item's itemType as the
+fileType for the new APPLICATION_FILE record.
+
+-->
+<!ELEMENT addAsAppFile EMPTY >
+<!ATTLIST addAsAppFile fileType NMTOKEN #IMPLIED
+					   appliesTo NMTOKEN #REQUIRED
+					  	saveOnce NMTOKEN #REQUIRED
+                       validate NMTOKEN #REQUIRED
+                       copyFileTo NMTOKEN #REQUIRED
+                       mask NMTOKEN #IMPLIED
+                       extcoord NMTOKEN #IMPLIED >
+                         
+<!--
+copyContents
+
+When this optional element appears under an item,
+the contents of the item's value(s) will be copied as new contents
+under the item value(s) that appear under the target ('appliesTo') itemType
+(after Linx merges the data). Only items of type='container'
+may have their contents copied. The source container itself is not added
+as a content, but an ITEMHISTORY record tracks that these two containers
+were in a copyContents transaction.
+
+If contentType is missing, Linx will copy all contents of any contentType
+from the source to the target container. Specifying a contentType is common
+if, for example, only DNA Samples or only PCR products should be copied.
+
+The attribute 'transferplan' MUST refer to an existing transferplan in the
+TRANSFERPLANS table. Linx will copy any contents with coordinates that match
+the coordinates in the transferplan. As a result, the wrong transferplan can
+result in a successful transfer (no errors) that copies nothing because
+the source plate and transferplan had no matching coordinates.
+-->
+<!ELEMENT copyContents EMPTY >
+<!ATTLIST copyContents contentType NMTOKEN #IMPLIED
+                       appliesTo NMTOKEN #REQUIRED
+                       transferPlan NMTOKEN #REQUIRED >
+<!--
+allowQueue
+
+Each optional 'allowQueue' node is processed by Linx to override the default requirement
+that an item be on the queue for the task defined in THIS task def
+before processing may continue. Only type='container' items are affected.
+
+Commonly, the value 'any' will appear, which flags Linx to skip queue validation
+for this item. This feature is helpful during testing,
+but is not ideal in production LIMS when the workflow should be able
+to anticipate which queues will hold an item at the time this step is reached.
+-->
+<!ELEMENT allowQueue ( #PCDATA ) >
+<!--
+queueTo
+
+The 'queueTo' element is used to advance the state of the workflow by adding
+the given item to the named queue. Only type='container' items are affected.
+The target queue need not be a valid task name, nor exist yet in the QUEUES table.
+An item can be queued multiple times, and it will appear on the target queue
+multiple times. (However, see 'dequeueFrom'.)
+
+Queueing is decoupled from dequeueing, for ultimate control.
+-->
+<!ELEMENT queueTo ( #PCDATA ) >
+<!--
+deqeueFrom
+
+The 'dequeueFrom' element is used to advance the state of the workflow by removing
+this item's value(s) from the named queue. Only type='container' items are affected.
+No error is thrown if the named queue does not exist or the item is not on the queue.
+Dequeueing is not required.
+
+Dequeueing an item dequeues ALL instances of the item from the target queue.
+-->
+<!ELEMENT dequeueFrom ( #PCDATA ) >
+

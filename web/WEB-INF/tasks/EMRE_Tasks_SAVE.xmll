@@ -1,0 +1,3133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE linx SYSTEM "linx_taskdef_3_1.dtd">
+<linx>
+	<task name="Environmental Aquatic Sample Logging" taskVersion="1.0" pg="default"
+		svURL="Task_Environmental_Plant_Sample_Logging" taskClass="com.sgsi.emre.task.LogAquaticSample">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Placeholder1" label=" "
+					widget="label">
+					<value>
+						Browse for a file containing multiple new samples,
+						then click 'Import':
+					</value>
+				</displayItem>
+				<displayItem itemType="SampleImportFile"
+					label="Bulk import file (*.xls)" widget="filebrowse" />
+				<displayItem itemType="ImportButton" label=" "
+					widget="button" action="Import" />
+				<displayItem itemType="Placeholder2" label=" "
+					widget="label">
+					<value>
+					</value>
+				</displayItem>
+				<displayItem itemType="Placeholder3" label=" "
+					widget="label">
+					<value>Next available LIMS ID:</value>
+				</displayItem>
+				<displayItem itemType="EnvironmentalSample" label="Next LIMS ID"
+					widget="textinput" />
+				<displayItem itemType="Location"
+					label="Next available Freezer:Box:Position" widget="rowsets" />
+				<displayItem itemType="ExportButton" label=" "
+					widget="button" action="Export Samples" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="EnvironmentalSample" type="container" new="true"
+					mask="SI1-SGI-E-[0-9]{6}">
+					<queueTo>Primary Enrichment</queueTo>
+				</item>
+				<item itemType="SampleImportFile" type="file"
+					optional="true" new="oncePerTran">
+					<addAsAppFile fileType="SampleImportFile" copyFileTo="lookup" />
+					<addAsData appliesTo="EnvironmentalSample"
+						dataType="SampleImportFile" />
+				</item>
+			</items>
+		</server>
+	</task>
+	<task name="Update Environmental Aquatic Sample" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="com.sgsi.emre.task.UpdateAquaticSample">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Placeholder1" label=" "
+					widget="label">
+					<value>
+						Browse for a file containing multiple samples previously saved in LIMS,
+						then click 'Import':
+					</value>
+				</displayItem>
+				<displayItem itemType="SampleImportFile"
+					label="Bulk import file (*.xls)" widget="filebrowse" />
+				<displayItem itemType="Placeholder1" label=" "
+					widget="label">
+					<value>
+						Please note that values entered via bulk import will overwrite previously saved sample properties.
+					</value>
+				</displayItem>
+				<displayItem itemType="ImportButton" label=" "
+					widget="button" action="Import" />
+				<displayItem itemType="Placeholder2" label=" "
+					widget="label">
+					<value>
+					</value>
+				</displayItem>
+				<displayItem itemType="Placeholder3" label=" "
+					widget="label">
+					<value>Export data for an existing sample:</value>
+				</displayItem>
+				<displayItem itemType="EnvironmentalSample" label="LIMS ID"
+					widget="textinput" />
+				<displayItem itemType="FindData" label=" "
+					widget="button" action="Export Sample Data" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="EnvironmentalSample" type="container"
+					mask="SI1-SGI-E-[0-9]{6}">
+					<allowQueue>Any</allowQueue>
+				</item>
+				<item itemType="SampleImportFile" type="file"
+					optional="true" new="oncePerTran">
+					<addAsAppFile appliesTo="EnvironmentalSample"
+						fileType="SampleImportFile" copyFileTo="lookup" />
+					<addAsData appliesTo="EnvironmentalSample"
+						dataType="SampleImportFile" />
+				</item>
+			</items>
+		</server>
+	</task>
+	<task name="Environmental Sample Logging" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="com.sgsi.emre.task.LogEnvironmentalSample">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Placeholder1" label=" "
+					widget="label">
+					<value>
+						Select Sample Type, then click 'Go' to define a
+						single sample:
+					</value>
+				</displayItem>
+				<displayItem itemType="SampleType" label="Sample Type"
+					widget="dropdown" rowCount="2" action="Go">
+					<values>
+						<value>(Select)</value>
+						<!--<value>Animal Sample</value>-->
+						<value selected="true">Aquatic Sample</value>
+						<!--<value>Composite Sample</value>-->
+						<!--<value>Plant Sample</value>-->
+						<!--<value>Subsurface Sample</value>-->
+					</values>
+				</displayItem>
+				<displayItem itemType="Placeholder5" label=" "
+					widget="label">
+					<value></value>
+				</displayItem>
+				<displayItem itemType="Placeholder4" label=" "
+					widget="label">
+					<value>
+
+					</value>
+				</displayItem>
+				<!--<displayItem itemType="Placeholder3" label=" "
+					widget="label">
+					<value>
+						Or, browse for a file containing multiple
+						samples, then click 'Import':
+					</value>
+				</displayItem>
+				<displayItem itemType="SampleImportFile"
+					label="Sample Manifest (*.xls)" widget="filebrowse" />
+				<displayItem itemType="ImportButton" label=" "
+					widget="button" action="Import" />  -->
+			</displayItems>
+		</client>
+		<server>
+			<items>
+			</items>
+		</server>
+	</task>
+	<task name="Update Environmental Sample" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="com.sgsi.emre.task.UpdateEnvironmentalSample">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Placeholder1" label=" "
+					widget="label">
+					<value>
+						Select Sample Type, then click 'Go' to update a
+						single sample:
+					</value>
+				</displayItem>
+				<displayItem itemType="SampleType" label="Sample Type"
+					widget="dropdown" rowCount="2" action="Go">
+					<values>
+						<value>(Select)</value>
+						<!--<value>Animal Sample</value>-->
+						<value selected="true">Aquatic Sample</value>
+						<!--<value>Composite Sample</value>-->
+						<!--<value>Plant Sample</value>-->
+						<!--<value>Subsurface Sample</value>-->
+					</values>
+				</displayItem>
+				<displayItem itemType="Placeholder5" label=" "
+					widget="label">
+					<value></value>
+				</displayItem>
+				<displayItem itemType="Placeholder4" label=" "
+					widget="label">
+					<value>
+
+					</value>
+				</displayItem>
+			</displayItems>
+		</client>
+		<server>
+			<items>
+			</items>
+		</server>
+	</task>
+	<task name="Primary Enrichment" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="com.sgsi.emre.task.PrimaryEnrichment">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Placeholder1" label=" "
+					widget="label">
+					<value>
+						Browse for a file containing multiple primary enrichments,
+						then click 'Import':
+					</value>
+				</displayItem>
+				<displayItem itemType="PrimaryEnrichmentImportFile"
+					label="Bulk import file (*.xls)" widget="filebrowse" />
+				<displayItem itemType="ImportButton" label=" "
+					widget="button" action="Import" />
+				<displayItem itemType="Placeholder2" label=" "
+					widget="label">
+					<value>
+					</value>
+				</displayItem>
+				<displayItem itemType="Placeholder3" label=" "
+					widget="label">
+					<value>Next available LIMS ID:</value>
+				</displayItem>
+				<displayItem itemType="PrimaryEnrichment" label="Next LIMS ID"
+					widget="textinput"/>
+				<displayItem itemType="ExportButton" label=" "
+					widget="button" action="Export Primary Enrichments" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="PrimaryEnrichment" type="container" new="true"
+					mask="SI2-SGI-E-[0-9]{6}">
+				  <queueTo>Secondary Enrichment</queueTo>
+				   <queueTo>Update Primary Enrichment</queueTo>
+				</item>
+				<item itemType="PrimaryEnrichmentImportFile" type="file"
+					optional="true" new="oncePerTran">
+					<addAsAppFile fileType="PrimaryEnrichmentImportFile" copyFileTo="lookup" />
+					<addAsData appliesTo="PrimaryEnrichment"
+						dataType="PrimaryEnrichmentImportFile" /> 
+				</item>	
+			</items>
+		</server>
+	</task>
+	<task name="Update Primary Enrichment" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="com.sgsi.emre.task.UpdatePrimaryEnrichment">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Placeholder1" label=" "
+					widget="label">
+					<value>
+						Browse for a file containing multiple primary enrichments,
+						then click 'Import':
+					</value>
+				</displayItem>
+				<displayItem itemType="PrimaryEnrichmentImportFile"
+					label="Bulk import file (*.xls)" widget="filebrowse" />
+				<displayItem itemType="Placeholder1" label=" "
+					widget="label">
+					<value>
+						Please note that values entered via bulk import will overwrite previously saved enrichment properties.
+					</value>
+				</displayItem>
+				<displayItem itemType="ImportButton" label=" "
+					widget="button" action="Import" />
+				<displayItem itemType="Placeholder2" label=" "
+					widget="label">
+					<value>
+					</value>
+				</displayItem>
+				<!--<displayItem itemType="Placeholder3" label=" "
+					widget="label">
+					<value>Or, work with a single primary enrichment:</value>
+				</displayItem>
+				<displayItem itemType="PrimaryEnrichment" label="LIMS ID"
+					widget="textinput"/>
+				<displayItem itemType="InternalID" label="Internal ID (Optional)"
+					widget="textinput"/>
+				<displayItem itemType="DateStarted" label="Date Started (YYMMDD)"
+					widget="datepicker" dateFormat="ymmdd" />				
+				<displayItem itemType="EnrichmentResult" label="Enrichment Result (Optional)"
+					widget="dropdown" rowCount="4">
+					<values>				
+					  <value selected="true">(Select)</value>
+					  <value>No Growth</value>
+					  <value>Growth</value>
+					  <value>Vigorous Growth</value>
+					</values>
+				</displayItem> 
+				<displayItem itemType="Comment" label="Comments (Optional)"
+					widget="textarea" minLength="200" />
+				<displayItem itemType="Save" label=" "
+					widget="savebutton" />-->
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="PrimaryEnrichment" type="container"
+					mask="SI2-SGI-E-[0-9]{6}">
+				</item>
+				<item itemType="PrimaryEnrichmentImportFile" type="file"
+					optional="true" new="oncePerTran">
+					<addAsAppFile appliesTo="PrimaryEnrichment"
+						fileType="PrimaryEnrichmentImportFile" copyFileTo="lookup" />
+					<addAsData appliesTo="PrimaryEnrichment"
+						dataType="PrimaryEnrichmentImportFile" /> 
+				</item>
+			</items>
+		</server>
+	</task>
+	<task name="Secondary Enrichment" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="com.sgsi.emre.task.SecondaryEnrichment">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Placeholder1" label=" "
+					widget="label">
+					<value>
+						Browse for a file containing multiple secondary enrichments,
+						then click 'Import':
+					</value>
+				</displayItem>
+				<displayItem itemType="SecondaryEnrichmentImportFile"
+					label="Bulk import file (*.xls)" widget="filebrowse" />
+				<displayItem itemType="ImportButton" label=" "
+					widget="button" action="Import" />
+				<displayItem itemType="Placeholder2" label=" "
+					widget="label">
+					<value>
+					</value>
+				</displayItem>
+				<displayItem itemType="Placeholder3" label=" "
+					widget="label">
+					<value>Next available LIMS ID:</value>
+				</displayItem>
+				<displayItem itemType="SecondaryEnrichment" label="Next LIMS ID"
+					widget="textinput"/>
+				<displayItem itemType="ExportButton" label=" "
+					widget="button" action="Export Secondary Enrichments" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="SecondaryEnrichment" type="container" new="true" 
+					mask="SI3-SGI-E-[0-9]{6}">
+				  	<queueTo>Isolates</queueTo>
+				  	<queueTo>Update Secondary Enrichment</queueTo>
+				</item>
+				<item itemType="SecondaryEnrichmentImportFile" type="file"
+					optional="true" new="oncePerTran" >
+					<addAsAppFile fileType="SecondaryEnrichmentImportFile" copyFileTo="lookup" 
+						appliesTo="SecondaryEnrichment"/>
+					<addAsData appliesTo="SecondaryEnrichment"
+						dataType="SecondaryEnrichmentImportFile" /> 
+				</item>				
+			</items>
+		</server>
+	</task>
+	<task name="Update Secondary Enrichment" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="com.sgsi.emre.task.UpdateSecondaryEnrichment">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Placeholder1" label=" "
+					widget="label">
+					<value>
+						Browse for a file containing multiple secondary enrichments,
+						then click 'Import':
+					</value>
+				</displayItem>
+				<displayItem itemType="UpdateSecondaryEnrichmentImportFile"
+					label="Bulk import file (*.xls)" widget="filebrowse" />
+				<displayItem itemType="Placeholder1" label=" "
+					widget="label">
+					<value>
+						Please note that values entered via bulk import will overwrite previously saved enrichment properties.
+					</value>
+				</displayItem>
+				<displayItem itemType="ImportButton" label=" "
+					widget="button" action="Import" />
+				<displayItem itemType="Placeholder2" label=" "
+					widget="label">
+					<value>
+					</value>
+				</displayItem>
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="SecondaryEnrichment" type="container"
+					mask="SI3-SGI-E-[0-9]{6}">
+					<allowQueue>Any</allowQueue>
+				</item>
+				<item itemType="UpdateSecondaryEnrichmentImportFile" type="file"
+					optional="true" new="oncePerTran">
+					<addAsAppFile appliesTo="SecondaryEnrichment"
+						fileType="UpdateSecondaryEnrichmentImportFile" 
+						copyFileTo="lookup" />
+					<addAsData appliesTo="SecondaryEnrichment"
+						dataType="UpdateSecondaryEnrichmentImportFile" /> 
+				</item>					
+			</items>
+		</server>
+	</task>
+	<task name="Isolates" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="com.sgsi.emre.task.Isolates">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Placeholder1" label=" "
+					widget="label">
+					<value>
+						Browse for a file containing multiple isolates,
+						then click 'Import':
+					</value>
+				</displayItem>
+				<displayItem itemType="IsolatesImportFile"
+					label="Bulk import file (*.xls)" widget="filebrowse" />
+				<displayItem itemType="ImportButton" label=" "
+					widget="button" action="Import" />
+				<displayItem itemType="Placeholder2" label=" "
+					widget="label">
+					<value>
+					</value>
+				</displayItem>
+				<displayItem itemType="Placeholder3" label=" "
+					widget="label">
+					<value>Next available LIMS ID:</value>
+				</displayItem>
+				<displayItem itemType="Isolate" label="Next LIMS ID"
+					widget="textinput" persist="true" />
+
+				<displayItem itemType="Location"
+					label="" widget="rowsets" persist="true" />
+				<displayItem itemType="PrintLabel"
+					label=" " widget="button"
+					action="Print Label" />
+				<displayItem itemType="ExportButton" label=" "
+					widget="button" action="Export Isolates" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="Isolate" type="container"
+					new="true" mask="SI4-SGI-E-[0-9]{6}-[ABCDEFGH][0-9]{2}">
+					<queueTo>Available Isolates</queueTo>
+					<queueTo>Update Isolates</queueTo>
+				</item>
+				<item itemType="IsolatesImportFile" type="file"
+					new="oncePerTran">
+					<addAsAppFile fileType="IsolatesImportFile" copyFileTo="lookup" />
+					<addAsData appliesTo="Isolate"
+						dataType="IsolatesImportFile" /> 
+				</item>	
+			</items>
+		</server>
+	</task>
+	<task name="Update Isolates" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="com.sgsi.emre.task.UpdateIsolates">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Placeholder1" label=" "
+					widget="label">
+					<value>
+						Browse for a file containing multiple existing isolates,
+						then click 'Import' to save changes:
+					</value>
+				</displayItem>
+				<displayItem itemType="IsolatesImportFile"
+					label="Bulk import file (*.xls)" widget="filebrowse" />
+				<displayItem itemType="Placeholder1" label=" "
+					widget="label">
+					<value>
+						Please note that values entered via bulk import will overwrite previously saved isolate properties.
+					</value>
+				</displayItem>
+				<displayItem itemType="ImportButton" label=" "
+					widget="button" action="Import" />			
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="Isolate" type="container"
+				 mask="SI4-SGI-E-[0-9]{6}-[ABCDEFGH][0-9]{2}">
+				 	<allowQueue>Any</allowQueue>
+					<queueTo>Available Isolates</queueTo>
+					<queueTo>Update Isolates</queueTo>
+				</item>
+				<item itemType="IsolatesImportFile" type="file"
+					new="oncePerTran">
+					<addAsAppFile fileType="IsolatesImportFile" copyFileTo="lookup" />
+					<addAsData appliesTo="Isolate"
+						dataType="IsolatesImportFile" /> 
+				</item>	
+			</items>
+		</server>
+	</task>
+	<task name="Strain Taxonomic ID" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="com.sgsi.emre.task.StrainTaxonomicId">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="EnrichmentFACSPlate" label="LIMS ID"
+					widget="textinput" />
+				<displayItem itemType="NotebookRef" label="Page Ref [notebook-pg]"
+					widget="textinput">
+				</displayItem>
+				<displayItem itemType="SampleType"
+					label="Sample Type" widget="dropdown"
+					rowCount="2">
+					<values>
+						<value selected="true">(Select)</value>
+						<value>PCR Product</value>
+						<value>Clone</value>
+					</values>
+				</displayItem>
+				<displayItem itemType="SequencingVendor"
+					label="Sequencing Vendor" widget="dropdown"
+					rowCount="2">
+					<values>
+						<value selected="true">(Select)</value>
+						<value>JCVI</value>
+						<value>JTC</value>
+						<value>Other 1</value>
+						<value>Other 2</value>
+					</values>
+				</displayItem>
+				<displayItem itemType="DateSubmitted" label="Date Submitted (YYMMDD)"
+					widget="datepicker" dateFormat="ymmdd" />
+				<displayItem itemType="VendorID"
+					label="Vendor ID (Optional)" widget="textinput" />
+				<displayItem itemType="SequenceResultFile"
+					label="Sequence Result File (Optional)" widget="filebrowse" />
+				<displayItem itemType="Save" label="Send"
+					widget="savebutton" />
+				<displayItem itemType="ExportButton" label=" "
+					widget="button" action="Export Strain Taxonomic ID" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="EnrichmentFACSPlate" type="container" 
+					mask="SI3-SGI-E-[0-9]{6}">
+				  <queueTo>Sent for Sequencing</queueTo>
+				</item>
+				<item itemType="VendorID" type="string" optional="true">
+				</item>
+				<item itemType="NotebookRef" type="string" mask="([0-9]{4}-[0-9]{2}|[0-9]{4}-[0-9]{3})">
+				</item>
+				<item itemType="SampleType" type="string">
+				</item>
+				<item itemType="DateSubmitted" type="string">
+				</item>
+				<item itemType="SequencingVendor" type="string">
+				</item>
+				<item itemType="SequenceResultFile" type="file"
+					optional="true">
+				</item>		
+			</items>
+		</server>
+	</task>
+	<task name="Print Labels" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="com.sgsi.emre.task.PrintLabels">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="ItemType" label="Label Type"
+					widget="dropdown" rowCount="4" >
+					<values>
+						<value selected="true">(Select)</value>
+						<value>EnvironmentalSample</value>
+						<value>PrimaryEnrichment</value>
+						<value>SecondaryEnrichment</value>
+						<value>Isolate</value>
+					</values>
+				</displayItem>
+				<displayItem itemType="Placeholder3" label=" "
+					widget="label">
+					<value>
+						Enter a range of LIMS IDs then click 'Save'.  To print a
+						single label leave the max LIMS ID blank.
+					</value>
+				</displayItem>
+				<displayItem itemType="MinBarcode" label="Min LIMS ID"
+					widget="textinput" />
+				<displayItem itemType="MaxBarcode" label="Max LIMS ID"
+					widget="textinput" />
+				<displayItem itemType="Placeholder4" label=" "
+					widget="label">
+					<value>To print a subset of labels, separate LIMS IDs by comma, space, or hard return
+					</value>
+				</displayItem>
+				<displayItem itemType="Items" label="LIMS IDs"
+					widget="textarea" 
+					rowCount="35"
+					columns="40"></displayItem>
+				<displayItem itemType="Save"
+					label=" " widget="savebutton"/>
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="ItemType" type="string"/>
+				<item itemType="MinBarcode" type="string" optional="true"/>
+				<item itemType="MaxBarcode" type="string" optional="true"/>
+				<item itemType="EnvironmentalSample" type="container" optional="true">
+					<allowQueue>Any</allowQueue>
+				</item>
+				<item itemType="PrimaryEnrichment" type="container" optional="true">
+					<allowQueue>Any</allowQueue>
+				</item>
+				<item itemType="SecondaryEnrichment" type="container" optional="true">
+					<allowQueue>Any</allowQueue>
+				</item>
+				<item itemType="Isolate" type="container" optional="true">
+					<allowQueue>Any</allowQueue>
+				</item>
+			</items>
+		</server>
+	</task>
+	<task name="DNA or RNA Preparation" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="com.sgsi.emre.task.DNARNAPrep">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="SampleType" label="Sample Type"
+					widget="dropdown" rowCount="3">
+					<values>				
+					  <value>(Select)</value>
+					  <value>DNA</value>
+					  <value>RNA</value>
+					</values>
+				</displayItem>
+				<displayItem itemType="LIMSID" label="New LIMS ID"
+					widget="textinput" />
+				<displayItem itemType="NotebookRef" label="Page Ref [notebook-pg]"
+					widget="textinput"/>
+				<displayItem itemType="Placeholder1" label=" "
+					widget="label">
+					<value>
+						Browse for a file containing multiple origin LIMS IDs:
+					</value>
+				</displayItem>
+				<displayItem itemType="OriginIDFile"
+					label="Bulk import file (*.xls)" widget="filebrowse" />
+				<displayItem itemType="Placeholder2" label=" "
+					widget="label">
+					<value>
+					</value>
+				</displayItem>
+				<displayItem itemType="Placeholder3" label=" "
+					widget="label">
+					<value>Or, enter at least one Origin LIMS ID below:</value>
+				</displayItem>
+				<displayItem itemType="OriginLIMSID" label="Origin LIMS ID"
+					widget="inputtable" rowCount="6"/>
+				<displayItem itemType="Vendor" label="Vendor (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Protocol"
+					label="Protocol File (Optional)" widget="filebrowse" />
+				<displayItem itemType="Location"
+					label="Freezer:Box:Position" widget="rowsets" />
+				<displayItem itemType="Save" label=" "
+					widget="savebutton" />
+				<displayItem itemType="PrintLabel"
+					label=" " widget="button"
+					action="Print Label" />
+				<displayItem itemType="ExportButton" label=" "
+					widget="button" action="Export DNA/RNA Preparation" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="DNA" type="container" optional="true"
+					new="true" mask="LB1-SGI-E-[0-9]{6}">
+					<queueTo>Available DNA</queueTo>
+					<queueTo>Library Construction</queueTo>
+				</item>
+				<item itemType="RNA" type="container" optional="true"
+					new="true" mask="LB1-SGI-E-[0-9]{6}">
+					<queueTo>Available RNA</queueTo>
+					<queueTo>Library Construction</queueTo>
+				</item>
+				<!--<item itemType="EnvironmentalSample" type="container" optional="true"
+					mask="SI1-SGI-E-[0-9]{6}">
+					<allowQueue>ANY</allowQueue>
+				</item>
+				<item itemType="PrimaryEnrichment" type="container" optional="true"
+					mask="SI2-SGI-E-[0-9]{6}">
+					<allowQueue>ANY</allowQueue>
+				</item>
+				<item itemType="SecondaryEnrichment" type="container" optional="true"
+					mask="SI3-SGI-E-[0-9]{6}">
+					<allowQueue>ANY</allowQueue>
+				</item>
+				<item itemType="Isolate" type="container" optional="true"
+					mask="SI4-SGI-E-[0-9]{6}-[ABCDEFGH][0-9]{2}">
+					<allowQueue>ANY</allowQueue>
+				</item>
+				<item itemType="Strain" type="container" optional="true"
+					mask="(WT|PE|PH)-SGI-E-[0-9]{4}">
+					<allowQueue>ANY</allowQueue>
+				</item>-->
+				<item itemType="SampleType" type="string">
+				</item>
+				<item itemType="NotebookRef" type="string"
+					mask="[0-9]{4}-[0-9]{3}">
+				</item>
+				<item itemType="OriginLIMSID" type="string">
+				</item>
+				<item itemType="LIMSID" type="string" >
+				</item>
+				<item itemType="Vendor" type="string" optional="true">
+				</item>
+				<item itemType="Protocol" type="file" optional="true"
+					new="true">
+					<addAsAppFile fileType="Protocol" copyFileTo="lookup" />
+				</item>
+				<item itemType="OriginIDFile" type="file" optional="true"
+					new="true">
+					<addAsAppFile appliesTo="DNA"
+					fileType="OriginIDFile" copyFileTo="lookup" />
+					<addAsAppFile appliesTo="RNA"
+					fileType="OriginIDFile" copyFileTo="lookup" />
+				</item>
+			</items>
+		</server>
+	</task>
+	<task name="Library Construction" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="com.sgsi.emre.task.LibraryConstruction">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Library" label="New LIMS ID"
+					widget="textinput" />
+				<displayItem itemType="OriginLIMSID" label="Origin LIMS ID"
+					widget="textinput"/>
+				<displayItem itemType="Size" label="Size (kb range)"
+					widget="textinput" />
+				<displayItem itemType="Vector" label="Vector"
+					widget="dropdown" rowCount="3">
+					<values>				
+					  <value>(Select)</value>
+					  <value>Plasmid</value>
+					  <value>Phage</value>
+					  <value>Excised Phagemid</value>
+					  <value>Fosmid</value>
+					</values>
+				</displayItem>
+				<displayItem itemType="VectorName"
+					label="Vector Name" widget="textinput" />
+				<displayItem itemType="PreparedBy"
+					label="Prepared By" widget="textinput" />
+				<displayItem itemType="Linkers"
+					label="Linkers/Adaptor" widget="textinput" />
+				<displayItem itemType="NotebookRef"
+					label="Page Ref [notebook-pg]" widget="textinput" />
+				<displayItem itemType="DNAConcentration"
+					label="DNA Concentration (ug/mL)" widget="textinput" />
+				<displayItem itemType="PrimarySample"
+					label="Primary Sample" widget="textinput" />
+				<displayItem itemType="QCdInsertSize"
+					label="QC'd Insert Size" widget="textinput" />
+				<displayItem itemType="QCPrimer5Prime"
+					label="QC Primer 5'" widget="textinput" />
+				<displayItem itemType="QCPrimer3Prime"
+					label="QC Primer 3'" widget="textinput" />
+				<displayItem itemType="Location"
+					label="Freezer:Box:Position" widget="rowsets" />
+				<displayItem itemType="PrintLabel"
+					label=" " widget="button"
+					action="Print Label" />
+				<displayItem itemType="Save" label=" "
+					widget="savebutton" />
+				<displayItem itemType="ExportButton" label=" "
+					widget="button" action="Export Library Production" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="DNA" type="container" optional="true"
+					mask="LB1-SGI-E-[0-9]{6}">
+				</item>
+				<item itemType="RNA" type="container" optional="true"
+					mask="LB1-SGI-E-[0-9]{6}">
+				</item>
+				<item itemType="Library" type="container" new="true"
+					mask="LB2-SGI-E-[0-9]{6}">
+					<queueTo>Available Library</queueTo>
+				</item>
+				<item itemType="Vector" type="string">
+				</item>
+				<item itemType="Size" type="string">
+				</item>
+				<item itemType="PreparedBy" type="string">
+				</item>
+				<item itemType="NotebookRef" type="string" mask="[0-9]{4}-[0-9]{3}">
+				</item>
+				<item itemType="VectorName" type="string">
+				</item>
+				<item itemType="Linkers" type="string">
+				</item>
+				<item itemType="DNAConcentration" type="string">
+				</item>
+				<item itemType="PrimarySample" type="string">
+				</item>
+				<item itemType="QCdInsertSize" type="string">
+				</item>
+				<item itemType="QCPrimer5Prime" type="string">
+				</item>
+				<item itemType="QCPrimer3Prime" type="string">
+				</item>
+				<item itemType="Location" type="string">
+				</item>
+			</items>
+		</server>
+	</task>
+	<task name="Remove Strain Vial" taskVersion="1.0" pg="default"
+		svURL="default" taskClass="com.sgsi.emre.task.RemoveStrainVial">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Strain" label="Strain ID"
+					widget="textinput">
+				</displayItem>
+				<displayItem itemType="Location"
+					label="Freezer:Box:Position" widget="textinput"/>
+				<displayItem itemType="Comment" label="Comments"
+					widget="textarea" minLength="300" />
+				<displayItem itemType="Verify" label=" "
+					widget="verifybutton" />
+				<displayItem itemType="Save" label=" "
+					widget="savebutton" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="Strain" type="container">
+					<allowQueue>ANY</allowQueue>
+					<queueTo>Strain Vial Removed</queueTo>
+				</item>
+				<item itemType="Location" type="string">
+					<addAsData appliesTo="task" coordinate="deleted" />
+				</item>
+				<item itemType="Comment" type="comment"
+					optional="true" commentType="STRAIN_COMMENTTYPE" appliesTo="Strain" >
+				</item>
+			</items>
+		</server>
+	</task>
+	<task name="Discard Strain" taskVersion="1.0" pg="default"
+		svURL="default" taskClass="default">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Strain" label="Strain ID"
+					widget="textinput">
+				</displayItem>
+				<displayItem itemType="Comment" label="Comments"
+					widget="textarea" minLength="300" />
+				<displayItem itemType="Verify" label=" "
+					widget="verifybutton" />
+				<displayItem itemType="Save" label=" "
+					widget="savebutton" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="Strain" type="container">
+					<allowQueue>ANY</allowQueue>
+					<dequeueFrom>Available Strains</dequeueFrom>
+					<queueTo>Discarded Strains</queueTo>
+				</item>
+				<item itemType="Comment" type="comment"
+					optional="true" commentType="STRAIN_COMMENTTYPE" 
+					appliesTo="Strain" >
+				</item>
+			</items>
+		</server>
+	</task>
+	<task name="Retire Strain" taskVersion="1.0" pg="default"
+		svURL="default" taskClass="default">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Strain" label="Retired Strain"
+					widget="textinput">
+				</displayItem>
+				<displayItem itemType="Comment" label="Comments"
+					widget="textarea" minLength="300" />
+				<displayItem itemType="Verify" label=" "
+					widget="verifybutton" />
+				<displayItem itemType="Save" label=" "
+					widget="savebutton" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="Strain" type="container">
+					<allowQueue>ANY</allowQueue>
+					<dequeueFrom>Available Strains</dequeueFrom>
+					<queueTo>Retired Strains</queueTo>
+				</item>
+				<item itemType="Comment" type="comment"
+					optional="true" commentType="STRAIN_COMMENTTYPE"
+					 appliesTo="Strain" >
+				</item>
+			</items>
+		</server>
+	</task>
+	<task name="Culture Selection" taskVersion="1.0" pg="default"
+		svURL="Task_Culture_Selection" taskClass="default">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Placeholder1" label=" "
+					widget="label">
+					<value>
+						Select 'Strain Culture' for WT and PH strains 
+						and 'Experimental Culture' for mutants and recombinants:
+					</value>
+				</displayItem>
+				<displayItem itemType="CultureType" label="Culture Type"
+					widget="dropdown" rowCount="3" action="Go">
+					<values>
+						<value selected="true">(Select)</value>
+						<value>Strain Culture</value>
+						<value>Master Strain Culture</value>
+						<value>Experimental Culture</value>						
+						<value>Master Experimental Culture</value>
+					</values>
+				</displayItem>
+				<displayItem itemType="Placeholder2" label=" "
+					widget="label">
+					<value></value>
+				</displayItem>
+				<displayItem itemType="Imports" label="Click to download file."
+					widget="rowsets" visible="true" />	
+			</displayItems>
+		</client>
+		<server>
+			<items>
+			</items>
+		</server>
+	</task>
+	<task name="Strain Culture Collection" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="com.sgsi.emre.task.StrainCultureCollection">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Placeholder1" label=" "
+					widget="label">
+					<value>
+						Leave the Culture ID column blank in your file to create new cultures.
+					</value>
+				</displayItem>
+				<displayItem itemType="CultureCollectionImportFile"
+					label="Bulk import file (*.xls)" widget="filebrowse" />
+				<displayItem itemType="Save" label=" "
+					widget="savebutton" />
+				<!-- <displayItem itemType="DataUploadButton" 
+						label="Associate culture or sampling timepoint with data files in shared folder \\NA01A-CIFS\EMRE-SGI-Science\SGI-E LIMS Images"
+						widget="button" 
+						action="Add Data Files"/>-->
+				<displayItem itemType="Placeholder2" label=" "
+					widget="label">
+					<value>
+					</value>
+				</displayItem>-->
+				<displayItem itemType="Placeholder3" label=" "
+					widget="label">
+					<value>Download culture collection data (leave blank for all):</value>
+				</displayItem>
+				<displayItem itemType="SearchString" label="Strain or Culture ID"
+					widget="textinput" />				
+				<displayItem itemType="ExportButton" label=" "
+					widget="button" action="Export Culture Collection" />			
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="StrainCulture" type="container" 
+						optional="true" new="optional">
+					<addAsContent appliesTo="Strain" contentType="StrainCulture"/>
+					<!--<addAsData dataType="StrainCulture"
+						appliesTo="CultureCollectionImportFile" />-->
+					<allowQueue>any</allowQueue>
+					<dequeueFrom>Available Cultures</dequeueFrom>
+					<queueTo>Available Cultures</queueTo>
+				</item>
+				<item itemType="Strain" type="container" optional="true">
+					<allowQueue>Available Strains</allowQueue>
+				</item>
+				<item itemType="CultureCollectionImportFile" type="file"
+					new="oncePerTran">
+					<addAsAppFile fileType="CultureCollectionImportFile" copyFileTo="lookup" />
+					<addAsData dataType="CultureCollectionImportFile"
+						appliesTo="task" /> 
+				</item>	
+			</items>
+		</server>
+	</task>
+	<task name="Experimental Culture Collection" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="com.sgsi.emre.task.ExperimentalCultureCollection">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Placeholder1" label=" "
+					widget="label">
+					<value>
+						Browse for a file containing multiple experimental cultures,
+						then click 'Import':
+					</value>
+				</displayItem>
+				<displayItem itemType="CultureCollectionImportFile"
+					label="Bulk import file (*.xls)" widget="filebrowse" />
+				<displayItem itemType="ImportButton" label=" "
+					widget="button" action="Import" />
+				<displayItem itemType="Placeholder2" label=" "
+					widget="label">
+					<value>
+					</value>
+				</displayItem>
+				<displayItem itemType="Placeholder3" label=" "
+					widget="label">
+					<value>Or, work with a single culture:</value>
+				</displayItem>
+				<displayItem itemType="Strain" label="Strain ID (Origin LIMS ID)"
+					widget="textinput" />
+				<displayItem itemType="DateStarted" label="Start Date (YYMMDD)"
+					widget="datepicker" dateFormat="ymmdd" />
+				<displayItem itemType="NextIDButton" label=" "
+					widget="button" action="Generate ID" />
+				<displayItem itemType="ExperimentalCulture" label="Experimental Culture ID"
+					widget="textinput" minLength="50" />
+				<displayItem itemType="NotebookRef"
+					label="Page Ref [notebook-pg]" widget="textinput" />
+				
+				<displayItem itemType="Description" label="Culture Description (Optional)"
+					widget="textarea" />
+				<displayItem itemType="Comment" label="Comment (Optional)"
+					widget="textarea" />
+				<displayItem itemType="Save" label=" "
+					widget="savebutton" />
+				<displayItem itemType="SearchString" label="Strain or Culture ID"
+					widget="textinput" visible="false"/>	
+				<displayItem itemType="ExportButton" label=" "
+					widget="button" action="Export Experimental Culture Collection" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="ExperimentalCulture" type="container" new="true">
+					<addAsContent appliesTo="Strain" contentType="ExperimentalCulture"/>
+					<queueTo>Available Cultures</queueTo>
+				</item>
+				<item itemType="Strain" type="container">
+					<allowQueue>Available Strains</allowQueue>
+				</item>
+				<item itemType="NotebookRef" type="string" mask="[0-9]{4}-[0-9]{3}">
+				</item>
+				<item itemType="Description" type="string"
+					optional="true">
+				</item>
+				<item itemType="DateStarted" type="string">
+				</item>
+				<item itemType="Comment" type="string"
+					optional="true" >
+				</item>
+				<item itemType="CultureCollectionImportFile" type="file"
+					optional="true" new="oncePerTran">
+					<addAsAppFile fileType="CultureCollectionImportFile" copyFileTo="lookup" />
+					<addAsData appliesTo="ExperimentalCulture"
+						dataType="CultureCollectionImportFile" /> 
+					
+				</item>	
+			</items>
+		</server>
+	</task>
+	<task name="Print Culture Labels" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="com.sgsi.emre.task.PrintCultureLabels">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="ItemType" label="Label Type"
+					widget="dropdown" rowCount="4" >
+					<values>
+						<value selected="true">(Select)</value>
+						<value>StrainCulture</value>
+						<value>ExperimentalCulture</value>
+					</values>
+				</displayItem>
+				<displayItem itemType="CultureIDs" label="Culture IDs"
+					widget="textarea" 
+					rowCount="35"
+					columns="40">Separate culture IDs by comma, space, or hard return</displayItem>
+				<displayItem itemType="Save"
+					label=" " widget="savebutton"/>
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="ItemType" type="string"/>
+				<item itemType="CultureID" type="string"/>
+			</items>
+		</server>
+	</task>
+	<task name="Submit Grab Data" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="com.sgsi.emre.task.SubmitGrabData">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Placeholder2" label=" "
+					widget="label">
+					<value>
+					Generate a new Import ID:
+					</value>
+				</displayItem>
+				<displayItem itemType="GetImportID"
+					label=" " widget="button" action="Next Import ID">
+				</displayItem>
+				<displayItem itemType="ImportID" label="Import ID"
+					widget="label"/>
+				<displayItem itemType="Placeholder2" label=" "
+					widget="label">
+					<value>
+					</value>
+				</displayItem>
+				<displayItem itemType="Placeholder3" label=" "
+					widget="label">
+					<value>
+						Latest blank template is available at LIMS task 'Get LIMS Templates'.
+					</value>
+				</displayItem>
+				<displayItem itemType="CultureGrabDataImportFile"
+					label="Submit new Grab Data Import File (*.xls)" 
+					widget="filebrowse" />
+				<displayItem itemType="ImportButton" label=" " action="Import"
+					widget="button" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="CultureGrabDataImportFile" type="file"	new="oncePerTran">
+					<addAsAppFile fileType="CultureGrabDataImportFile" copyFileTo="lookup" />
+				</item>
+				<item itemType = "ImportID" type="string"  optional="true">
+					<addAsData dataType="ImportID" appliesTo="CultureGrabDataImportFile" />
+ 				</item>
+				<item itemType="Timepoint" type="string" optional="true"/>
+				<item itemType="SamplingID" type="string"  optional="true"/>
+				<item itemType="SamplingTimepoint" type="container" new="optional"  optional="true">
+					<addAsContent appliesTo="StrainCulture" />
+					<addAsContent appliesTo="ExperimentalCulture" />
+					<!--<addAsData appliesTo="CultureGrabDataImportFile" dataType="SamplingTimepoint"/>-->
+					<allowQueue>any</allowQueue>
+					<queueTo>Sampling Timepoints Added</queueTo>
+				</item>
+				<item itemType="Culture" type="string"  optional="true"/>
+				<item itemType="ExperimentalCulture" type="container" optional="true"
+					mask="EX-SGI-E-[0-9]{4}-[0-9]{6}-[0-9]{3}">
+					<allowQueue>Available Cultures</allowQueue>
+					<!--<addAsData appliesTo="CultureGrabDataImportFile" dataType="ExperimentalCulture"/>-->
+				</item>
+				<item itemType="StrainCulture" type="container" optional="true">
+					<allowQueue>Available Cultures</allowQueue>
+					<!--<addAsData appliesTo="CultureGrabDataImportFile" dataType="StrainCulture"/>-->
+				</item>
+			</items>
+		</server>
+	</task>
+		<task name="Edit Grab Data" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="com.sgsi.emre.task.EditGrabData">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Placeholder3" 
+											label=" "
+											widget="label">
+					<value>
+						(Submitters only) Resubmit an edited grab data worksheet:
+					</value>
+				</displayItem>
+				<displayItem itemType="CultureGrabDataImportFile"
+						 label="Edited worksheet" 
+						 widget="filebrowse" />
+				<displayItem itemType="ImportButton" 
+						label=" " action="Import"
+						widget="button" />
+				<!-- <displayItem itemType="UploadLabel" 
+						label=" "
+						widget="label">
+						<value>Associate culture or sampling timepoint with data files in shared folder \\NA01A-CIFS\EMRE-SGI-Science\SGI-E LIMS Images
+						</value>
+				</displayItem>-->
+				<!-- <displayItem itemType="DataUploadButton" 
+						label=" "
+						widget="button" 
+						action="Add Data Files"/>-->
+				<displayItem itemType="Placeholder4" 
+						label=" "
+						widget="label">
+					<value>
+						___________________________________________________
+					</value>
+				</displayItem>
+			<displayItem itemType="Placeholder3" label=" "
+					widget="label">
+					<value>
+						(Optional) Retrieve timepoint data:
+					</value>
+				</displayItem>
+				<displayItem itemType="SamplingID" 
+				             	label="Sampling ID, Culture ID or Import ID"
+											widget="textinput" 
+											action="Find"/>
+				<displayItem itemType="GetFile" 
+											label=" "
+											widget="button" 
+											action="Find"/>
+				<displayItem itemType="Placeholder5" 
+											label=" "
+											widget="label">
+					<value>
+						___________________________________________________
+					</value>
+				</displayItem>
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="CultureGrabDataImportFile" type="file"	new="oncePerTran">
+					<addAsAppFile fileType="CultureGrabDataImportFile" copyFileTo="lookup" />
+				</item>
+				<item itemType = "ImportID" type="string"  optional="true">
+					<addAsData dataType="ImportID" appliesTo="CultureGrabDataImportFile" />
+				</item>
+				<item itemType="Timepoint" type="string" optional="true"/>
+				<item itemType="SamplingID" type="string"  optional="true">
+					<addAsData appliesTo="SamplingTimepoint" dataType="SamplingID"/>
+				</item>
+				<item itemType="SamplingTimepoint" type="container" optional="true">
+					<addAsContent appliesTo="StrainCulture" />
+					<addAsContent appliesTo="ExperimentalCulture" />
+					<!--<addAsData appliesTo="CultureGrabDataImportFile" dataType="SamplingTimepoint"/>-->
+					<allowQueue>any</allowQueue>
+					<queueTo>Sampling Timepoints Added</queueTo>
+				</item>
+				<item itemType="Culture" type="string"  optional="true"/>
+				<item itemType="ExperimentalCulture" type="container" optional="true"
+					mask="EX-SGI-E-[0-9]{4}-[0-9]{6}-[0-9]{3}">
+					<allowQueue>Available Cultures</allowQueue>
+					<!--<addAsData appliesTo="CultureGrabDataImportFile" dataType="ExperimentalCulture"/>-->
+				</item>
+				<item itemType="StrainCulture" type="container" optional="true">
+					<allowQueue>Available Cultures</allowQueue>
+					<addAsData appliesTo="CultureGrabDataImportFile" dataType="StrainCulture"/>
+				</item>
+			</items>
+		</server>
+	</task>
+	<task name="Update Sampling Timepoints" taskVersion="1.0" pg="default"
+		svURL="Task_Update_Sampling_Timepoints" taskClass="com.sgsi.emre.task.UpdateSamplingTimepoints">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Placeholder1" label=" "
+					widget="label">
+					<value>
+						Browse for a file containing multiple cultures,
+						then click 'Import':
+					</value>
+				</displayItem>
+				<displayItem itemType="SamplingTimepointImportFile"
+					label="Bulk import file (*.xls)" widget="filebrowse" />
+				<displayItem itemType="ImportButton" label=" "
+					widget="button" action="Import" />
+				<displayItem itemType="Placeholder2" label=" "
+					widget="label">
+					<value>
+					</value>
+				</displayItem>
+				<displayItem itemType="Placeholder3" label=" "
+					widget="label">
+					<value>Or, work with a single culture:</value>
+				</displayItem>
+				<displayItem itemType="Culture" label="Origin LIMS ID"
+					widget="textinput" minLength="35"/>
+				<displayItem itemType="NumberTimepoints" label="Number of Timepoints"
+					widget="textinput" minLength="35"/>
+				<displayItem itemType="GetTimepoints" label=" "
+					widget="button" action="Get Timepoints" />
+				<displayItem itemType="Placeholder1" label=" "
+					widget="label">
+					<value>
+					</value>
+				</displayItem>
+				<displayItem itemType="Timepoints" label=" "
+					widget="rowsets" visible="false" />
+				<displayItem itemType="Save" label=" "
+					widget="savebutton" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="Culture" type="string" optional="true"/>
+				<item itemType="ExperimentalCulture" type="container" optional="true"
+					mask="EX-SGI-E-[0-9]{4}-[0-9]{6}-[0-9]{3}">
+					<allowQueue>Available Cultures</allowQueue>
+				</item>
+				<item itemType="StrainCulture" type="container" optional="true">
+					<allowQueue>Available Cultures</allowQueue>
+				</item>
+				<item itemType="NumberTimepoints" type="string" optional="true">
+				</item>
+				<item itemType="Timepoint" type="string" optional="true"/>
+				<item itemType="SamplingTimepoint" type="container" new="optional" optional="true">
+					<addAsContent appliesTo="StrainCulture" />
+					<addAsContent appliesTo="ExperimentalCulture" />
+					<addAsData appliesTo="SamplingTimepointImportFile"  dataType="SamplingTimepoint"/>
+					<allowQueue>any</allowQueue>
+					<queueTo>Sampling Timepoints Added</queueTo>
+				</item>
+				<item itemType="SamplingTimepointImportFile" type="file"
+					optional="true" new="oncePerTran">
+					<addAsAppFile fileType="SamplingTimepointImportFile" copyFileTo="lookup" />
+				</item>	
+			</items>
+		</server>
+	</task>
+	<task name="Create Strain" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="com.sgsi.emre.task.CreateStrain">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Placeholder3" label=" "
+					widget="label">
+					<value>
+						Browse for a file containing multiple strains,
+						then click 'Import':
+					</value>
+				</displayItem>
+				<displayItem itemType="StrainImportFile"
+					label="Bulk import file (*.xls)" widget="filebrowse" />
+				<displayItem itemType="ImportButton" label=" "
+					widget="button" action="Import New Strains" />
+				<displayItem itemType="Placeholder4" label=" "
+					widget="label">
+					<value>
+
+					</value>
+				</displayItem>
+				<displayItem itemType="Placeholder3" label=" "
+					widget="label">
+					<value>Or, work with a single strain:</value>
+				</displayItem>
+			    <displayItem itemType="StrainType" label="Strain type"
+			    	widget="dropdown" rowCount="9">
+			    		<values>
+			    			<value selected="true">(Select)</value>
+			    			<value>WC - wildtype cyanobacterium</value>
+			    			<value>NC - non-GMO engineered cyanobacterium</value>
+			    			<value>GC - GMO engineered cyanobacterium</value>
+			    			<value>WE - wildtype eukaryote</value>
+			    			<value>NE - non-GMO engineered eukaryote</value>
+			    			<value>GE - GMO engineered eukaryote</value>
+			    			<value>WH - wildype heterotroph</value>
+			    			<value>NH - non-GMO engineered heterotroph</value>
+			    			<value>GH - GMO engineered heterotroph</value>
+			    		</values>
+			    	</displayItem>
+				<displayItem itemType="NextIDButton" label=" "
+					widget="button" action="Next ID" />
+				<displayItem itemType="Strain" label="Strain ID"
+					widget="textinput" />
+				<displayItem itemType="StrainName" label="Strain Name"
+					widget="textinput" minLength="100" maxLength="100" />
+				<displayItem itemType="Genus" label="Genus"
+					widget="textinput" minLength="100"/>
+				<displayItem itemType="Species" label="Species (Optional)"
+					widget="textinput" minLength="100"/>
+				<displayItem itemType="OriginID" label="Origin ID (Optional)"
+					widget="textinput" minLength="100"/>
+				<displayItem itemType="Project" label="Project"
+					widget="dropdown">
+					<values>
+						<value selected ="true">EMRE</value>
+					</values>
+				</displayItem>
+				<displayItem itemType="NotebookRef"
+					label="Page Ref [notebook-pg]" widget="textinput" 
+					/>
+				<displayItem itemType="Placeholder4" label=" "
+					widget="label">
+					<value>
+					</value>
+				</displayItem>
+				<displayItem itemType="Comment" label="Comment (Optional)"
+					widget="textarea" />
+				<displayItem itemType="Save" label=" "
+					widget="savebutton" />
+				<displayItem itemType="PrintLabel"
+					label="Remember to save, too!" widget="button"
+					action="Print Label" />
+				<displayItem itemType="ExportButton" label=" "
+					widget="button" action="Export Strain Collection" />
+				<displayItem itemType="Placeholder2" label=" "
+					widget="label">
+					<value></value>
+				</displayItem>
+				<displayItem itemType="Rowsets" label=" "
+					widget="rowsets" visible="true" />	
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="StrainImportFile" type="file"
+					optional="true" new="oncePerTran">
+					<addAsAppFile fileType="StrainImportFile" copyFileTo="lookup" />
+				</item>
+				<item itemType="Strain" type="container"
+					new="optional">
+					<allowQueue>any</allowQueue>
+					<addAsData appliesTo="StrainImportFile" dataType="Strain"/>
+					<addAsContent appliesTo="Project" contentType="Strain"/>
+					<dequeueFrom>Available Strains</dequeueFrom>
+					<queueTo>Available Strains</queueTo>
+				</item>
+				<item itemType="StrainName" type="string"
+					optional="true">
+				</item>
+				<item itemType="Genus" type="string">
+				</item>
+				<item itemType="Species" type="string"
+					optional="true">
+				</item>
+				<item itemType="StrainType" type="string"
+					optional="true">
+				</item>
+				<item itemType="OriginID" type="string" optional="true">
+				</item>
+				<item itemType="Project" type="container"
+					optional="true">
+					<allowQueue>Active Projects</allowQueue>
+				</item>
+				<item itemType="NotebookRef" type="string"
+					optional="true" mask="[0-9]{4}-[0-9]{3}">
+				</item>
+				<item itemType="Location" type="string"
+					optional="true">
+				</item>
+				<item itemType="Comment" type="string"
+					optional="true" >
+				</item>
+			</items>
+		</server>
+	</task>
+	<task name="Update Strain" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="com.sgsi.emre.task.UpdateStrain">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Placeholder3" label=" "
+					widget="label">
+					<value>
+						Browse for a file containing multiple strains,
+						then click 'Import':
+					</value>
+				</displayItem>
+				<displayItem itemType="StrainImportFile"
+					label="Bulk import file (*.xls)" widget="filebrowse" />
+				<displayItem itemType="ImportButton" label=" "
+					widget="button" action="Import Strain Updates" />
+				<displayItem itemType="Placeholder4" label=" "
+					widget="label">
+					<value>
+					______________________________________
+					</value>
+				</displayItem>
+				<displayItem itemType="SSRSLink" 
+				label="Click here to go to latest LIMS reports (opens in new window)"
+					widget="href">
+						<value>https://sqlemre01.synthgeno.global/Reports</value>
+					</displayItem>
+				<displayItem itemType="ExportButton" label=" "
+					widget="button" action="Export Strain Collection" />
+				<displayItem itemType="Placeholder4" label=" "
+					widget="label">
+					<value>
+					______________________________________
+					</value>
+				</displayItem>
+				<displayItem itemType="Placeholder3" label=" "
+					widget="label">
+					<value>Or, work with a single strain:</value>
+				</displayItem>
+				<displayItem itemType="Strain" label="Strain ID"
+					widget="textinput" />
+				<displayItem itemType="FindButton" label=" "
+					widget="button" action="Show Strain Data" />
+				<displayItem itemType="StrainName" label="Strain Name"
+					widget="textinput" minLength="100" maxLength="100" />
+				<displayItem itemType="Genus" label="Genus"
+					widget="textinput" minLength="100" maxLength="100" />
+				<displayItem itemType="Species" label="Species" optional="true"
+					widget="textinput" minLength="100" maxLength="100" />
+				<displayItem itemType="OriginID" 
+					label="Origin ID (Allowed: SI4, WT, PE, WH, NH or GH) (Optional)"
+					widget="textinput" minLength="100"/>
+				<displayItem itemType="Project" label="Project"
+					widget="dropdown">
+					<values>
+						<value selected ="true">EMRE</value>
+					</values>
+				</displayItem>
+				<displayItem itemType="NotebookRef"
+					label="Page Ref [notebook-pg]" widget="textinput" />
+				<displayItem itemType="StrainTolerance_1" label="Strain tolerance: 99% O2"
+					widget="dropdown" selected="(Select)">
+					<sql>
+						exec spEMRE_getEnrichmentResult
+					</sql>
+				</displayItem>
+				<displayItem itemType="StrainTolerance_2" label="Strain tolerance: 50 ppt"
+					widget="dropdown" selected="(Select)">
+					<sql>
+						exec spEMRE_getEnrichmentResult
+					</sql>
+				</displayItem>
+				<displayItem itemType="StrainTolerance_3" label="Strain tolerance: No vitamins"
+					widget="dropdown" selected="(Select)">
+					<sql>
+						exec spEMRE_getEnrichmentResult
+					</sql>
+				</displayItem>
+				<displayItem itemType="StrainTolerance_4" label="Strain tolerance: 40 deg C"
+					widget="dropdown" selected="(Select)">
+					<sql>
+						exec spEMRE_getEnrichmentResult
+					</sql>
+				</displayItem>
+				<displayItem itemType="StrainTolerance_5" label="Strain tolerance: Urea"
+					widget="dropdown" selected="(Select)">
+					<sql>
+						exec spEMRE_getEnrichmentResult
+					</sql>
+				</displayItem>
+				<displayItem itemType="StrainTolerance_6" label="Strain tolerance: NO3"
+					widget="dropdown" selected="(Select)">
+					<sql>
+						exec spEMRE_getEnrichmentResult
+					</sql>
+				</displayItem>
+				<displayItem itemType="StrainTolerance_7" label="Strain tolerance: NH4"
+					widget="dropdown" selected="(Select)">
+					<sql>
+						exec spEMRE_getEnrichmentResult
+					</sql>
+				</displayItem>
+				<displayItem itemType="Settling" label="Settling"
+					widget="dropdown">
+					<values>
+						<value selected ="true">(Select)</value>
+						<value>None</value>
+						<value>Minor</value>
+						<value>Major</value>
+					</values>
+				</displayItem>				
+				<displayItem itemType="Placeholder3" label=" "
+					widget="label">
+					<value>
+						(Optional) Browse for data and image files associated with this strain:
+					</value>
+				</displayItem>
+				<displayItem itemType="PhylogeneticTree1"
+					label="Phylogenetic tree" widget="filebrowse" />	
+				<displayItem itemType="PhylogeneticTree2"
+					label="Phylogenetic tree" widget="filebrowse" />
+				<displayItem itemType="Micrograph1"
+					label="Micrograph" widget="filebrowse" />		
+				<displayItem itemType="Micrograph2"
+					label="Micrograph" widget="filebrowse" />
+				<displayItem itemType="Micrograph3"
+					label="Micrograph" widget="filebrowse" />	
+				<displayItem itemType="Rowsets"
+					label=" " widget="rowsets" />
+				<displayItem itemType="OldComment" label="Comment"
+					widget="label"/>
+				<displayItem itemType="Comment" label="Append to Comment"
+					widget="textarea" />
+				<displayItem itemType="PrintLabel"
+					label="Remember to save, too!" widget="button"
+					action="Print Label" />
+				<displayItem itemType="Save" label=" "
+					widget="savebutton" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="StrainImportFile" type="file"
+					optional="true" new="oncePerTran">
+					<addAsAppFile fileType="StrainImportFile" copyFileTo="lookup" />
+				</item>
+				<item itemType="Strain" type="container">
+					<allowQueue>any</allowQueue>
+				</item>
+				<item itemType="PhylogeneticTree1" type="file"
+					optional="true" new="true">
+					<addAsAppFile appliesTo="Strain"
+						fileType="PhylogeneticTree" copyFileTo="lookup" />
+					<addAsData appliesTo="Strain"
+						dataType="PhylogeneticTree" />
+				</item>
+				<item itemType="PhylogeneticTree2" type="file"
+					optional="true" new="true">
+					<addAsAppFile appliesTo="Strain"
+						fileType="PhylogeneticTree" copyFileTo="lookup" />
+					<addAsData appliesTo="Strain"
+						dataType="PhylogeneticTree" />
+				</item>
+				<item itemType="Micrograph1" type="file"
+					optional="true" new="true">
+					<addAsAppFile appliesTo="Strain"
+						fileType="Micrograph" copyFileTo="lookup" />
+					<addAsData appliesTo="Strain"
+						dataType="Micrograph" />
+				</item>
+				<item itemType="Micrograph2" type="file"
+					optional="true" new="true">
+					<addAsAppFile appliesTo="Strain"
+						fileType="Micrograph" copyFileTo="lookup" />
+					<addAsData appliesTo="Strain"
+						dataType="Micrograph" />
+				</item>
+				<item itemType="Micrograph3" type="file"
+					optional="true" new="true">
+					<addAsAppFile appliesTo="Strain"
+						fileType="Micrograph" copyFileTo="lookup" />
+					<addAsData appliesTo="Strain"
+						dataType="Micrograph" />
+				</item>				
+			</items>
+		</server>
+	</task>
+
+		<task name="Discovery Hit Clone Strain Collection" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="com.sgsi.emre.task.DHCStrainCollection">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Placeholder1" label=" "
+					widget="label">
+					<value>
+						Browse for a file containing multiple strains,
+						then click 'Import':
+					</value>
+				</displayItem>
+				<displayItem itemType="StrainImportFile"
+					label="Bulk import file (*.xls)" widget="filebrowse" />
+				<displayItem itemType="ImportButton" label=" "
+					widget="button" action="Import New Strains" />
+				<displayItem itemType="Placeholder2" label=" "
+					widget="label">
+					<value></value>
+				</displayItem>
+				<displayItem itemType="Placeholder3" label=" "
+					widget="label">
+					<value>Or, work with a single strain:</value>
+				</displayItem>
+				<displayItem itemType="NextButton" label=" "
+					widget="button" action="Next ID" />
+				<displayItem itemType="Strain" label="Strain ID"
+					widget="textinput" />
+				<displayItem itemType="FindButton" label=" "
+					widget="button" action="Find Strain Data" />
+				<displayItem itemType="StrainName" label="Strain Name"
+					widget="textinput" minLength="100" maxLength="100" />
+				<displayItem itemType="Project" label="Project"
+					widget="text">
+						<value>EMRE</value>
+				</displayItem>
+				<displayItem itemType="NotebookRef"
+					label="Page Ref [notebook-pg]" widget="textinput" />
+				<displayItem itemType="Library"
+					label="Library" 
+					widget="dropdown" selected="(Select)">
+					<sql>
+						exec spEMRE_GetLibraryList
+					</sql>
+				</displayItem>
+				<displayItem itemType="Plasmid"
+					label="Plasmid ID"
+					widget="dropdown" selected="(Select)">
+					<sql>
+						exec spEMRE_GetPlasmidList
+					</sql>
+				</displayItem>
+				<displayItem itemType="VectorMapFile"
+					label="Vector Map File (Optional)" widget="filebrowse" />
+				<displayItem itemType="Placeholder4" label=" "
+					widget="label">
+					<value>
+					</value>
+				</displayItem>
+				<displayItem itemType="Location"
+					label="Freezer:Box:Position" widget="rowsets" />
+				<displayItem itemType="Comment" label="Comment"
+					widget="textarea" />
+				<displayItem itemType="Save" label=" "
+					widget="savebutton" />
+				<displayItem itemType="PrintLabel"
+					label="Remember to save, too!" widget="button"
+					action="Print Label" />
+				<displayItem itemType="ExportButton" label=" "
+					widget="button" action="Export Strain Collection" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="Strain" type="container"
+					new="optional" mask="DHC-SGI-E-[0-9]{6}-[ABCDEFGH][0-9]{2}">
+					<allowQueue>Any</allowQueue>
+					<addAsContent appliesTo="Project" contentType="Strain"/>
+					<addAsContent appliesTo="Library" contentType="Strain"/>
+					<dequeueFrom>Available Strains</dequeueFrom>
+					<queueTo>Available Strains</queueTo>
+				</item>
+				<item itemType="StrainName" type="string" optional="true"/>
+				<item itemType="Project" type="container" optional="true">
+					<allowQueue>Active Projects</allowQueue>
+				</item>
+				<item itemType="NotebookRef" type="string" optional="true" mask="[09]{4}-[0-9]{3}"/>
+				<item itemType="Library" type="container" mask="LB2-SGI-E-[0-9]{6}" optional="true">
+					<allowQueue>Any</allowQueue>
+				</item>
+				<item itemType="Plasmid" type="container" mask="pSG[IE][0-9]{5}" optional="true">
+					<allowQueue>Any</allowQueue>
+				</item>
+				<item itemType="Location" type="string" optional="true" />
+				<item itemType="Comment" type="string"
+					optional="true"  >
+				</item>
+				<item itemType="StrainImportFile" type="file"
+					optional="true" new="oncePerTran">
+					<addAsAppFile fileType="StrainImportFile" copyFileTo="lookup" />
+					<addAsData appliesTo="Strain"
+						dataType="StrainImportFile" />
+				</item>
+				<item itemType="VectorMapFile" type="file"
+					optional="true" new="true">
+					<addAsAppFile appliesTo="Strain"
+						fileType="VectorMapFile" copyFileTo="lookup" />
+					<addAsData appliesTo="Strain"
+						dataType="VectorMapFile" />
+				</item>
+			</items>
+		</server>
+	</task>
+	<task name="Strain Features" taskVersion="1.0"
+		pg="default" svURL="custom" taskClass="com.sgsi.emre.task.StrainFeatures">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Strain" label="Strain LIMS ID"
+					widget="textinput" />
+				<displayItem itemType="FindButton" label=" "
+					widget="button" action="Find Feature Data" />
+				<displayItem itemType="HostSpecies" label="Host Species"
+					widget="textinput" />
+				<displayItem itemType="Additions" label="Gene Additions"
+					widget="dropdown">
+					<values>
+						<value selected ="true">(Select)</value>
+						<value>1</value>
+						<value>2</value>
+						<value>3</value>
+						<value>4</value>
+						<value>5</value>
+						<value>6</value>
+					</values>
+				</displayItem>
+				<displayItem itemType="GetAdditions" label=" "
+					widget="button" action="Get Additions"/>
+				<displayItem itemType="OriginStrain" label="Origin LIMS ID (Optional)"
+					widget="textinput" />
+				<displayItem itemType="GeneDeletion" label="Gene Deletion (Optional)"
+					widget="textinput" minLength="100" maxLength="100" />
+				<displayItem itemType="Vendor"
+					label="Vendor (Optional)" widget="textinput" />
+				<displayItem itemType="VectorMapFile"
+					label="Vector Map File (Optional)" widget="filebrowse" />
+				<displayItem itemType="PlasmidType" 
+					label="Plasmid Type (Optional,requires Plasmid Markers)"
+					widget="dropdown" rowCount="4">
+					<values>
+						<value selected ="true">None</value>
+						<value>Exists</value>
+						<value>pSGI</value>
+						<value>pSGE</value>
+					</values>
+				</displayItem>
+				<displayItem itemType="NextID" label=" "
+					widget="button" action="Next Plasmid ID" />
+				<displayItem itemType="Plasmid"
+					label="Plasmid ID (Optional,requires Plasmid Type)" widget="textinput" />
+				<displayItem itemType="PlasmidMarkers" 
+					label="Plasmid Markers (Optional,requires Plasmid Type)"
+					widget="dropdown">
+					<values>
+						<value selected ="true">(Select)</value>
+						<value>1</value>
+						<value>2</value>
+						<value>3</value>
+						<value>4</value>
+						<value>5</value>
+						<value>6</value>
+					</values>
+				</displayItem>
+				<displayItem itemType="GetMarkers" label=" "
+					widget="button" action="Get Markers"/>
+				<displayItem itemType="Placeholder1" label=" "
+					widget="label">
+					<value>
+					</value>
+				</displayItem>
+				<displayItem itemType="PlasmidMarkerData" label=" "
+					widget="inputtable" visible="false" rowCount="6"/>
+				<displayItem itemType="Placeholder2" label=" "
+					widget="label">
+					<value>
+					</value>
+				</displayItem>
+				<displayItem itemType="OldComment" label="Comment"
+					widget="label"/>
+				<displayItem itemType="Comment" label="Append to Comment"
+					widget="textarea" />
+				<displayItem itemType="Save" label=" "
+					widget="savebutton" />
+				<displayItem itemType="ExportButton" label=" "
+					widget="button" action="Export Features" />
+				<displayItem itemType="GeneAdditionData" label=" "
+					widget="rowsets_sort" visible="false" />
+				<displayItem itemType="PlasmidMarkerData" label=" "
+					widget="inputtable" visible="false" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="VectorMapFile" type="file"
+					optional="true" new="true">
+					<addAsAppFile appliesTo="Strain"
+						fileType="VectorMapFile" copyFileTo="lookup" />
+				</item>
+				<item itemType="Strain" type="container" >
+					<allowQueue>Available Strains</allowQueue>
+				</item>
+				<item itemType="Plasmid" type="container" new="optional" 
+					optional="true" >
+					<allowQueue>Any</allowQueue>
+					<addAsContent appliesTo="Strain" />
+				</item>
+				<item itemType="PlasmidMarkers" type="string" optional="true" >
+				</item>
+				<item itemType="PlasmidMarkerData" type="string" optional="true" >
+				</item>
+				<item itemType="PlasmidType" type="string" optional="true" >
+				</item>
+				<item itemType="OriginStrain" type="string"
+					optional="true">
+				</item>
+				<item itemType="GeneDeletion" type="string"
+					optional="true">
+				</item>
+				<item itemType="HostSpecies" type="string">
+				</item>
+				<item itemType="Additions" type="string">
+				</item>
+				<item itemType="Vendor" type="string"
+					optional="true">
+				</item>
+				<item itemType="Comment" type="comment"
+					optional="true" commentType="STRAIN_COMMENTTYPE"
+						appliesTo="Strain" >
+				</item>
+			</items>
+		</server>
+	</task>
+	<task name="Print Bulk Labels" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="com.sgsi.emre.task.PrintBulkLabels">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Placeholder3" label=" "
+					widget="label">
+					<value>
+						Enter a range of strain IDs then click 'Print Labels'.  To print a
+						single label leave the max strain id blank.
+					</value>
+				</displayItem>
+				<displayItem itemType="MinStrain" label="Min Strain ID"
+					widget="textinput" />
+				<displayItem itemType="MaxStrain" label="Max Strain ID"
+					widget="textinput" />
+				<displayItem itemType="PrintLabel"
+					label=" " widget="button"
+					action="Print Labels" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+			</items>
+		</server>
+	</task>
+<task name="Submit A-Chem Request" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="com.sgsi.emre.task.SubmitAChemRequest">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Placeholder2" label=" "
+					widget="label">
+					<value>
+					Generate a new Request ID (if one is not already assigned):
+					</value>
+				</displayItem>
+				<displayItem itemType="RequestType"
+					label="Request Type" widget="dropdown" rowCount="4"
+					action="Next Request ID">
+					<values>
+						<value selected="true">(Select)</value>
+						<value>GC</value>
+						<value>HPLC</value>
+						<value>LCMS</value>
+						<value>TOC</value>
+						<value>FTIR</value>
+					</values>
+				</displayItem>
+				<displayItem itemType="RequestID" label="Request ID"
+					widget="label" />
+				<displayItem itemType="TOCSelfRun"
+					label="TOC to be completed by requester; do not alert A-Chem staff" 
+					widget="checkbox"/>
+				<displayItem itemType="Placeholder2" label=" "
+					widget="label">
+					<value>
+					</value>
+				</displayItem>
+				<displayItem itemType="Placeholder3" label=" "
+					widget="label">
+					<value>
+						Latest blank template is available at LIMS task 'Get LIMS Templates'.
+					</value>
+				</displayItem>
+				<displayItem itemType="AChemRequestFile"
+					label="Submit new request worksheet (*.xls)" widget="filebrowse" />
+				<displayItem itemType="Save" label=" "
+					widget="savebutton" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="AChemRequest" 
+						type="container" 
+						new="true"
+						mask="(GC|LCMS|HPLC|TOC|FTIR)[9][0-9]{4}_SGI-E" >
+					<queueTo>Submitted A-Chem Request</queueTo>
+				</item>
+				<item itemType="AChemRequestFile" type="file"	new="true">
+					<addAsAppFile appliesTo="AChemRequest" fileType="AChemRequestFile" copyFileTo="lookup" />
+					<addAsData appliesTo="AChemRequest"	dataType="AChemRequestFile" />
+				</item>
+				<item itemType="RequestType" type="string"/>
+				<item itemType = "Culture" type="container" new="optional"
+					optional="true" >
+					<allowQueue>any</allowQueue>
+				</item>
+				<item itemType = "EFT" type="container" new="optional"
+					optional="true" >
+					<allowQueue>any</allowQueue>
+				</item>
+				<item itemType = "Strain" type="container" new="optional"
+					optional="true" >
+					<allowQueue>any</allowQueue>
+				</item>
+				<item itemType = "StrainCulture" type="container" new="optional"
+					optional="true" >
+					<allowQueue>any</allowQueue>
+				</item>
+				<item itemType = "ExperimentalCulture" type="container" new="optional"
+					optional="true" >
+					<allowQueue>any</allowQueue>
+				</item>
+				<item itemType = "Sample" type="container" new="optional"
+					optional="true">
+					<allowQueue>any</allowQueue>
+				</item>
+				<item itemType = "Isolate" type="container" new="optional"
+					optional="true">
+					<allowQueue>any</allowQueue>
+				</item>
+			</items>
+		</server>
+	</task>
+		<task name="Edit A-Chem Request" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="com.sgsi.emre.task.EditAChemRequest">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Placeholder3" 
+											label=" "
+											widget="label">
+					<value>
+						(Submitters only) Resubmit an edited request worksheet:
+					</value>
+				</displayItem>
+				<displayItem itemType="AChemRequestFile"
+										 label="Edited request" 
+										 widget="filebrowse" />
+				<displayItem itemType="Save" 
+											label=" "
+											widget="savebutton" />
+				<displayItem itemType="Placeholder4" 
+											label=" "
+											widget="label">
+					<value>
+						___________________________________________________
+					</value>
+				</displayItem>
+			<displayItem itemType="Placeholder3" label=" "
+					widget="label">
+					<value>
+						(Optional) Search for a request by ID:
+					</value>
+				</displayItem>
+				<displayItem itemType="AChemRequest" 
+				             	label=" "
+											widget="textinput" 
+											maxLength="100"
+											action="Find"/>
+				<displayItem itemType="GetFile" 
+											label=" "
+											widget="button" 
+											action="Find"/>
+				<displayItem itemType="Placeholder5" 
+											label=" "
+											widget="label">
+					<value>
+						___________________________________________________
+					</value>
+				</displayItem>
+
+				<displayItem itemType="Rowsets" label="Pending Requests"
+					widget="rowsets_sort_20" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="AChemRequest" type="container">
+					<allowQueue>any</allowQueue>
+					<queueTo>Edited A-Chem Request</queueTo>
+				</item>	
+				<item itemType="AChemRequestFile" type="file" >
+					<addAsAppFile appliesTo="AChemRequest" fileType="AChemRequestFile" copyFileTo="lookup" />
+					<addAsData appliesTo="AChemRequest"	dataType="AChemRequestFile" />
+				</item>
+				<item itemType = "Culture" type="container" new="optional"
+					optional="true" >
+					<allowQueue>any</allowQueue>
+				</item>
+				<item itemType = "EFT" type="container" new="optional"
+					optional="true" >
+					<allowQueue>any</allowQueue>
+				</item>
+				<item itemType = "Strain" type="container" new="optional"
+					optional="true" >
+					<allowQueue>any</allowQueue>
+				</item>
+				<item itemType = "StrainCulture" type="container" new="optional"
+					optional="true" >
+					<allowQueue>any</allowQueue>
+				</item>
+				<item itemType = "ExperimentalCulture" type="container" new="optional"
+					optional="true" >
+					<allowQueue>any</allowQueue>
+				</item>
+				<item itemType = "Sample" type="container" new="optional"
+					optional="true">
+					<allowQueue>any</allowQueue>
+				</item>
+				<item itemType = "Isolate" type="container" new="optional"
+					optional="true">
+					<allowQueue>any</allowQueue>
+				</item>
+			</items>
+		</server>
+	</task>
+	<task name="Update A-Chem Results" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="com.sgsi.emre.task.UpdateAChemResults">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Placeholder3" 
+											label=" "
+											widget="label">
+					<value>
+						(Analytical staff only) Submit request worksheet updated with analytical results:
+					</value>
+				</displayItem>
+				<displayItem itemType="AChemRequestFile"
+										 label="Updated request" 
+										 widget="filebrowse" />
+				<displayItem itemType="Placeholder3" label=" "
+					widget="label">
+					<value>
+						(Optional) Browse for other data file to store in LIMS:
+					</value>
+				</displayItem>
+				<displayItem itemType="AChemDataFile"
+					label="Other data file" widget="filebrowse" />
+				<displayItem itemType="Save" 
+											label=" "
+											widget="savebutton" />
+				<displayItem itemType="Placeholder4" 
+											label=" "
+											widget="label">
+					<value>
+						___________________________________________________
+					</value>
+				</displayItem>
+				<displayItem itemType="Rowsets" label="Pending Requests"
+					widget="rowsets_sort_20" />
+			<displayItem itemType="Placeholder3" label=" "
+					widget="label">
+					<value>
+						(Optional) Search for a request by ID:
+					</value>
+				</displayItem>
+				<displayItem itemType="AChemRequest" 
+				             	label=" "
+											widget="textinput" 
+											maxLength="100"/>
+				<displayItem itemType="GetFile" 
+											label=" "
+											widget="button" 
+											action="Find"/>
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="AChemRequest" type="container">
+					<allowQueue>any</allowQueue>
+					<queueTo>Updated A-Chem Results</queueTo>
+				</item>	
+				<item itemType="AChemRequestFile" type="file" >
+					<addAsAppFile appliesTo="AChemRequest" fileType="AChemRequestFile" copyFileTo="lookup" />
+					<addAsData appliesTo="AChemRequest"	dataType="AChemRequestFile" />
+				</item>
+				<item itemType="AChemDataFile" type="file"	new="true" optional="true">
+					<addAsAppFile appliesTo="AChemRequest" fileType="AChemDataFile" copyFileTo="lookup" />
+					<addAsData appliesTo="AChemRequest"	dataType="AChemDataFile" />
+				</item>
+			</items>
+		</server>
+	</task>
+	<task name="Update TOC Results" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="com.sgsi.emre.task.UpdateTOCResults">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Placeholder3" 
+											label=" "
+											widget="label">
+					<value>
+						(TOC authorized users only) Submit request worksheet updated with analytical results:
+					</value>
+				</displayItem>
+				<displayItem itemType="AChemRequestFile"
+										 label="Updated request" 
+										 widget="filebrowse" />
+				<displayItem itemType="Placeholder3" label=" "
+					widget="label">
+					<value>
+						(Optional) Browse for other data file to store in LIMS:
+					</value>
+				</displayItem>
+				<displayItem itemType="AChemDataFile"
+					label="Other data file" widget="filebrowse" />
+				<displayItem itemType="Save" 
+											label=" "
+											widget="savebutton" />
+				<displayItem itemType="Placeholder4" 
+											label=" "
+											widget="label">
+					<value>
+						___________________________________________________
+					</value>
+				</displayItem>
+				<displayItem itemType="Rowsets" label="Pending Requests"
+					widget="rowsets_sort_20" />
+			<displayItem itemType="Placeholder3" label=" "
+					widget="label">
+					<value>
+						(Optional) Search for a request by ID:
+					</value>
+				</displayItem>
+				<displayItem itemType="AChemRequest" 
+				             	label=" "
+											widget="textinput" 
+											maxLength="100"/>
+				<displayItem itemType="GetFile" 
+											label=" "
+											widget="button" 
+											action="Find"/>
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="AChemRequest" type="container">
+					<allowQueue>Pending Requester Run TOC Analysis</allowQueue>
+					<queueTo>Updated A-Chem Results</queueTo>
+				</item>	
+				<item itemType="AChemRequestFile" type="file" new="optional">
+					<addAsAppFile appliesTo="AChemRequest" fileType="AChemRequestFile" copyFileTo="lookup" />
+					<addAsData appliesTo="AChemRequest"	dataType="AChemRequestFile" />
+				</item>
+				<item itemType="AChemDataFile" type="file"	new="true" optional="true">
+					<addAsAppFile appliesTo="AChemRequest" fileType="AChemDataFile" copyFileTo="lookup" />
+					<addAsData appliesTo="AChemRequest"	dataType="AChemDataFile" />
+				</item>
+			</items>
+		</server>
+	</task>
+
+	<task name="Download A-Chem Results" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="default">
+		<client clientVersion="1.0">
+			<displayItems>
+			<displayItem itemType="Placeholder3" label=" "
+					widget="label">
+					<value>
+						(Optional) Enter request ID to download results:
+					</value>
+				</displayItem>
+				<displayItem itemType="AChemRequest" label="Request ID"
+					widget="textinput" maxLength="100" />
+				<displayItem itemType="GetFile" label=" "
+					widget="button" action="Download Results" />
+				<displayItem itemType="Placeholder4" 
+											label=" "
+											widget="label">
+					<value>
+						___________________________________________________
+					</value>
+				</displayItem>
+				<displayItem itemType="Rowsets" label="Work Requests"
+					widget="rowsets_sort" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="AChemRequest" type="container">
+					<allowQueue>any</allowQueue>
+					<queueTo>Downloaded A-Chem Results</queueTo>
+				</item>	
+			</items>
+		</server>
+	</task>
+	<task name="Print Submission Labels" taskVersion="2.0" pg="default"
+		svURL="custom" taskClass="com.sgsi.emre.task.PrintSubmissionLabels">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Printer"
+					label="Select a barcode printer" widget="dropdown" rowCount="2">
+					<sql>
+						exec spEMRE_getPrinterForSubmissionLabels
+					</sql>
+				</displayItem>
+				<displayItem itemType="Request" label="Enter a Request ID, then click 'Get Request'"
+					widget="textinput" />
+				<displayItem itemType="ShowRequest"
+					label=" " widget="button"
+					action="Get Request" />
+				<displayItem itemType="Placeholder" label=" "
+					widget="label" visible="false">
+					<value>
+						If needed, edit the range of submission IDs then click 'Print Labels'.  To print a
+						single label, enter it in the top field and clear the bottom field.
+					</value>
+				</displayItem>
+				<displayItem itemType="Min" label="Min Submission ID"
+					widget="textinput" minLength="50"
+					visible="false"/>
+				<displayItem itemType="Max" label="Max Submission ID"
+					widget="textinput" minLength="50" 
+					visible="false"/>				
+				<displayItem itemType="PrintLabels"
+					label=" " widget="button"
+					action="Print Labels" 
+					visible="false"/>
+				<displayItem itemType ="Labels" label=" "
+					widget="rowsets"/>
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="Printer" type="string">
+				</item>
+			</items>
+		</server>
+	</task>
+	<task name="Get Pending Requests" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="default">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Results" label="Pending Requests"
+					widget="rowsets_sort" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+			</items>
+		</server>
+	</task>
+	<task name="Get LIMS Templates" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="default">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Placeholder" label=" "
+					widget="label">
+					<value>
+						Download the most recent LIMS template for
+						(*.xls) :
+					</value>
+				</displayItem>
+				<displayItem itemType="TemplateType"
+					label="Select Template" widget="dropdown" action="Go">
+					<values>
+						<value selected="true">(Select)</value>
+						<value>Analytical Chemistry Request Worksheet</value>
+						<value>Candidate Strain Isolation bulk import</value>
+						<value>Library Production bulk import</value>
+						<value>Growth and Recovery bulk import</value>
+						<value>Sample Logging bulk import</value>
+						<value>Culture Grab Data Import Template</value>
+						<value>Strain bulk import</value>
+						<value>DHC Strain Collection bulk import</value>
+					</values>
+				</displayItem>
+			</displayItems>
+		</client>
+		<server>
+			<items></items>
+		</server>
+	</task>
+	<task name="Get Sample Report" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="com.sgsi.emre.report.SampleReport">
+		<client clientVersion="1.0">
+			<displayItem itemType="ReportType" label="Select Report"
+				widget="dropdown" action="Go">
+				<values>
+					<value selected="true">(Select)</value>
+					<value>Get Composite Samples To Date</value>
+					<value>Get Aquatic Samples To Date</value>
+					<value>Get Environmental Samples To Date</value>
+					<value>Get Animal Samples To Date</value>
+					<value>Get Plant Samples to Date</value>
+					<value>Get DNA Samples To Date</value>
+					<value>Get Enrichment Samples to Date</value>
+				</values>
+			</displayItem>
+		</client>
+		<server>
+			<items></items>
+		</server>
+	</task>
+	<task name="Strain Query" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="default">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="SSRSLink" 
+				label="Click here to go to latest Strain Query report (opens in new window)"
+					widget="href">
+						<value>https://sqlemre01.synthgeno.global/Reports</value>
+					</displayItem>
+				<displayItem itemType="Strain" label="Strain ID"
+					widget="textinput" />
+				<displayItem itemType="StrainName" label="Strain Name"
+					widget="textinput" minLength="100" maxLength="100" />
+				<displayItem itemType="Genus" label="Genus"
+					widget="dropdown" selected="(Select)">
+					<sql>
+						exec spEMRE_GetGenusList
+					</sql>
+				</displayItem>				
+				<displayItem itemType="Species" label="Species"
+					widget="dropdown" selected="(Select)">
+					<sql>
+						exec spEMRE_GetSpeciesList
+					</sql>
+				</displayItem>				
+				<displayItem itemType="Project" label="Project"
+					widget="dropdown" selected="(Select)">
+					<sql>
+						exec spEMRE_getProjectsForStrainQuery
+					</sql>
+				</displayItem>
+				<displayItem itemType="NotebookRef"
+					label="Page Ref [notebook-pg]" widget="textinput" />
+				<displayItem itemType="Location"
+					label="Freezer:Box:Position" widget="textinput" />
+				<displayItem itemType="Comment" label="Comment"
+					widget="textinput" minLength="100" maxLength="100"/>
+				<displayItem itemType="Run" label=" "
+					widget="button" action="Run Query" />
+				<displayItem itemType="Results" label=" "
+					widget="rowsets_sort" visible="false" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+			</items>
+		</server>
+	</task>
+	<task name="Strain Features Query" taskVersion="1.0"
+		pg="default" svURL="custom" taskClass="default">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Strain" label="Strain LIMS ID"
+					widget="textinput" />
+				<displayItem itemType="OriginStrain" label="Origin LIMS ID"
+					widget="textinput" />
+				<displayItem itemType="HostSpecies" label="Host Species"
+					widget="textinput" />
+				<displayItem itemType="GeneDeletion" label="Gene Deletion"
+					widget="textinput" />
+				<displayItem itemType="Vendor"
+					label="Vendor" widget="textinput" />
+				<displayItem itemType="SpeciesOrigin"
+					label="Species Origin of Transgene" widget="textinput" />
+				<displayItem itemType="GeneAnnotation"
+					label="Gene Annotation" widget="textinput" />
+				<displayItem itemType="Vector"
+					label="Vector" widget="textinput" />
+				<displayItem itemType="Promoter"
+					label="Promoter" widget="textinput" />
+				<displayItem itemType="AffinityTag"
+					label="Affinity Tag" widget="textinput" />
+				<displayItem itemType="PlasmidType" label="Plasmid Type"
+					widget="dropdown">
+					<values>
+						<value>pSGI</value>
+						<value>pSGE</value>
+					</values>
+				</displayItem>
+				<displayItem itemType="Plasmid"
+					label="Plasmid ID" widget="textinput" />
+				<displayItem itemType="PlasmidMarker" label="Plasmid Marker"
+					widget="textinput">
+				</displayItem>
+				<displayItem itemType="Comment" label="Comments"
+					widget="textinput" />
+				<displayItem itemType="Run" label=" "
+					widget="button" action="Run Query" />
+				<displayItem itemType="Results" label=" "
+					widget="rowsets_sort" visible="false" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+			</items>
+		</server>
+	</task>
+	<task name="Strain Tasks Query Page" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="default">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Placeholder1" label=" "
+					widget="label">
+					<value>
+						Select a task, then click 'Go' to populate the query page:
+					</value>
+				</displayItem>
+				<displayItem itemType="TaskType" label="Task Type"
+					widget="dropdown" rowCount="2" action="Go">
+					<values>
+						<value selected="true">(Select)</value>
+						<value>Environmental Sample Logging Report</value>
+						<value>Primary Enrichment Report</value>
+						<value>Secondary Enrichment Report</value>
+						<value>Isolates Report</value>
+					</values>
+				</displayItem>
+			</displayItems>
+		</client>
+		<server>
+			<items>
+			</items>
+		</server>
+	</task>
+	<task name="Library Production Query" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="default">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="SampleType" label="Sample Type"
+					widget="dropdown" rowCount="3">
+					<values>				
+					  <value>(Select)</value>
+					  <value>DNA</value>
+					  <value>RNA</value>
+					</values>
+				</displayItem>
+				<displayItem itemType="Library" label="Library ID"
+					widget="textinput" />
+				<displayItem itemType="LIMSID" label="DNA or RNA ID"
+					widget="textinput" />
+				<displayItem itemType="OriginLIMSID" label="Origin LIMS ID"
+					widget="textinput" />
+				<displayItem itemType="Vendor" label="Vendor"
+					widget="textinput" />
+				<displayItem itemType="Size" label="Size (kb range)"
+					widget="textinput" />
+				<displayItem itemType="Vector" label="Vector"
+					widget="dropdown" rowCount="3">
+					<values>				
+					  <value>(Select)</value>
+					  <value>Plasmid</value>
+					  <value>Phage</value>
+					  <value>Excised Phagemid</value>
+					  <value>Fosmid</value>
+					</values>
+				</displayItem>
+				<displayItem itemType="VectorName"
+					label="Vector Name" widget="textinput" />
+				<displayItem itemType="PreparedBy"
+					label="Prepared By" widget="textinput" />
+				<displayItem itemType="Linkers"
+					label="Linkers/Adaptor" widget="textinput" />
+				<displayItem itemType="NotebookRef"
+					label="Page Ref [notebook-pg]" widget="textinput" />
+				<displayItem itemType="DNAConcentration"
+					label="DNA Concentration (ug/mL)" widget="textinput" />
+				<displayItem itemType="PrimarySample"
+					label="Primary Sample" widget="textinput" />
+				<displayItem itemType="QCdInsertSize"
+					label="QC'd Insert Size" widget="textinput" />
+				<displayItem itemType="QCPrimer5Prime"
+					label="QC Primer 5'" widget="textinput" />
+				<displayItem itemType="QCPrimer3Prime"
+					label="QC Primer 3'" widget="textinput" />
+				<displayItem itemType="Location"
+					label="Freezer:Box:Position" widget="textinput" />
+				<displayItem itemType="Run" label=" "
+					widget="button" action="Run Query" />
+				<displayItem itemType="Results" label=" "
+					widget="rowsets_sort" visible="false" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+			</items>
+		</server>
+	</task>
+	<task name="Environmental Sample Logging Report" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="default">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="EnvironmentalSample" label="LIMS ID"
+					widget="textinput" />
+				<displayItem itemType="PhysicalForm" label="Physical Form"
+					widget="dropdown"  rowCount="2">
+					<values>
+						<value selected="true">(Select)</value>
+						<value>Liquid</value>
+						<value>Solid</value>
+					</values>
+				</displayItem>
+				<displayItem itemType="CollectionDate"
+					label="Collection Date (YYMMDD)" widget="datepicker"
+					dateFormat="ymmdd" persist="true" />
+				<displayItem itemType="NotebookRef"
+					label="Page Ref [notebook-pg]" widget="textinput"/>
+				<displayItem itemType="InternalID" label="Internal ID"
+					widget="textinput" />
+				<displayItem itemType="FieldName" label="Field Name"
+					widget="textinput" />
+				<displayItem itemType="Description" label="Description"
+					widget="textarea" />
+				<displayItem itemType="Taxonomy" label="Taxonomy"
+					widget="textinput" minLength="50" />
+				<displayItem itemType="Tissue" label="Tissue"
+					widget="textinput" />
+				<displayItem itemType="Volume"
+					label="Volume (liters)" widget="textinput" />
+				<displayItem itemType="Weight"
+					label="Weight (grams)" widget="textinput" />
+				<displayItem itemType="InSituTemp"
+					label="In Situ Temperature (degrees C)" widget="textinput" />
+				<displayItem itemType="Temperature"
+					label="Temperature (degrees C)" widget="textinput" />
+				<displayItem itemType="pH" label="pH"
+					widget="textinput" />
+				<displayItem itemType="DissolvedOxygen"
+					label="Dissolved Oxygen (mg/L)" widget="textinput" />
+				<displayItem itemType="DO_pct"
+					label="DO (%)" widget="textinput" />
+				<displayItem itemType="TDS"
+					label="TDS (ppt)" widget="textinput" />
+				<displayItem itemType="Conductivity"
+					label="Conductivity (mS/cm)" widget="textinput" />
+				<displayItem itemType="SampleDepth" label="Sample Depth (m)"
+					widget="textinput" />
+				<displayItem itemType="Salinity"
+					label="Salinity (ppt)" widget="textinput" />
+				<displayItem itemType="Cultivar"
+					label="Cultivar or type" widget="textinput" />
+				<displayItem itemType="Age" label="Age"
+					widget="textinput" />
+				<displayItem itemType="Latitude" label="Latitude"
+					widget="textinput" />
+				<displayItem itemType="Longitude" label="Longitude"
+					widget="textinput" />
+				<displayItem itemType="Altitude_m" label="Altitude (m)"
+					widget="textinput" />
+				<displayItem itemType="SiteDescription"
+					label="Site Description" widget="textinput" />
+				<displayItem itemType="StorageMethod"
+					label="Storage Method" widget="dropdown" rowCount="2">
+					<values>
+						<value selected="true">(Select)</value>
+						<value>Room Temp deg C</value>
+						<value>Wet Ice deg C</value>
+						<value>Dry Ice</value>
+						<value>Liquid N2</value>
+					</values>
+				</displayItem>
+				<displayItem itemType="ClosestTown" label="Closest Town"
+					widget="textinput" />
+				<displayItem itemType="City" label="City"
+					widget="textinput" />
+				<displayItem itemType="County" label="County"
+					widget="textinput" />
+				<displayItem itemType="State" label="State"
+					widget="textinput" />
+				<displayItem itemType="Country" label="Country"
+					widget="textinput" />
+				<displayItem itemType="ArchiveLocation"
+					label="Archive Location" widget="textinput" />
+				<displayItem itemType="Location"
+					label="Freezer:Box:Position" widget="textinput" />
+				<displayItem itemType="Comment" label="Comment"
+					widget="textarea" />
+				<displayItem itemType="Run" label=" "
+					widget="button" action="Run Query" />
+				<displayItem itemType="Results" label=" "
+					widget="rowsets_sort" visible="false" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+			</items>
+		</server>
+	</task>
+	<task name="Primary Enrichment Report" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="default">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="PrimaryEnrichment" label="LIMS ID"
+					widget="textinput"/>
+				<displayItem itemType="EnvironmentalSample" label="Origin LIMS ID"
+					widget="textinput">
+				</displayItem>
+				<displayItem itemType="NotebookRef" label="Page Ref [notebook-pg]"
+					persist="true" widget="textinput">
+				</displayItem>
+				<displayItem itemType="DateStarted" label="Date Started (YYMMDD)"
+					widget="datepicker" dateFormat="ymmdd" />
+					<displayItem itemType="VesselType"
+					label="Vessel Type" widget="dropdown">
+					<values>				
+					  <value selected="true">(Select)</value>
+					  <value>flask</value>
+					  <value>bucket</value>
+					  <value>50 ml shake tube</value>
+					  <value>25 sq cm flask</value>
+					  <value>75 sq cm flask</value>
+					</values>
+				</displayItem>
+				<displayItem itemType="GrowthTemperature"
+					label="Growth Temperature (degrees C)" widget="textinput" />
+				<displayItem itemType="GrowthMedium"
+					label="Growth Medium" widget="textinput" />
+				<displayItem itemType="GrowthIrradiance"
+					label="Growth Irradiance" widget="textinput" />
+				<displayItem itemType="CO2Concentration"
+					label="CO2 Concentration" widget="dropdown" >
+					<values>
+						<value selected="true">(Select)</value>
+						<value>0.04</value>
+						<value>0.5</value>
+						<value>1.0</value>
+						<value>1.5</value>
+						<value>2.0</value>
+						<value>2.5</value>
+						<value>3.0</value>
+						<value>3.5</value>
+						<value>4.0</value>
+						<value>4.5</value>
+						<value>5.0</value>
+						<value>5.5</value>
+						<value>6.0</value>
+						<value>6.5</value>
+						<value>7.0</value>
+						<value>7.5</value>
+						<value>8.0</value>
+						<value>8.5</value>
+						<value>9.0</value>
+						<value>9.5</value>
+						<value>10.0</value>
+					</values>
+				</displayItem>
+				<displayItem itemType="InternalID" label="Internal ID"
+					widget="textinput"/>
+				<displayItem itemType="DateOfResult" label="Date of Result (YYMMDD)"
+					widget="datepicker" dateFormat="ymmdd" />
+				<displayItem itemType="EnrichmentResult" label="Enrichment Result"
+					widget="dropdown">
+					<values>				
+					  <value selected="true">(Select)</value>
+					  <value>No Growth</value>
+					  <value>Growth</value>
+					  <value>Vigorous Growth</value>
+					</values>
+				</displayItem> 
+				<displayItem itemType="Comment" label="Comments"
+					widget="textarea" />
+				<displayItem itemType="Run"
+					label=" " widget="button" action="Run Query" />
+		<displayItem itemType="Results" label=" " widget="rowsets_sort" visible="false" />
+			</displayItems>
+			</client>
+			<server>
+			<items>		
+			</items>
+		</server>
+	</task>
+	<task name="Secondary Enrichment Report" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="default">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="SecondaryEnrichment" label="LIMS ID"
+					widget="textinput"/>
+				<displayItem itemType="PrimaryEnrichment" label="Origin LIMS ID"
+					widget="textinput">
+				</displayItem>
+				<displayItem itemType="NotebookRef" label="Page Ref [notebook-pg]"
+					widget="textinput">
+				</displayItem>
+				<displayItem itemType="DateStarted" label="Date Started (YYMMDD)"
+					widget="datepicker" dateFormat="ymmdd" />
+				<displayItem itemType="GrowthMedium" label="Growth Medium"
+					widget="textinput">
+				</displayItem>
+				<displayItem itemType="OxygenConcentration" label="Oxygen Concentration"
+					widget="textinput">
+				</displayItem>
+				<displayItem itemType="CO2Concentration"
+					label="CO2 Concentration" widget="dropdown" rowCount="21">
+					<values>
+						<value selected="true">(Select)</value>
+						<value>0.04</value>
+						<value>0.5</value>
+						<value>1.0</value>
+						<value>1.5</value>
+						<value>2.0</value>
+						<value>2.5</value>
+						<value>3.0</value>
+						<value>3.5</value>
+						<value>4.0</value>
+						<value>4.5</value>
+						<value>5.0</value>
+						<value>5.5</value>
+						<value>6.0</value>
+						<value>6.5</value>
+						<value>7.0</value>
+						<value>7.5</value>
+						<value>8.0</value>
+						<value>8.5</value>
+						<value>9.0</value>
+						<value>9.5</value>
+						<value>10.0</value>
+					</values>
+				</displayItem>
+				<displayItem itemType="Temperature"
+					label="Temperature (degrees C)" widget="textinput" />
+				<displayItem itemType="pH" label="pH"
+					widget="textinput">
+				</displayItem>
+				<displayItem itemType="DateOfResult" label="Date of Result (YYMMDD)"
+					widget="datepicker" dateFormat="ymmdd" />
+				<displayItem itemType="EnrichmentResult" 
+					label="Enrichment Result" widget="dropdown" rowCount="4">
+					<values>				
+					  <value selected="true">(Select)</value>
+					  <value>No Growth</value>
+					  <value>Growth</value>
+					  <value>Vigorous Growth</value>
+					</values>
+				</displayItem>			
+				<displayItem itemType="Flocculence" label="Flocculence"
+					widget="dropdown" rowCount="4">
+					<values>				
+					  <value selected="true">(Select)</value>
+					  <value>None</value>
+					  <value>Minor</value>
+					  <value>Major</value>
+					</values>
+				</displayItem> 
+				<displayItem itemType="GrowthForm" label="Growth Form"
+					widget="dropdown" rowCount="4">
+					<values>				
+					  <value selected="true">(Select)</value>
+					  <value>benthic</value>
+					  <value>planktonic</value>
+					  <value>mixed</value>
+					</values>
+				</displayItem> 
+				<displayItem itemType="IsolationAttempted" label="Isolation Attempted?"
+					widget="dropdown" rowCount="3">
+					<values>				
+					  <value selected="true">(Select)</value>
+					  <value>Y</value>
+					  <value>N</value>
+					</values>
+				</displayItem> 
+				<displayItem itemType="Comment" label="Comments (Optional)"
+					widget="textarea" minLength="200" />
+				<displayItem itemType="Run"
+					label=" " widget="button" action="Run Query" />
+				<displayItem itemType="Results" label=" "
+					widget="rowsets_sort" visible="false" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+			</items>
+		</server>
+	</task>
+	<task name="Isolates Report" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="default">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Isolate" label="LIMS ID"
+					widget="textinput" />
+				<displayItem itemType="OriginLIMSId" label="Origin LIMS ID"
+					widget="textinput" />
+				<displayItem itemType="NotebookRef"
+					label="Page Ref [notebook-pg]" widget="textinput" />
+				<displayItem itemType="VesselType"
+					label="Vessel Type" widget="dropdown" rowCount="7">
+					<values>				
+					  <value selected="true">(Select)</value>
+					  <value>96-well 2ml</value>
+					  <value>15 ml tube</value>
+					  <value>50 ml shake tube</value>
+					  <value>flask</value>
+					  <value>25 sq cm flask</value>
+					  <value>75 sq cm flask</value>
+					</values>
+				</displayItem>
+				<displayItem itemType="IsolationMethod"
+					label="Isolation Method" widget="dropdown" rowCount="3">
+					<values>				
+					  <value>(Select)</value>
+						<value>FACS</value>
+						<value>picked colony</value>
+					</values>
+				</displayItem>
+				<displayItem itemType="DateArchived" label="Archive Date (YYMMDD)"
+					widget="datepicker" dateFormat="ymmdd" />
+				<displayItem itemType="ArchiveMethod"
+					label="Archive Method" widget="dropdown" rowCount="3">
+					<values>				
+					  <value>(Select)</value>
+						<value>5% DMSO</value>
+						<value>10% glycerol</value>
+					</values>
+				</displayItem>
+				<displayItem itemType="GrowthMedium" label="Growth Medium"
+					widget="textinput" />
+				<displayItem itemType="GrowthTemperature" label="Growth Temerature (degrees C)"
+					widget="textinput" />
+				<displayItem itemType="GrowthIrradiance" label="Growth Irradiance"
+					widget="textinput" />
+				<displayItem itemType="Sequence_16S" 
+					label="16S sequence"
+					widget="textarea" />
+				<displayItem itemType="DatabaseMatch_16S" 
+					label="16S database match"
+					widget="textarea" />
+				<displayItem itemType="DatabaseMatchScore_16S" 
+					label="16S database match score (to 3 decimal places)"
+					widget="textinput" />
+				<displayItem itemType="Hierarchy_16S" 
+					label="16S hierarchy (at a minimum, cyanobacterium/plastidic)"
+					widget="textarea" />
+				<displayItem itemType="Sequence_18S" 
+					label="18S sequence"
+					widget="textarea" />
+				<displayItem itemType="DatabaseMatch_18S" 
+					label="18S database match"
+					widget="textarea" />
+				<displayItem itemType="DatabaseMatchScoreMetrics_18S" 
+					label="18S database match score metrics"
+					widget="textarea" />
+				<displayItem itemType="Hierarchy_18S" 
+					label="18S hierarchy (include phylum and class)"
+					widget="textarea" />
+				<displayItem itemType="DatabaseMatchPercentID_18S" 
+					label="18S database match % ID (to 2 decimal places)"
+					widget="textinput" />
+				<displayItem itemType="Location"
+					label="" widget="textinput" />
+				<displayItem itemType="Comment" label="Comments"
+					widget="textarea" />
+				<displayItem itemType="Run"
+					label=" " widget="button" action="Run Query" />
+				<displayItem itemType="Results" label=" "
+					widget="rowsets_sort" visible="false" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+			</items>
+		</server>
+	</task>
+
+	<task name="Culture Query" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="default">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Culture" label="Culture/ExperimentalCulture ID"
+					widget="textinput" minLength="35" />
+				<displayItem itemType="Strain" label="Origin LIMS ID (Strain ID)"
+					widget="textinput" minLength="35" />
+				<displayItem itemType="Description" label="Description"
+					widget="textinput" minLength="35" />
+				<displayItem itemType="DateStarted" label="Date Started (YYMMDD)"
+					widget="datepicker" dateFormat="ymmdd" minLength="35" />
+				<displayItem itemType="NotebookRef"
+					label="Page Ref [notebook-pg]" widget="textinput" minLength="35"/>
+				<displayItem itemType="SamplingTimepoint" label="Sampling Timepoint (any part of: YYYY-MM-DD H:MM:SS AM/PM)"
+					widget="textinput" minLength="35"/>
+				<displayItem itemType="Comment" label="Comment"
+					widget="textinput" minLength="35"/>
+				<displayItem itemType="Run" label=" "
+					widget="button" action="Run Query" />
+				<displayItem itemType="Results" label=" "
+					widget="rowsets_sort" visible="false" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+			</items>
+		</server>
+	</task>
+	<task name="Get Analytical Data" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="default">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="AnalysisMethod" label="Analysis Method"
+					widget="multiselectbox" rowCount="3" selected="(Any)">
+					<sql>
+						exec spMet_getAnalysisMethodsUsed
+					</sql>
+				</displayItem>
+				<displayItem itemType="GetCompounds" label=" "
+					widget="button" action="Get Compounds" />
+				<displayItem itemType="Run" label=" "
+					widget="button" action="Run Query" />
+				<displayItem itemType="Results" label=" "
+					widget="rowsets_sort" visible="false" />
+				
+			</displayItems>
+		</client>
+		<server>
+			<items>
+			</items>
+		</server>
+	</task>
+	<task name="Master Query" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="default">
+		<client clientVersion="1.0">
+				<displayItem itemType="LIMSID"
+					label="LIMS ID" widget="textinput">
+					</displayItem>
+				<displayItem itemType="ItemType"
+					label="Item Type" widget="dropdown" rowCount="3" visible="false">
+				</displayItem>
+				<displayItem itemType="Run" label=" "
+					widget="button" action="Run Query" />
+				<displayItem itemType="Results" label=""
+					widget="rowsets_sort" visible="false" />
+		</client>
+		<server>
+			<items>
+				<item itemType="ItemType" type="string"/>
+			</items>
+		</server>
+	</task>
+		<task name="Get Project Status" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="default">
+		<client clientVersion="1.0">
+				<displayItem itemType="Status"
+					label="By Project" widget="rowsets_sort" rowCount="15"/>
+		</client>
+		<server>
+			<items></items>
+		</server>
+	</task>
+	<task name="Manage Contributors" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="default">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Placeholder1" label=" "
+					widget="label">
+					<value>
+						To save a new Contributor enter data and then click 'Save'
+					</value>
+				</displayItem>
+				<displayItem itemType="Contributor" label="Contributor"
+					widget="textinput" />
+				<displayItem itemType="ContactInfo" label="Phone Number"
+					widget="textinput" />
+				<displayItem itemType="Institute"
+					label="Institute or Lab" widget="dropdown" rowCount="3">
+					<value>
+						(Add new institutes at task 'Manage Settings')
+					</value>
+					<sql>
+						select appValue from vwLinx_AppValues where
+						appValueType = 'Institute' order by appValue
+					</sql>
+				</displayItem>
+				<displayItem itemType="Comment" label="Comments"
+					widget="textarea" rows="4" columns="40" minLength="300" />
+				<displayItem itemType="Save" label=" "
+					widget="savebutton" />
+					<displayItem itemType="Placeholder1" label=" "
+					widget="label">
+					<value>
+					</value>
+				</displayItem>
+				<displayItem itemType="Placeholder1" label=" "
+					widget="label">
+					<value>
+					</value>
+				</displayItem>
+				<displayItem itemType="Placeholder1" label=" "
+					widget="label">
+					<value>
+					</value>
+				</displayItem>
+				<displayItem itemType="Contributors"
+					label="Existing Contributors" widget="rowsets_sort" rowCount="10" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="Contributor" type="container"
+					new="true">
+					<allowQueue>Active Contributors</allowQueue>
+					<queueTo>Active Contributors</queueTo>
+				</item>
+				<item itemType="ContactInfo" type="string">
+					<addAsData appliesTo="Contributor"
+						dataType="ContactInfo" coordinate="Phone Number" />
+				</item>
+				<item itemType="Institute" type="string">
+					<addAsData appliesTo="Contributor"
+						dataType="ContactInfo" coordinate="Institute" />
+				</item>
+				<item itemType="Comment" type="comment"
+					optional="true" commentType="CONTRIBUTOR_COMMENTTYPE" 
+					appliesTo="Contributor" >
+				</item>
+			</items>
+		</server>
+	</task>
+	<task name="Manage Projects" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="default">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Placeholder1" label=" "
+					widget="label">
+					<value>
+						To save a new Project enter data and then click 'Save'
+					</value>
+				</displayItem>
+				<displayItem itemType="Project" label="Project Name"
+					widget="textinput" uppercase="true" />
+				<displayItem itemType="ProjectType" label="Project Type"
+					widget="dropdown" rowCount="4">
+					<values>
+						<value selected="true">(Select)</value>
+						<value>Fee for Service</value>
+						<value>Collaboration</value>
+						<value>Internal</value>
+					</values>
+				</displayItem>
+				<displayItem itemType="ProjectManager"
+					label="Project Manager" widget="dropdown" rowCount="3">
+					<value>
+						(Add new project managers at task 'Manage
+						Users')
+					</value>
+					<sql>
+						select username from VWLinx_AccessControl where
+						featureName = 'All' and userName not
+						in('linx','tjs','wildtype') order by userName
+					</sql>
+				</displayItem>
+				<displayItem itemType="Comment" label="Comments"
+					widget="textarea" minLength="300" />
+				<displayItem itemType="Save" label=" "
+					widget="savebutton" />
+				<displayItem itemType="Placeholder1" label=" "
+					widget="label">
+					<value>
+					</value>
+				</displayItem>
+				<displayItem itemType="Placeholder1" label=" "
+					widget="label">
+					<value>
+					</value>
+				</displayItem>
+				<displayItem itemType="Placeholder1" label=" "
+					widget="label">
+					<value>
+					</value>
+				</displayItem>
+				<displayItem itemType="Projects"
+					label="Existing Projects" widget="rowsets_sort" rowCount="10" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="Project" type="container" new="true">
+					<queueTo>Active Projects</queueTo>
+				</item>
+				<item itemType="ProjectType" type="string">
+					<addAsData appliesTo="Project"
+						dataType="Project Type" coordinate="0" />
+				</item>
+				<item itemType="ProjectManager" type="container"
+					new="optional">
+					<addAsContent appliesTo="Project"
+						contentType="ProjectManager" coordinate="0" />
+					<allowQueue>any</allowQueue>
+				</item>
+				<item itemType="Comment" type="comment"
+					optional="true" commentType="PROJECT_COMMENTTYPE"
+					appliesTo="Project" >
+				</item>
+			</items>
+		</server>
+	</task>
+</linx>

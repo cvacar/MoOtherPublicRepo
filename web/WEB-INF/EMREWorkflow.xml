@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+
+<linx>
+	<workflow name="SGI-EMRE Dev LIMS" limsVersion="2.2.xxx">
+		<description>SGI-EMRE Workflow</description>
+		<group name="Candidate Strain Isolation">
+			<task name="Environmental Sample Logging" />
+			<task name="Primary Enrichment" />
+			<task name="Secondary Enrichment" />
+			<task name="Isolates" />
+			<task name="Update Environmental Sample" />
+			<task name="Update Primary Enrichment" />
+			<task name="Update Secondary Enrichment" />
+			<task name="Update Isolates" />
+			<task name="Print Labels" />
+			<!--<task name="Strain Taxonomic ID" />-->
+			<task name="Environmental Plant Sample Logging" visible="false" />
+			<task name="Environmental Animal Sample Logging" visible="false" />
+			<task name="Environmental Aquatic Sample Logging" visible="false" />
+			<task name="Environmental Subsurface Sample Logging" visible="false" />
+			<task name="Environmental Composite Sample Logging" visible="false" />
+			<task name="Update Environmental Plant Sample" visible="false" />
+			<task name="Update Environmental Animal Sample" visible="false" />
+			<task name="Update Environmental Aquatic Sample" visible="false" />
+			<task name="Update Environmental Subsurface Sample" visible="false" />
+			<task name="Update Environmental Composite Sample" visible="false" />
+			<task name="Strain Tasks Query Page"/>
+			<task name="Environmental Sample Logging Report" visible="false" />
+			<task name="Primary Enrichment Report" visible="false" />
+			<task name="Secondary Enrichment Report" visible="false" />
+			<task name="Isolates Report" visible="false" />
+			<!--<task name="Strain FACS Report" visible="false" />
+			<task name="Axenic Strain Collection Report" visible="false" />
+			<task name="Strain Taxonomic ID Report" visible="false" />-->
+			<task name="Get Tran Report" />
+			<task name="Get LIMS Templates"/>
+		</group>
+		<group name="Gene Discovery and Strain Improvement">
+			<!-- <task name="Wildtype Strain Collection" />-->
+			<!-- <task name="Photo E coli Strain Collection" />-->
+			<!-- <task name="Photo Host Strain Collection" />-->
+			<task name="Create Strain"/>
+			<task name="Update Strain"/>
+			<task name="Discovery Hit Clone Strain Collection" />
+			<task name="Strain Features" />
+			<task name="Print Bulk Labels" />
+			<task name="Strain Query"/>
+			<task name="Strain Features Query" />
+			<task name="Discard Strain" />
+			<task name="Remove Strain Vial"/>
+			<task name="Get Tran Report" />
+			<task name="Get LIMS Templates"/>
+		</group>
+		<group name="Library Production">
+			<task name="DNA or RNA Preparation" />
+			<task name="Library Construction" />
+			<task name="Library Production Query" />
+			<task name="Get LIMS Templates"/>
+		</group>
+		<group name="Growth and Recovery">
+		    <task name="Submit Grab Data"/>
+		    <task name="Edit Grab Data"/>
+			<task name="Culture Selection" />
+			<task name="Strain Culture Collection" visible="false"/>
+			<task name="Experimental Culture Collection" visible="false"/>
+			<task name="Master Strain Culture Collection" visible="false"/>
+			<task name="Master Experimental Culture Collection" visible="false"/>
+			<task name="Update Sampling Timepoints" />
+			<task name="Print Culture Labels"/>
+			<task name="Culture Query" />
+			<task name="Get Tran Report" />
+			<task name="Get LIMS Templates"/>
+		</group>
+		<group name="Analytical Chemistry">
+			<task name="Submit A-Chem Request"/>
+			<task name="Edit A-Chem Request"/>
+			<task name="Update A-Chem Results"/>
+			<task name="Update TOC Results"/>
+			<task name="Download A-Chem Results"/>
+			<task name="Print Submission Labels"/>
+			<task name="Get Tran Report" />
+			<task name="Get LIMS Templates"/>
+		</group>
+		<group name="Reports">
+			<task name="Master Query"/>
+			<task name="Get Analytical Data"/>
+			<task name="Get Project Status"/>
+			<task name="Get Tran Report" />
+			<task name="Get Task History" />
+			<task name="Get History by User or Machine" />
+			<task name="Get Item History" />
+			<task name="List Items on Queue" />
+			<task name="Get Queue Status" />
+		</group>
+		<group name="Lab Management">
+			<task name="Manage Contributors" />
+			<task name="Manage Projects" />
+			<task name="Authenticate" visible="false" />
+			<task name="Manage Users" />
+			<task name="Manage Logs" />
+			<task name="Manage Settings" />
+			<task name="Enter Maintenance Mode" />
+		</group>
+	</workflow>
+</linx>

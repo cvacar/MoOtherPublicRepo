@@ -1,0 +1,1 @@
+<input type="radio" name="${item.name}" value="${item.itemType}" >

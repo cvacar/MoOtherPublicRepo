@@ -1,0 +1,1 @@
+<div align="center" valign="middle">Select a menu item.</div>

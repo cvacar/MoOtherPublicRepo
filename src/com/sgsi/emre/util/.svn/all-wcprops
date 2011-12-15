@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/limsdev/!svn/ver/478/SGI/EMRE2/src/com/sgsi/emre/util
+END
+PlateLayout.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/limsdev/!svn/ver/219/SGI/EMRE2/src/com/sgsi/emre/util/PlateLayout.java
+END
+S4MPCRBarcode.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/limsdev/!svn/ver/219/SGI/EMRE2/src/com/sgsi/emre/util/S4MPCRBarcode.java
+END
+PrintBarcode.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/limsdev/!svn/ver/219/SGI/EMRE2/src/com/sgsi/emre/util/PrintBarcode.java
+END
+S4MSmallBarcode.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/limsdev/!svn/ver/478/SGI/EMRE2/src/com/sgsi/emre/util/S4MSmallBarcode.java
+END

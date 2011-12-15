@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="melibrary.com.genuitec.eclipse.j2eedt.core.MYECLIPSE_JAVAEE_5_CONTAINER"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/commons-fileupload-1.1.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/commons-io-1.2.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/jstl.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/Linx_3_6_3.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/poi-3.7.jar" sourcepath="C:/Users/Carmen/.m2/repository/org/apache/poi/poi/3.7/poi-3.7-sources.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/standard.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/sqljdbc4.jar"/>
+	<classpathentry kind="output" path="web/WEB-INF/classes"/>
+</classpath>

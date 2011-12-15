@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/limsdev/!svn/ver/222/SGI/EMRE2/tags/v2.0.3/web/WEB-INF
+END
+linx_3_1_dbConfig.dtd
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/limsdev/!svn/ver/222/SGI/EMRE2/tags/v2.0.3/web/WEB-INF/linx_3_1_dbConfig.dtd
+END
+EMREWorkflow.xml
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/limsdev/!svn/ver/222/SGI/EMRE2/tags/v2.0.3/web/WEB-INF/EMREWorkflow.xml
+END
+linx_3_1_serverConfig.dtd
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/limsdev/!svn/ver/222/SGI/EMRE2/tags/v2.0.3/web/WEB-INF/linx_3_1_serverConfig.dtd
+END
+web.xml
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/limsdev/!svn/ver/222/SGI/EMRE2/tags/v2.0.3/web/WEB-INF/web.xml
+END

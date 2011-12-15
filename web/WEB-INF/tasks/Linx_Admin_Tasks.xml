@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE linx SYSTEM "../config/linx_taskdef_3_1.dtd">
+<!-- 9/30/2010  TJR Updates made to support Linx v3.5 release 
+					 TJR fixes to Manage Settings so "delete" and "update" work reliably
+-->
+
+<linx>
+     <task name="Authenticate" taskVersion="1.0" pg="default" svURL="default">
+      <client clientVersion="1.0">
+        <displayItems></displayItems>
+      </client>
+      <server>
+        <items></items>
+      </server>
+    </task>
+	<task name="Enter Maintenance Mode" taskVersion="1.0" pg="default"
+		svURL="custom">
+      <client clientVersion="1.0">
+        <displayItems>
+				<displayItem itemType="eta" 
+          				label="Date/time LIMS will be online again:" 
+          				widget="datetimepicker"
+          				dateFormat='mm/dd/yyyy, h:MM TT' />
+				<!--   <displayItem itemType="eta" label="Date/time LIMS will be online again:"
+					widget="textinput" minLength="20" maxLength="50" />
+				-->
+				<displayItem itemType="submit" label="Refuse future connections"
+					widget="button" action="Start" />
+        </displayItems>
+      </client>
+      <server>
+        <items>
+        </items>
+      </server>
+    </task>
+         <task name="Manage Logs" taskVersion="1.0" pg="default" svURL="custom">
+      <client clientVersion="1.0">
+        <displayItems>
+           <displayItem itemType="Tables" widget="rowsets"/>
+        </displayItems>
+      </client>
+      <server>
+        <items>
+        </items>
+      </server>
+    </task>
+         <task name="Manage Resources" taskVersion="1.0" pg="default" svURL="custom">
+      <client clientVersion="1.0">
+        <displayItems>
+           <displayItem itemType="newResource" 
+                        label="Resource" 
+                        widget="textinput" 
+                        uppercase="true" 
+                        minLength="20" 
+                        maxLength="50"/>
+           <displayItem itemType="newResourceType" 
+                        label="Type" 
+                        widget="dropdown" 
+                        action="Add">
+                        	<values>
+                        	<value>Shaker</value>
+                        	<value>Thermocylcer</value>
+                        	<value>Freezer</value>
+                        	<value>-80 Freezer</value>
+                        	<value>Oven</value>
+                        	</values>
+            </displayItem>
+           <displayItem itemType="status" 
+                        label="Status" 
+                        widget="dropdown" 
+                        action="Add">
+                        	<values>
+                        	<value>Online</value>
+                        	<value>Offline</value>
+                        	<value>Offline for repair</value>
+                        	</values>
+             </displayItem>
+            <displayItem itemType="Tables" widget="rowsets"/>
+        </displayItems>
+      </client>
+      <server>
+        <items>
+        </items>
+      </server>
+    </task>
+	<!-- Name this task "Manage Settings" if users are NOT allowed to EDIT settings, 
+	     otherwise add "NOT USED" to its name -->
+	<task name="Manage Settings NOT USED" taskVersion="1.0" pg="default" svURL="custom">
+      <client clientVersion="1.0">
+        <displayItems>
+				<displayItem itemType="Label1" widget="label" label=" ">
+            <value>(Optional) Select type of new value</value> 
+     </displayItem> 
+				<displayItem itemType="NewType" label=" " widget="dropdown"
+					visible="true" action="Go">
+	               <values>
+	                 <value selected="true">(Select)</value>
+	               	 <value>Parent Type</value>
+	               	 <value>Setting Name</value>
+	               	 <value>Setting Value</value>
+	               </values>
+	      </displayItem>
+				<displayItem itemType="ParentType" label="Select Parent Type"
+					widget="dropdown" visible="false">
+                <sql>select distinct parentType from PARENTTYPE order by parentType</sql>
+	   </displayItem>
+				<displayItem itemType="Get" label=" " widget="button"
+					action="Get Setting Names" visible="false" />
+				<displayItem itemType="AppValueType" label="Select Setting Name"
+					widget="dropdown" visible="false">
+	               <values>
+	               		<value selected="true">(Select)</value>
+	               </values>
+	             </displayItem>
+				<displayItem itemType="NewValue" label="Enter new value"
+					widget="textinput" uppercase="false" minLength="50" maxLength="100"
+	                    visible="false"/>
+				<displayItem itemType="Add" label=" " widget="button"
+					action="Add" visible="false" />
+				<displayItem itemType="Placeholder" widget="label"
+					label=" " />
+				<displayItem itemType="Settings" widget="rowsets_sort" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+			</items>
+		</server>
+	</task>
+
+	<!-- Name this task "Manage Settings" if users are allowed to EDIT settings, 
+	     otherwise add "NOT USED" to its name -->
+	<task name="Manage Settings" taskVersion="1.0" pg="default"
+		svURL="custom">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Label1" widget="label" label=" ">
+					<value>(Optional)</value>
+				</displayItem>
+				<displayItem itemType="Label2" widget="label" label=" ">
+					<value>
+						To EDIT or DELETE existing setting, select the desired row in the table below.
+						Then use the "Update Setting" or "Delete Setting" button to update table.
+         			</value>
+				</displayItem>
+				
+				<displayItem itemType="Placeholder1" widget="label" label=" " />
+				
+				<displayItem itemType="Label3" widget="label" label=" ">
+					<value>
+						(To Edit Setting) Enter new setting value for selected row
+         			</value>
+				</displayItem>
+				<displayItem itemType="newSetting" label=" " widget="textinput"
+					minLength="20" maxLength="200" />
+				<displayItem itemType="UpdateSetting" label=" " widget="button"
+					action="Update Setting" />
+					
+				<displayItem itemType="DeleteSetting" label=" " widget="button"
+					action="Delete Setting" />
+				
+				<displayItem itemType="Placeholder2" widget="label" label=" " />	
+				<displayItem itemType="Label4" widget="label" label=" ">
+					<value>(Optional)</value>
+				</displayItem>
+				<displayItem itemType="Label5" widget="label" label=" ">
+					<value>
+						To ADD new setting, select "Parent Type" or
+						"Setting Name" in dropdown below.
+         			</value>
+				</displayItem>
+				
+				<displayItem itemType="NewType" label=" " widget="dropdown"
+					visible="true" action="Go">
+					<values>
+						<value selected="true">(Select)</value>
+						<value>Parent Type</value>
+						<value>Setting Name</value>
+						<value>Setting Value</value>
+					</values>
+				</displayItem>
+				<displayItem itemType="ParentType" label="Select Parent Type"
+					widget="dropdown" visible="false">
+					<sql>
+						select distinct parentType from PARENTTYPE
+						order by parentType
+         				</sql>
+				</displayItem>
+				<displayItem itemType="Get" label=" " widget="button"
+					action="Get Setting Names" visible="false" />
+				<displayItem itemType="AppValueType" label="Select Setting Name"
+					widget="dropdown" visible="false">
+					<values>
+						<value selected="true">(Select)</value>
+					</values>
+				</displayItem>
+				<displayItem itemType="NewValue" label="Enter new value"
+					widget="textinput" uppercase="false" minLength="50" maxLength="100"
+                        visible="false"/>
+				<displayItem itemType="Add" label=" " widget="button"
+					action="Add" visible="false" />
+				<displayItem itemType="Placeholder" widget="label"
+                         label=" "/>                        
+				
+				<displayItem itemType="Settings" widget="rowsets_sort" />
+				
+        </displayItems>
+      </client>
+      <server>
+        <items>
+        </items>
+      </server>
+    </task>
+
+         <task name="Manage Users" taskVersion="1.0" pg="default" svURL="custom">
+      <client clientVersion="1.0">
+        <displayItems>
+          <displayItem itemType="Tables" widget="rowsets"/>
+				<displayItem itemType="newUser" label="New User" widget="textinput"
+					uppercase="false" minLength="20" maxLength="50" />
+				<displayItem itemType="pass" label="Password" widget="password"
+					uppercase="false" minLength="20" maxLength="50" />
+				<displayItem itemType="passConfirm" label="Confirm Password"
+					widget="password" uppercase="false" minLength="20" maxLength="50" />
+				<displayItem itemType="active" label="Active" widget="checkbox"
+					selected="true" />
+				<displayItem itemType="addUser" label="Add New User"
+					widget="button" action="Add User" />
+        </displayItems>
+      </client>
+      <server>
+        <items>
+        </items>
+      </server>
+    </task>
+    
+</linx>

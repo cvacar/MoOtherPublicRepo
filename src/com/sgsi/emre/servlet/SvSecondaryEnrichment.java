@@ -1,0 +1,179 @@
+package com.sgsi.emre.servlet;
+
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
+import javax.print.PrintService;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.sgsi.emre.EMREStrings.FileType;
+import com.sgsi.emre.EMREStrings.ItemType;
+import com.sgsi.emre.util.S4MPCRBarcode;
+import com.sgsi.emre.util.S4MSmallBarcode;
+import com.wildtype.linx.db.Db;
+import com.wildtype.linx.task.Task;
+import com.wildtype.linx.user.User;
+import com.wildtype.linx.util.LinxDbException;
+import com.wildtype.linx.util.LinxSystemException;
+import com.wildtype.linx.util.LinxUserException;
+import com.wildtype.linx.util.WtUtils;
+
+/**
+ * Overridden to handle importing and exporting secondary enrichments.
+ *
+ * @author TJS/Wildtype for SGI
+ * @modified 7/2011 TJS
+ * 	-- moved bulk import functions to task class
+ *
+ */
+public class SvSecondaryEnrichment extends EMREServlet
+{
+
+	@Override
+	protected void preprocessTask(HttpServletRequest request, Task task,
+			User user, Db db)
+	{
+		task.setMessage("");
+
+		// -- data file rowset is hidden until a strain is selected
+		String sample = task.getServerItemValue(ItemType.SECONDARY_ENRICHMENT);
+		if (WtUtils.isNullOrBlank(sample))
+		{
+			populateUI(request, task, db);
+		}
+
+	}
+
+	@Override
+	protected boolean handleCustomAction(Task task, User user, Db db,
+			HttpServletRequest request, HttpServletResponse response)
+	{
+		if (request.getAttribute("ImportButton") != null)
+		{
+			task.createAnyNewAppFiles(request, response, user, db);
+			String fileId = task.getServerItemValue(FileType.SECONDARY_ENRICHMENT_IMPORT_FILE);
+			if (WtUtils.isNullOrBlank(fileId))
+			{
+				throw new LinxUserException(
+						"Please browse for a bulk import file, then try again.");
+			}
+			task.getDisplayItem(ItemType.SECONDARY_ENRICHMENT).clearValues();
+			task.getServerItem(ItemType.SECONDARY_ENRICHMENT).clearValues();
+			save(task, user, db, request,response);
+	    	commitDb(db);
+	        return FINISH_FOR_ME;    	
+		}
+		else if (request.getAttribute("ExportButton") != null)
+		{
+			// user wants to download the entire collection to Excel
+			writeToExcel(request, response, "exec spEMRE_exportSecondaryEnrichment",
+					db);
+
+			return ALL_DONE;
+		}
+		else if (request.getAttribute("PrintLabel") != null)
+		{
+			// lets print
+			String se = task.getServerItemValue(ItemType.SECONDARY_ENRICHMENT);
+			if (WtUtils.isNullOrBlankOrPlaceholder(se))
+			{
+				throw new LinxUserException("Please enter a value for New LIMS ID.");
+			}
+
+			// lets check to see if we have an enrichment.
+			if (!dbHelper.isItemExisting(se, ItemType.SECONDARY_ENRICHMENT, db))
+				throw new LinxUserException("Secondary Enrichment '" + se
+						+ "' doesn't exist in the database.");
+			// is it retired?
+			if (dbHelper.isRetired(se, db))
+				throw new LinxUserException("Secondary Enrichment '" + se
+						+ "' is retired and cannot be used in this task");
+			try
+			{
+				printLabels(se, db);
+			}
+			catch (Exception ex)
+			{
+				throw new LinxSystemException(ex.getMessage());
+			}
+
+			task.setMessage("Successfully printed barcodes.");
+			return FINISH_FOR_ME;
+		}
+		return super.handleCustomAction(task, user, db, request, response);
+	}
+
+	protected void printLabels(String barcode, Db db)
+	{
+		try
+		{
+			// we need to update the enrichment table with the new barcode
+			String enrichmentId = dbHelper.getDbValue("exec spEMRE_getEnrichmentId '"
+					+ barcode + "'", db);
+			// lets remove the "SGI-E" so the barcode fits on the label
+			String shortbarcode = barcode;
+			shortbarcode = shortbarcode.replace("-SGI-E", "");
+			dbHelper.executeSQL("exec spEMRE_updateBarcode 'enrichment',"
+					+ enrichmentId + ",'" + shortbarcode + "'", db);
+			// now print the label
+			S4MSmallBarcode printer = new S4MSmallBarcode();
+			PrintService printService = dbHelper.getPrintServiceForTask(
+					"Secondary Enrichment", db);
+			ArrayList<String> alRow = new ArrayList<String>();
+			ResultSet rs = dbHelper.getResultSet("exec spEMRE_getSELabelValues '"
+					+ barcode + "'", db);
+			while (rs.next())
+			{
+				// alRow.add(barcode);
+				alRow.add(rs.getString(1));
+				alRow.add(rs.getString(2));
+				alRow.add(rs.getString(3));
+			}
+			rs.close();
+			rs = null;
+			// only one barcode to print
+			printer.setFontType("R");
+			printer.setStartPrintYCoord(20);
+			String label = printer.getZPLforBoldBCLabel(shortbarcode, alRow);
+			S4MPCRBarcode.print(printService, shortbarcode, label);
+			Thread.sleep(200);
+		}
+		catch (Exception ex)
+		{
+			throw new LinxSystemException(ex.getMessage());
+		}
+	}
+
+
+	protected void populateUI(HttpServletRequest request, Task task, Db db)
+	{
+		String limsId = getNextSecondaryEnrichment(db);
+		if (limsId == null)
+			throw new LinxSystemException(
+					"Database failed to return the next available ID for secondary enrichment."
+					+ " Please alert your LIMS administrator.");
+		task.getDisplayItem(ItemType.SECONDARY_ENRICHMENT).setValue(limsId);
+	}
+
+	/**
+	 * retrieves the next autogenerated LIMS ID from the database
+	 * 
+	 * @param db
+	 * @return
+	 */
+	protected String getNextSecondaryEnrichment(Db db)
+	{
+		String s = null;
+		try
+		{
+			s = dbHelper.getDbValue("exec spEMRE_getNextSecondaryEnrichment ", db);
+		}
+		catch (Exception ex)
+		{
+			throw new LinxDbException(ex.getMessage());
+		}
+		return s;
+	}
+
+}

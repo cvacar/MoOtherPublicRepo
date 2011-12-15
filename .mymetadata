@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="EMRE2"
+  id="myeclipse.1309888896616"
+  context-root="/EMRE2"
+  j2ee-spec="5.0"
+  archive="EMRE2.war">
+  <attributes>
+    <attribute name="webrootdir" value="/web" />
+  </attributes>
+</project-module>
+

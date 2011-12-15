@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE linx SYSTEM "../config/linx_3_1_serverConfig.dtd">
+
+<linx>
+        <config>
+        <!--
+        ** ** LIMS Configuration Settings **
+        **
+        ** NOTE: All changes here require restarting the server to apply.
+        **
+        **
+        -->
+
+          <!--
+          ** *****************
+          ** ** CUSTOM LIMS **
+          ** *****************
+          -->
+		  <SampleManifest>
+          	<BarcodeColumn>1</BarcodeColumn>
+          </SampleManifest>
+          <!--
+          ** ***************
+          ** ** LINX CORE **
+          ** ***************
+          -->
+
+          <!--
+          ** ** Messages  **
+          **
+          ** When certain patterns are detected in exceptions,
+          ** messages will be replaced with strings from this file,
+          ** usually to help the user better understand the problem.
+          ** Moved in Linx 2.0 to com.project/messages.properties file
+          -->
+
+
+          <!--
+          ** ** Linx General Behavior  **
+          **
+          ** Various flags to configure general LIMS display and behavior,
+          ** and to turn features on and off in accordance with each site's business rules.
+          **
+          **
+          ** NOTE: configure most server behavior in web server application's config files.
+          -->
+			<authentication>
+				<!-- realm is linx if using linx database authentication -->
+						<realm>linx</realm>
+						<ignoreLinxPassword>true</ignoreLinxPassword>
+            <!-- <providerURL>LDAP://illumina10</providerURL> -->
+            <providerURL>ldap://ad01a.synthgeno.global</providerURL>
+            
+            <!--<ldapUserPhraseSuffix>@syntheticgenomics.com</ldapUserPhraseSuffix>-->
+            <ldapUserPhraseSuffix>@syntheticgenomics.com</ldapUserPhraseSuffix>
+			</authentication>
+          <!--
+          ** ** Date Formatting  **
+          **
+          ** Configure how dates should be accepted from users,
+          ** submitted to the database, and displayed from the database
+          ** (usually very different formats).
+          **
+          ** RDMBS default date masks are very strict. Keep a working copy
+          ** when altering.
+          **
+          -->
+
+                <locale>
+                  <localeCode>US</localeCode>
+                  <localeLanguage>en</localeLanguage>
+                  <outputDateMask>yyyy-MM-dd HH:mm</outputDateMask>
+                  <inputDateMask>MM/dd/yy</inputDateMask>
+                  <dbDefaultDateMask rdbms="MSSQL">yyyy-MM-dd HH:mm:ss</dbDefaultDateMask>
+                  <!--<dbDefaultDateMask rdbms="ORCL">YYYY-MM-DD HH24:MI:SS</dbDefaultDateMask>-->
+                </locale>
+
+      <!--
+      ** <logging>
+      **
+      ** Configure how Linx logs behave.
+      ** Add other <log> nodes here with custom filters and formatters.
+      ** See http://java.sun.com/j2se/1.4.2/docs/guide/util/logging/
+      ** for more information.
+      **
+      ** IMPORTANT: DO NOT CHANGE the default logs namespaces.
+      **
+      ** NOTE: To match "standard" debugging verbosity levels the verbosity can be set from 0-99
+      ** 	These levels are mapped to 8 levels: SEVERE, WARNING, CONFIG, INFO, FINE, FINER, FINEST, ALL
+      ** 	where standard "debug" errors are shown at the level of "FINE" or higher.  To turn down
+      **	the number of messages shown in logs drop the vebosity setting to an appropriate level
+      **	(e.g. below 35 to turn off "debug" messages).  Any setting above 60 will show ALL messages.
+      **
+      ** NOTE2: Specifying 'LogPath' in Linx v3.5+
+      **	There are 3 ways to specify the logPath of a log file in Linx (options below are in order
+      **		of precedence)
+      **
+      **		Option 1: "Per Log" format
+      **			Set the 'logPath' attribute to a fully qualified file name for each logger
+      **				e.g. logPath="C:\MyLogDir\MyFolder"
+      **
+      **		Option 2: "Per Web Application" format
+      **			Set the 'logPath' attribute to "linx.log.path" and then set the <logging> <linx.log.path> 
+      **			node to desired "root" path for the log files.  A folder below the root path named after
+      **			the web application context will be used for Linx logs for this web app.
+      **				e.g. logPath="linx.log.path"
+      **					 <linx.log.path>C:\MyLogDir</linx.log.path>
+      **
+      **		Option 3: "Per Application Server" format
+      **			Set the 'logPath' attribute to "linx.log.path" and then set the application server's
+      **			JVM startup argument to specify the path via the -Dlinx.log.path value when starting the 
+      **			app server. A folder below the root path named after the web application context for 
+      **			each web application hosted on the server will be used for all Linx logs for this web app.
+      **			Note, not all application servers may support special command line startup arguments.
+      **				e.g. logPath="linx.log.path"
+      **					 App Server command line includes: -Dlinx.log.path="C:\MyLogDir"
+      -->
+      
+      <logging logDomain="EMRE2Test">
+      
+      	 <!-- Support for xml node "linx.log.path" is a Linx v3.5+ feature -->
+      	 <linx.log.path>c:/limslogs/EMRE2/</linx.log.path>
+      	       	 
+         <log default="true" 
+               name="com.wildtype.linx.limswide" 
+               enabled="true" 
+               copyToConsole="true"
+               maskPasswords="true"
+               verbosity="99"
+               maxCount="5" 
+               maxSize="1000K"
+               logPath="linx.log.path"
+               logMask="Lims_%g.%u.log"
+               filter="com.wildtype.linx.log.LimsLogFilter"
+               formatter="com.wildtype.linx.log.ShortHeaderLogFormatter">
+              <debugPatterns comment="Used by filter com.wildtype.linx.log.LimsLogFilter">
+                <debugPattern>com.wildtype.linx</debugPattern>
+                <debugPattern>com.wildtype.linx.config</debugPattern>
+                <debugPattern>com.wildtype.linx.db</debugPattern>
+                <debugPattern>com.wildtype.linx.task</debugPattern>
+                <debugPattern>com.wildtype.linx.task.servlet</debugPattern>
+                <debugPattern>com.sgsi.emre</debugPattern>
+              </debugPatterns>
+          </log>
+          <log default="true" 
+               name="com.wildtype.linx.request.response" 
+               enabled="true"
+               copyToConsole="true"
+               maskPasswords="true"
+               verbosity="99"
+               maxCount="5" 
+               maxSize="1000K"
+              logPath="linx.log.path"
+               logMask="LimsRequestResponse_%g.%u.log"
+               filter="com.wildtype.linx.log.RequestResponseLogFilter">
+             <!--     formatter="com.wildtype.linx.log.ShortHeaderLogFormatter"> -->
+              <debugPatterns>
+              </debugPatterns>
+          </log> 
+          <log default="false" 
+               name="com.wildtype.linx.status" 
+               enabled="true" 
+               copyToConsole="false"
+               verbosity="99"
+               maxCount="5" 
+               maxSize="1000K"
+              logPath="linx.log.path"
+               logMask="LimsStatus_%g.%u.log"
+                filter="com.wildtype.linx.log.LimsLogFilter"
+               formatter="com.wildtype.linx.log.ShortHeaderLogFormatter">
+              <debugPatterns>
+               </debugPatterns>
+          </log> 
+            </logging>
+
+     <!--
+      ** <email>
+      **
+      ** Configure the default email server and mailing lists.  The mail lists
+      ** require a ref ID that is used in the alerts section to determine
+      ** the destination of an alert's trigger.  The server element specifies
+      ** the host name (or IP) and an optional PORT, e.g. foo.com:25.
+      **
+      -->
+                <email>
+                        <smtpServer port="465">smtp.gmail.com</smtpServer>
+                        <!-- smtpServer port="25">smtp.snet.net</smtpServer> -->
+                        <!--smtpServer port="25">arwen.synthgeno.global</smtpServer>-->
+                        <!-- <from>tjs@wildtypeinfo.com</from> -->
+                        <from>emre2testlims@syntheticgenomics.com</from>
+                        <lists>
+                          <!--<list id="administrators">
+                                <to>tjs@wildtypeinfo.com</to>
+                           </list>-->
+                          <list id="analytical">
+                                <!--to>SGI-AnalyticalGroup-EMRE@SynthGeno.Global</to>-->
+                                <to>tjs@wildtypeinfo.com</to>
+                           </list>
+                           <list id="analyticalTest">
+                                <to>cvacar@syntheticgenomics.com</to>
+                              </list>
+                           <list id="administrators">
+                                <to>cvacar@syntheticgenomics.com</to>
+                           </list>
+                          <list id="wildtype">
+                                <to>cvacar@syntheticgenomics.com</to>
+                           </list>
+                           <list id="dba">
+                             <to>cvacar@syntheticgenomics.comm</to>
+                           </list>
+                        </lists>
+                </email>
+      <!--
+      ** <alerts>
+      **
+      ** Alerts are classes/objects that run on an interval and
+      ** send alert email messages to mail lists configured in the <email>
+      ** section.  Each alert element requires a name, class, and an optional
+      ** series of arguments for the alert instance.  Set the <runInterval> element
+      ** value to control the amount of idle time that passes, in milliseconds,
+      ** between subsequent checks on the alert. All alerts are checked
+      ** approximately <runInterval> milliseconds after construction, and thereafter
+      ** every <runInterval> milliseconds.
+      **
+      -->
+                <alerts>
+                        <alert>
+                                <runInterval>5000</runInterval>
+                                <class>com.wildtype.linx.util.alert.DBLatencyAlert</class>
+                                <arg>mailList=dba</arg>
+                                <arg>onEventCount=5</arg>
+                                <arg>withinInterval=6000ms</arg>
+                        </alert>
+                       <!--<alert>
+                                <runInterval>980000</runInterval>
+                                <class>com.sgsi.met.poller.ProbeDesignsPoller</class>
+                                <arg>mailList=wildtype</arg>
+                                <arg>polledFolder=//WILDTYPE5/data</arg>
+                                <arg>port=8080</arg>
+                                <arg>user=tjs</arg>
+                                <arg>password=tjs</arg>
+                        </alert>-->
+                </alerts>
+        </config>
+</linx>

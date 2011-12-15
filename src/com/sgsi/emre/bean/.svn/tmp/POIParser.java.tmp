@@ -1,0 +1,655 @@
+package com.sgsi.emre.bean;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Iterator;
+
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.DataFormat;
+
+import com.wildtype.linx.log.Code;
+import com.wildtype.linx.util.LinxUserException;
+import com.wildtype.linx.util.WtUtils;
+
+/**
+ * A parser for MS XLS files that doesn't use LimsImporter2 class
+ * or XLSParser class. Instead, relies on POI objects like HSSFWorksheet
+ * and HSSFCell. Never converts *.xls data to csv, so quite a bit faster
+ * than the LimsImporter-based parsers.
+ * TODO: effort not charged to client: adopt into core 
+ * @author TJS/Wildtype
+ * @created 4/2011 
+ *
+ */
+public class POIParser
+{
+	private String 		sheetName = null; // changes w/each parser use
+	private HSSFRow		headerRow	= null;
+	
+	/**
+	 * Finds a column header that matches dataType and sets the value of the cell
+	 * in the row below to dataValue. Used for building up Excel files
+	 * to return to the user.
+	 * 
+	 * @param headerRow
+	 * @param dataType
+	 * @param dataRow
+	 * @param dataValue
+	 */
+	public void setCellValue(HSSFRow headerRow, String dataType,
+			HSSFRow dataRow, String dataValue)
+	{
+		
+		Iterator colItor = headerRow.cellIterator();
+		Iterator cellItor = dataRow.cellIterator();
+
+		while (colItor.hasNext())
+		{
+			HSSFCell col = (HSSFCell) colItor.next(); 
+
+			String colName = getValueAsString(col);
+			if(WtUtils.isNullOrBlank(colName))
+			{
+				// end of col headers
+				break;
+			}
+			else 
+			{
+				// prep headers for fair comparison
+				colName = colName.replace("  ", " ");
+				colName = colName.replace("  ", " ");
+				colName = colName.replace('\n', ' ');
+				colName = colName.trim();
+				
+				dataType = dataType.replace("  ", " ");
+				dataType = dataType.replace("  ", " ");
+				dataType = dataType.replace('\n', ' ');
+				dataType = dataType.trim();
+				
+				if (colName.equalsIgnoreCase(dataType))
+				{
+					int colIdx = col.getColumnIndex();
+					HSSFCell dataCell = (HSSFCell)dataRow.getCell(colIdx);
+					if(dataCell == null)
+					{
+						dataCell = dataRow.createCell(colIdx);
+					}
+					dataCell.setCellValue(dataValue);
+					return;
+				}
+			}
+		}// next col
+		// if we fall thru, no such column name found
+		Code.warning("Could not find a column named '" + dataType + "'");
+
+	}
+	/**
+	 * Returns cell's value as string. 
+	 * Excel macro formats dates, so this method does not
+	 * reformat dates. Copied from Java developer's blog
+	 * http://epramono.blogspot.com/2004/12/poi-for-excel-parser.html
+	 * 
+	 * 
+	 * @param cell
+	 * @return cell's value as String
+	 */
+	public String getValueAsString(HSSFCell cell)
+	{
+	    if (cell == null) return null;
+	    
+	    String result = null;
+
+	    int cellType = cell.getCellType();
+	    switch (cellType) {
+	      case HSSFCell.CELL_TYPE_BLANK:
+	        result = "";
+	        break;
+	      case HSSFCell.CELL_TYPE_BOOLEAN:
+	        result = cell.getBooleanCellValue() ?
+	          "true" : "false";
+	        break;
+	      case HSSFCell.CELL_TYPE_ERROR:
+	        result = "ERROR: " + cell.getErrorCellValue();
+	        break;
+	      case HSSFCell.CELL_TYPE_NUMERIC:
+	      {
+	        HSSFCellStyle cellStyle = cell.getCellStyle();
+	        short dataFormat = cellStyle.getDataFormat();
+
+	        // assumption is made that dataFormat = 15,
+	        // when cellType is HSSFCell.CELL_TYPE_NUMERIC
+	        // is equal to a DATE format.
+	        if (dataFormat == 15 || dataFormat == 169) 
+	        {
+							//we've found the sampling timepoint
+							//it's a date column so format the date correctly
+						Date d = cell.getDateCellValue();
+						String dv = d.toLocaleString();//Sep 7, 2010 4:43:00 PM
+						SimpleDateFormat df = new SimpleDateFormat("MMM d, yyyyy h:mm:ss a");
+						Date nd;
+						try
+						{
+							nd = df.parse(dv);
+						}
+						catch (ParseException ex)
+						{
+							throw new LinxUserException(ex.getMessage());
+						}
+						
+						SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");						
+						result = sdf.format(nd);
+						
+						System.out.println(result.toString());
+
+	        } 
+	        else 
+	        {
+	          result = getNumericValueAsString(cell);
+	          
+	          //System.out.println(result.toString());
+	        }
+	        break;
+	      }      
+	      
+	      case HSSFCell.CELL_TYPE_STRING:
+	        result = cell.getStringCellValue().trim();
+	        result = result.replace("   ", " ");
+	        result = result.replace("  ", " ");
+	        System.out.println(result.toString());
+	        break;
+	      default: break;
+	    }
+
+	    return result;
+	    
+	}
+	
+	/**
+	 * Returns the value found in the cell in this data row
+	 * under given column header.
+	 * @param dataRow
+	 * @param colName
+	 * @return string value of cell under column header
+	 */
+	public String getCellValueByColName(HSSFRow dataRow, String colName)
+	{
+		HSSFCell cell = getCellByColName(dataRow, colName);
+		if(cell == null && !colName.endsWith("*"))
+		{
+			return getCellValueByColName(dataRow, colName + "*");
+		}
+		if(cell == null)
+		{
+			return "";
+		}
+		return getValueAsString(cell);
+		
+	}
+	/**
+	 * @return the sheetName
+	 */
+	public String getSheetName()
+	{
+		return sheetName;
+	}
+	/**
+	 * @param sheetName the sheetName to set
+	 */
+	protected void setSheetName(String sheetName)
+	{
+		this.sheetName = sheetName;
+	}
+	
+	/**
+	 * Returns row starting with columnKey so that caller can walk columns.
+	 * 
+	 * @param sheet
+	 * @param sheetName -- for informative error msg only
+	 * @param columnKey
+	 * @return row containing column headers
+	 */
+	public HSSFRow getRowWithColumnHeaders(HSSFSheet sheet, String sheetName, String columnKey)
+	{
+
+		Iterator rowItor = sheet.rowIterator();
+		while (rowItor.hasNext())
+		{
+			// walk the file by rows, looking for header row
+			HSSFRow row = (HSSFRow) rowItor.next();
+			String cellValue = getValueAsString(row.getCell((short)0));
+			if (cellValue.equalsIgnoreCase(columnKey))
+			{
+				headerRow = row;
+				return row;
+			}
+		}// next row
+		// if we fall thru, did not find our column key in any row
+		throw new LinxUserException("Could not find a row "
+				+ "containing required column header '" + columnKey + "'"
+				+ " in worksheet named " + sheetName);
+	}
+  /**
+   * Returns the numeric cell's value as String.
+   * @param cell 
+   * @return number in cell as string
+   */
+  public String getNumericValueAsString(HSSFCell cell)
+  {
+    // primitive parser has no 'getObjectCellValue()' option
+	  String s = cell.toString();
+	    if(!WtUtils.isNullOrBlank(s) && s.endsWith(".0"))
+	    {
+	    	// eliminate decimal value added by third-party parsing library
+	    	s = s.substring(0, s.lastIndexOf(".0"));
+	    }
+	    return s.trim();
+  }
+  
+	/**
+	 * Returns value in cell to the right of header.
+	 * 
+	 * @param sheet
+	 * @param sheetName -- for informative error msg only
+	 * @param header
+	 * @return String value of given inline header
+	 */
+  public String getValueForInlineHeader(HSSFSheet sheet, String sheetName, String header)
+	{
+		short COL_A = (short)0;
+		short COL_B = (short)1;
+		
+		XLSParser parser = new XLSParser();
+		Iterator rowItor = sheet.rowIterator();
+		while (rowItor.hasNext())
+		{
+			// walk the file by rows, looking for inline header in A column
+			HSSFRow row = (HSSFRow) rowItor.next();
+			String cellValue = getValueAsString(row.getCell(COL_A));
+			if (cellValue.equalsIgnoreCase(header))
+			{
+				String inlineValue = getValueAsString(row.getCell(COL_B));
+				return inlineValue;
+			}
+			if(row.getRowNum() > 50) break; // unlikely to be after this
+		}// next row
+		throw new LinxUserException("Could not find a row "
+				+ "containing required inline header '" + header + "'"
+				+ " in worksheet named " + sheetName);
+	}
+  
+	/**
+	 * Sets value in cell to the right of header.
+	 * 
+	 * @param sheet
+	 * @param sheetName -- for informative error msg only
+	 * @param header
+	 * @param value
+	 */
+  public void setValueForInlineHeader(HSSFSheet sheet, String sheetName, String header, String newValue)
+	{
+		int COL_A = 0;
+		int COL_B = 1;
+		
+		XLSParser parser = new XLSParser();
+		Iterator rowItor = sheet.rowIterator();
+		while (rowItor.hasNext())
+		{
+			// walk the file by rows, looking for inline header in A column
+			HSSFRow row = (HSSFRow) rowItor.next();
+			String cellValue = getValueAsString(row.getCell(COL_A));
+			if (cellValue.equalsIgnoreCase(header))
+			{
+				row.getCell(COL_B).setCellValue(newValue);
+				return;
+			}
+			if(row.getRowNum() > 50) break; // unlikely to be after this
+		}// next row
+		throw new LinxUserException("Could not find a row "
+				+ "containing required inline header '" + header + "'"
+				+ " in worksheet named " + sheetName);
+	}
+  
+	/**
+	 * Sets value in cell to the right of header.
+	 * 
+	 * @param sheet
+	 * @param sheetName -- for informative error msg only
+	 * @param header
+	 * @param value
+	 */
+  public void appendValueForInlineHeader(HSSFSheet sheet, String sheetName, String header, String newValue)
+	{
+		int COL_A = 0;
+		int COL_B = 1;
+		
+		XLSParser parser = new XLSParser();
+		Iterator rowItor = sheet.rowIterator();
+		while (rowItor.hasNext())
+		{
+			// walk the file by rows, looking for inline header in A column
+			HSSFRow row = (HSSFRow) rowItor.next();
+			String cellValue = getValueAsString(row.getCell(COL_A));
+			if (cellValue.equalsIgnoreCase(header))
+			{
+				String importId = this.getValueAsString(row.getCell(COL_B));
+				if(WtUtils.isNullOrBlank(importId))
+				{
+					row.getCell(COL_B).setCellValue(newValue);
+				}
+				else if(importId.indexOf(newValue) < 0)
+				{
+					row.getCell(COL_B).setCellValue(newValue + "," + importId);
+				}
+				// else, same importId already set
+				return;
+			}
+			if(row.getRowNum() > 50) break; // unlikely to be after this
+		}// next row
+		throw new LinxUserException("Could not find a row "
+				+ "containing required inline header '" + header + "'"
+				+ " in worksheet named " + sheetName);
+	}
+	
+	/**
+	 * Returns the ce
+	 * @param dataRow
+	 * @param colName
+	 * @return data row cell lying under the given column header, or null if not found
+	 */
+  public HSSFCell getCellByColName(HSSFRow dataRow, String colName)
+	{
+		Iterator<Cell> colItor = getHeaderRow().cellIterator();
+		int colIdx = 0;
+		while(colItor.hasNext())
+		{
+			HSSFCell col = (HSSFCell)colItor.next();
+			String header = getValueAsString(col).trim();
+			if(colName.equalsIgnoreCase(header))
+			{
+				HSSFCell cell =  dataRow.getCell(colIdx);
+				if(cell == null)
+				{
+					cell = dataRow.createCell(colIdx);
+				}
+				return cell;
+			}
+			colIdx++;
+		}
+		// if we fall thru, no such cell or else the header is a problem to match
+		return null;
+	}
+  
+	/**
+	 * Returns the ce
+	 * @param dataRow
+	 * @param colName
+	 * @return data row cell lying under the given column header, or null if not found
+	 */
+public HSSFCell getCellByColName(HSSFRow dataRow, String colName, CellStyle style)
+	{
+		Iterator<Cell> colItor = getHeaderRow().cellIterator();
+		int colIdx = 0;
+		while(colItor.hasNext())
+		{
+			HSSFCell col = (HSSFCell)colItor.next();
+			String header = getValueAsString(col).trim();
+			if(colName.equalsIgnoreCase(header))
+			{
+				HSSFCell cell =  dataRow.getCell(colIdx);
+				if(cell == null)
+				{
+					cell = dataRow.createCell(colIdx);
+					cell.setCellStyle(style);
+					cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+				}
+				String s = cell.toString();
+				if(WtUtils.isNullOrBlank(s))
+				{
+					cell.setCellStyle(style);
+					cell.setCellType(HSSFCell.CELL_TYPE_STRING);					
+				}
+				return cell;
+			}
+			colIdx++;
+		}
+		// if we fall thru, no such cell or else the header is a problem to match
+		return null;
+	}
+	
+	/**
+	 * Returns the header row.
+	 * @return the header row, usually for iterating over column headers
+	 */
+  public HSSFRow getHeaderRow()
+	{
+		return headerRow;
+	}
+	
+  public void setHeaderRow(HSSFRow row)
+	{
+		this.headerRow = row;
+	}
+  
+  /**
+   * Returns true if this row starts with the given
+   * column header, otherwise false
+   * @param row
+   * @param columnKey
+   * @return false if first cell contains columnKey
+   */
+  public boolean isHeaderRow(HSSFRow row, String columnKey)
+  {
+  	HSSFCell cell = row.getCell(0);
+  	if(isNullOrBlank(cell))
+  	{
+  		return false;
+  	}
+		String cellValue = getValueAsString(cell);
+		if (cellValue.equalsIgnoreCase(columnKey)
+				|| cellValue.equalsIgnoreCase(columnKey+"*")) // flag for required fields
+		{
+			return true;
+		}
+		return false;
+  }
+	/**
+	 * Returns the header row index + 1 by default.
+	 * Override if data rows start lower than this.
+	 * 
+	 * @return header row index + 1
+	 */
+	public int getStartRowIndex()
+	{
+		return getHeaderRow().getRowNum() + 1;
+	}
+	/**
+	 * Returns the worksheet whose name starts with the match phrase.
+	 * User must not change names on the tabs of import worksheets
+	 * (it's ok to change the file names).
+	 * @param wb
+	 * @param toMatch
+	 * @return sheet whose name starts with match phrase
+	 */
+	public HSSFSheet getWorksheet(HSSFWorkbook wb, String toMatch)
+	{
+		
+
+		// handles one to multiple worksheets per workbook
+		// caveat: user must not change names on tabs of import worksheets
+		// -- (it's ok to change the file names)
+		int sheetCount = wb.getNumberOfSheets();
+		for (int sheetIdx = 0; sheetIdx < sheetCount; sheetIdx++)
+		{
+			HSSFSheet sheet = wb.getSheetAt(sheetIdx); // zero-based
+			// for each sheet, compare name to match phrase
+			String sheetName = sheet.getSheetName();
+			// find correct sheet and another blank row
+			// eff 2.1.7, support refactoring from SSTF to EMBARC
+				// -- preserve backwards compatibility with old imports
+			if (sheetName.startsWith(toMatch)
+					|| (toMatch.startsWith("S") && sheetName.startsWith("E")))
+			{
+				setSheetName(sheetName); 
+				return sheet;
+			}
+		}// next sheet
+		// if we fall thru, no matching sheet (unusual)
+		throw new LinxUserException(
+				"Could not find a worksheet tab named " + toMatch);
+	}
+	
+	/**
+	 * Returns the first blank row under 
+	 * the headerRow, guaranteed non-null and containing cells
+	 * out to number of columns in header row. 
+	 * Eff 2.1, called by task Edit Grab Data
+	 * to populate blank template with all sampling data for
+	 * a culture.
+	 * @return first blank row
+	 */
+	public HSSFRow getBlankRow(HSSFSheet sheet, int headerRowIdx)
+	{
+		int rowCount = 1;
+		Iterator rowItor = sheet.rowIterator();
+		while (rowItor.hasNext())
+		{
+			rowCount++;
+			// walk the file by rows, looking for a blank row
+			HSSFRow row = (HSSFRow) rowItor.next();
+			if(row.getRowNum() > headerRowIdx)
+			{
+				HSSFCell cell = row.getCell(0);
+				if(cell == null )
+				{
+					// a blank, unformatted row, so must add cells
+					int maxColCount = sheet.getRow(headerRowIdx).getLastCellNum();
+					for(int colIdx = 0; colIdx < maxColCount; colIdx++)
+					{
+						cell = row.createCell(colIdx);
+						//cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+					}// next column 
+					return row;
+				}
+				else if(WtUtils.isNullOrBlank(getValueAsString(cell)))
+				{
+					// a blank, formatted row
+					return row;
+				}
+			}
+		}// next row
+		// if we fall thru without finding a blank row, sheet is out of formatted rows
+		// -- make a new row
+		HSSFRow row = sheet.createRow(rowCount);
+		// a new row, so must add cells
+		HSSFCell cell = null;
+		int maxColCount = sheet.getRow(headerRowIdx).getLastCellNum();
+		for(int colIdx = 0; colIdx < maxColCount; colIdx++)
+		{
+			cell = row.createCell(colIdx);
+			//cell.setCellType(HSSFCell.CELL_TYPE_STRING);
+		}// next cell 
+		return row;
+
+	}
+	
+	/**
+	 * Returns true if the cell is null or
+	 * if its contents are blank or a dropdown 
+	 * placeholder such as '(Select)'.
+	 * @param cell
+	 * @return true if cell is null or has no content
+	 */
+	public boolean isNullOrBlank(HSSFCell cell)
+	{
+		if(cell == null || WtUtils.isNullOrBlankOrPlaceholder(cell.toString()))
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Returns true if column header ends with an asterisk *,
+	 * the flag that a column is required.
+	 * @param colIdx
+	 * @return true if header ends with *
+	 */
+	public boolean isHeaderRequired(int colIdx)
+	{
+		HSSFCell cell = getHeaderRow().getCell(colIdx);
+		if(getValueAsString(cell).endsWith("*"))
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Strips off * on required cells, too.
+	 * @param cellIdx
+	 * @return
+	 */
+	public String getColumnNameByCellIndex(int cellIdx)
+	{
+		String colName = getValueAsString(getHeaderRow().getCell(cellIdx));
+		if(colName.endsWith("*"))
+		{
+			colName = colName.substring(0, colName.length()-1); // cut off required flag
+		}
+		return colName;
+	}
+	
+	/**
+	 * Strips off * on required cells, too.
+	 * @param cellIdx
+	 * @return
+	 */
+	public String getColumnName(HSSFCell cell)
+	{
+		return getColumnNameByCellIndex(cell.getColumnIndex());
+	}
+	
+
+
+		public boolean isCultureID(HSSFCell cell, HSSFRow headerRow)
+		{
+			String colValue = getValueAsString(headerRow.getCell(cell.getColumnIndex()));
+			if(colValue.endsWith("Culture ID"))
+			{
+				return true;
+			}
+			return false;
+		}
+		
+		/**
+		 * Checks for null, blank, or placeholder in a column
+		 * whose value is required, throwing LinxUserException 
+		 * if not found.
+		 * @param dataRow
+		 * @param colName
+		 * @return value of cell in given column
+		 */
+		public String getRequiredProperty(HSSFRow dataRow, String colName)
+		{
+			String value = getCellValueByColName(dataRow, colName);
+			if(WtUtils.isNullOrBlankOrPlaceholder(value))
+			{
+				value = getCellValueByColName(dataRow, colName + "*");
+			}
+			if(WtUtils.isNullOrBlankOrPlaceholder(value))
+			{			
+				throw new LinxUserException("Missing required value in" 
+						+ " in column " + colName
+						+ ", row " + dataRow.getRowNum());
+			}
+			return value;
+
+		}
+}

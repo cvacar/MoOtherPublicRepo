@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- <!DOCTYPE linx SYSTEM "linx_taskdef_3_1.dtd"> -->
+
+<!-- 
+ NOTE: if both a rowset table with date[time]picker objects are used on the same page as individual
+          date[time]picker objects the first object created will set the dateFormat for all other 
+          objects of the same class.  datePicker can have a different format from dateTimePicker on
+          the page, but all like objects will share the same format.  
+          
+dateFormat:
+	datePicker and dateTimePicker don't handle date formats exactly the same.
+	e.g.
+	datePicker: 'y' = 2 digit year, 'yy' = 4 digit year
+	dateTimePicker: 'yy' = 2 digit year, 'yyyy' = 4 digit year
+	
+	See jQuery documentation for datePicker widget date format options
+	See standard JavaScript dateFormat documentation for dateTimePicker widget date format options
+ -->
+
+<linx>
+     <task name="DatePicker Test" taskVersion="1.0" pg="default" svURL="custom">
+      <client clientVersion="1.0">
+        <displayItems>
+        
+        	<displayItem itemType="Tables" widget="rowsets" />
+        	
+        	 <!-- Can use any valid 'jquery datepicker' date format-->
+        	          	
+             <displayItem itemType="DatePicker1" 
+          				label="DatePicker1" 
+          				widget="datepicker"
+          				dateFormat='mm/dd/y' />
+          				
+          	 <displayItem itemType="DatePicker2" 
+          				label="DatePicker1" 
+          				widget="datepicker"
+          				dateFormat='mm-dd-yy' />
+          	
+          	<!-- Can use any valid 'javascript' date format-->
+          				
+             <displayItem itemType="DateTimePicker1" 
+          				label="DateTimePicker1" 
+          				widget="datetimepicker"
+          				dateFormat='mm/dd/yy, h:MM:ss TT' />
+          				
+          	<displayItem itemType="DateTimePicker2" 
+          				label="DateTimePicker2" 
+          				widget="datetimepicker"
+          				dateFormat='yyyyddmm, h:MM:ss TT' /> 
+          				
+           <displayItem itemType="Save" label=" " widget="button" action="save"/>
+        </displayItems>
+      </client>
+      <server>
+        <items>
+        </items>
+      </server>
+    </task>
+</linx>

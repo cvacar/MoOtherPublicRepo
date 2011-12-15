@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/limsdev/!svn/ver/477/SGI/EMRE2/web/WEB-INF_2_2_1/lib
+END
+commons-fileupload-1.1.jar
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/limsdev/!svn/ver/477/SGI/EMRE2/web/WEB-INF_2_2_1/lib/commons-fileupload-1.1.jar
+END
+jstl.jar
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/limsdev/!svn/ver/477/SGI/EMRE2/web/WEB-INF_2_2_1/lib/jstl.jar
+END
+poi-3.7.jar
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/limsdev/!svn/ver/477/SGI/EMRE2/web/WEB-INF_2_2_1/lib/poi-3.7.jar
+END
+commons-io-1.2.jar
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/limsdev/!svn/ver/477/SGI/EMRE2/web/WEB-INF_2_2_1/lib/commons-io-1.2.jar
+END
+standard.jar
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/limsdev/!svn/ver/477/SGI/EMRE2/web/WEB-INF_2_2_1/lib/standard.jar
+END
+sqljdbc.jar
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/limsdev/!svn/ver/477/SGI/EMRE2/web/WEB-INF_2_2_1/lib/sqljdbc.jar
+END
+Linx_3_6_3.jar
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/limsdev/!svn/ver/477/SGI/EMRE2/web/WEB-INF_2_2_1/lib/Linx_3_6_3.jar
+END

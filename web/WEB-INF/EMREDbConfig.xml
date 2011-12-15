@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE linx SYSTEM "../config/linx_3_1_dbConfig.dtd">
+
+<linx>
+        <config>
+         <!--
+          **
+          ** ** Database Connections **
+          **
+          ** Configure the size and behavior of database connection pools.
+          ** Although driver is configured here for information, it can't be changed without recompiling
+          ** the project because of driver-specific db helpers and APIs. All changes here require
+          ** restarting the server to apply.
+          **
+          -->
+          
+          <!--  Note: Modified for Linx v3.1+
+          
+          **    The <database> node from previous versions has been deprecated to
+          **    specify whether we're using a J2EE connection pool or Linx connection pool
+          **    
+          **    If using J2EE-compliant connection pool, fill out <jdbcConnPool> node.
+          **    If using Linx connection pool, fill out <linxConnPool> node.
+          **    	
+          **    If jdbcConnPool node exists in this file, it will be used in preference
+          **    to any linxConnPool setup.
+          
+          -->
+
+               <jdbcConnPool>
+				<!-- Specify JNDI name of connection pool for connectionPoolType -->
+
+          		<!-- To test under JBoss add "java:/" in front of the JNDI name -->
+          		<!-- To test under Glassfish make sure connectionPoolRef does NOT have "java:/" -->
+		          		    
+         		<!-- SQLEMRE01 (at SGI) Test db (over VPN only) -->
+          		<!--<connectionPoolRef>jdbc/EMRE2Pool</connectionPoolRef>-->
+         		<!-- WTSERVER2 Test db -->
+          		<!--connectionPoolRef>jdbc/EMREPool</connectionPoolRef-->
+          		<connectionPoolRef>jdbc/EMRETest_2_2_Pool</connectionPoolRef>
+         		<!-- HURIN:Access migration test db -->
+         		<!-- <connectionPoolRef>jdbc/EMREPool</connectionPoolRef>-->
+                 <helperClass>com.sgsi.emre.db.EMREDbHelper</helperClass>        		
+          		<lookupConnectionSpid>false</lookupConnectionSpid>
+          	</jdbcConnPool>
+
+
+
+        </config>
+</linx>

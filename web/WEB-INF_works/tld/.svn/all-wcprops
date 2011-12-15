@@ -1,0 +1,107 @@
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/limsdev/!svn/ver/477/SGI/EMRE2/web/WEB-INF_2_2_1/tld
+END
+sql.tld
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/limsdev/!svn/ver/477/SGI/EMRE2/web/WEB-INF_2_2_1/tld/sql.tld
+END
+sql-1_0-rt.tld
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/limsdev/!svn/ver/477/SGI/EMRE2/web/WEB-INF_2_2_1/tld/sql-1_0-rt.tld
+END
+c-1_0.tld
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/limsdev/!svn/ver/477/SGI/EMRE2/web/WEB-INF_2_2_1/tld/c-1_0.tld
+END
+permittedTaglibs.tld
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/limsdev/!svn/ver/477/SGI/EMRE2/web/WEB-INF_2_2_1/tld/permittedTaglibs.tld
+END
+fn.tld
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/limsdev/!svn/ver/477/SGI/EMRE2/web/WEB-INF_2_2_1/tld/fn.tld
+END
+fmt-1_0.tld
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/limsdev/!svn/ver/477/SGI/EMRE2/web/WEB-INF_2_2_1/tld/fmt-1_0.tld
+END
+taglibs-session.tld
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/limsdev/!svn/ver/477/SGI/EMRE2/web/WEB-INF_2_2_1/tld/taglibs-session.tld
+END
+scriptfree.tld
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/limsdev/!svn/ver/477/SGI/EMRE2/web/WEB-INF_2_2_1/tld/scriptfree.tld
+END
+x-1_0-rt.tld
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/limsdev/!svn/ver/477/SGI/EMRE2/web/WEB-INF_2_2_1/tld/x-1_0-rt.tld
+END
+x.tld
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/limsdev/!svn/ver/477/SGI/EMRE2/web/WEB-INF_2_2_1/tld/x.tld
+END
+sql-1_0.tld
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/limsdev/!svn/ver/477/SGI/EMRE2/web/WEB-INF_2_2_1/tld/sql-1_0.tld
+END
+c.tld
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/limsdev/!svn/ver/477/SGI/EMRE2/web/WEB-INF_2_2_1/tld/c.tld
+END
+c-1_0-rt.tld
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/limsdev/!svn/ver/477/SGI/EMRE2/web/WEB-INF_2_2_1/tld/c-1_0-rt.tld
+END
+x-1_0.tld
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/limsdev/!svn/ver/477/SGI/EMRE2/web/WEB-INF_2_2_1/tld/x-1_0.tld
+END
+fmt.tld
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/limsdev/!svn/ver/477/SGI/EMRE2/web/WEB-INF_2_2_1/tld/fmt.tld
+END
+fmt-1_0-rt.tld
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/limsdev/!svn/ver/477/SGI/EMRE2/web/WEB-INF_2_2_1/tld/fmt-1_0-rt.tld
+END
+ilmnButtonTag.tld
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/limsdev/!svn/ver/477/SGI/EMRE2/web/WEB-INF_2_2_1/tld/ilmnButtonTag.tld
+END

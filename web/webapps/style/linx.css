@@ -1,0 +1,189 @@
+body 				{ background-color: #ffffff; color: #000000; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 10pt; margin-left: 4px; margin-right: 4px; margin-top: 6px; margin-bottom: 6px; }
+div.scrolled {
+    height: 500px;
+    width:500px;
+    overflow-x:auto;
+    overflow-y: scroll;
+}
+div.workflow_scrolled {
+    height: 100%;
+    width:180px;
+    overflow-x:scroll;
+    overflow-y: auto;
+}
+div.scroll {
+    height: 500px;
+	width:100%;
+	overflow-x:auto;
+	overflow-y: scroll;
+	}
+	
+div.largescroll {
+    height: 500px;
+	width:100%;
+	overflow-x:auto;
+	overflow-y: scroll;
+	}
+	
+div.smallscroll {
+    height: 150px;
+	width:100%;
+	overflow-x:auto;
+	overflow-y: scroll;
+	}
+div.mediumscroll {
+    height: 260px;
+	width:100%;
+	overflow-x:auto;
+	overflow-y: scroll;
+	}
+th.corner {
+   background: #c0c0c0;
+   margin: 0px;
+   width: 2px;
+}
+td.rowHeader {
+	background: #3A80AE;
+	margin: 0px;
+	font-size: 10pt;
+	color: #FFFFFF;
+	width: 5px;
+ }
+ td{
+   color: black;
+   font-size: 9pt;
+   font-style: normal;
+   text-align: left; 
+ }
+ td.tableCell{
+   color: black;
+   font-size: 9pt;
+   font-style: normal;
+   text-align: left; 
+   padding: 3px;
+ }
+   td.taskTitleCell{
+   color: black;
+   font-size: 14pt;
+   font-style: normal;
+   font-weight: bolder;
+   text-align: left; 
+ }
+  td.message{
+   color: black;
+   font-size: 10pt;
+   font-style: normal;
+   text-align: left; 
+ }
+  td.limsmessage{
+   color: blue;
+   font-size: 10pt;
+   font-style: normal;
+   text-align: left; 
+ }
+td.errorMessage {
+   color: #ff0000;
+   color: darkred;
+   font-size: 10pt;
+   font-style: italic;
+   text-align: left;
+} 
+td.taskPageCell {
+   align: left;
+   vertical-align: top;
+}
+td.workflowMenuCell {
+	border: 1px solid gray;
+   text-align: left;
+   vertical-align: top;
+}
+td.collapseCell {
+   text-align: left;
+   vertical-align: top;
+}
+tr.rowsetNavControls {
+   colspan: 3;
+}
+table.rowsetTable {
+   border: 2px solid grey;
+   colspan: 3;
+   cellpadding: 3px;
+   cellspacing: 3px;
+ }
+td.rowsetCell {
+	border: 1px solid gray;
+	padding: 3px;
+   nowrap: true;
+}
+td.rowsetCellSelected {
+	border: 1px solid gray;
+   padding: 3px;
+   background-color:#FFFACD;
+}
+td.rowsetCellNumber {
+	border: 1px solid gray;
+	padding: 3px;
+   nowrap: true;
+   text-align: right;
+}
+td.taskGroupSpacer {
+height: 10 px;
+}
+td.loginSpacer {
+height: 25 px;
+}
+td.itemLabel {
+width:  220px;
+}
+td.itemLabelIndented {
+padding: 5px;
+}
+td.rowsetName {
+	 color: black;
+   font-size: 10pt;
+   font-style: italic;
+   font-weight: bolder;
+   text-align: left; 
+   padding: 3px;
+}
+td.navRowInput {
+	 size: 10px;	
+}
+table.masterTable {
+   width: 800px;
+   border: 0;
+   cellpadding: 0;
+   cellspacing: 0;
+}
+tr.rowsetTableSelectedWithAction {
+	border: 1px solid silver;
+
+}
+tr.mainContentTableRow {
+    border: 2px;
+ 	 width:  800px;
+	 height: 520px;
+	 vertical-align: top;
+	 text-align: left;
+}
+tr.breadcrumbRow {
+   colspan: 2;
+   height: 25px;
+   text-align: center;
+}
+tr.headingRow {
+   colspan: 2;
+   height: 15px;
+}
+tr.spacerRow {
+   height: 15px;
+}
+ th.column {
+ 	padding:3px;
+   backgound-color: #c0c0c0;
+   font-size: 10pt;
+}
+textarea.readOnlyTextFile {
+   readonly: true;
+   cols: 90; 
+} 

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE linx SYSTEM "linx_taskdef_3_1.dtd">
+<!-- Revision History
+	06/17/10	TJR		v3.5.0	Modified GetTaskHistory SQL call to upcase task name to "Task"
+										Modified GetItemsOnQueue SQL call to return task name as "Queue"
+ -->
+
+<linx>
+     <task name="Get History by User or Machine" taskVersion="1.0" pg="default" svURL="custom">
+      <client clientVersion="1.0">
+        <displayItems>
+           <displayItem itemType="By_Login"
+                        label="Login"
+                        widget="dropdown"
+                        action="Go">
+           	<sql>select linxUser as Logins from LINXUSER order by linxUser</sql>
+          </displayItem>
+           <displayItem itemType="By_Machine"
+                        label="Machine"
+                        widget="dropdown"
+                        action="Go">
+           	<sql>select distinct device as Machines from TASKHISTORY where device is not null order by device</sql>
+          </displayItem>
+           <displayItem itemType="startDate" label="Start" widget="datepicker" uppercase="true" minLength="20" maxLength="50" dateFormat="mm/dd/yy" />
+		  <displayItem itemType="endDate" label="End" widget="datepicker" uppercase="true" minLength="20" maxLength="50" dateFormat="mm/dd/yy" />
+           <displayItem itemType="Report1" label="History" widget="rowset_sort" visible="false"/>
+        </displayItems>
+      </client>
+      <server>
+        <items>
+        </items>
+      </server>
+    </task>
+         <task name="Get Item History" 
+           taskVersion="1.0" 
+           pg="PgTask_Get_Item_History.jsp" 
+           svURL="custom">
+      <client clientVersion="1.0">
+        <displayItems>
+           <displayItem itemType="ItemID" 
+                        label="Item ID" 
+                        widget="textinput"
+                        uppercase="true"/>
+           <displayItem itemType="ItemType"
+                        label="Item Type"
+                        widget="dropdown">
+           	<sql>exec spLinx_getAppValueTypeByParentType 'ITEMTYPE'</sql>
+          </displayItem>
+          <displayItem itemType="GetHistory" label=" " widget="button" action="Get History"/>
+          <displayItem itemType="Tables"  widget="rowsets_sort" visible="false"/>
+        </displayItems>
+      </client>
+      <server>
+        <items>
+        </items>
+      </server>
+    </task>
+         <task name="Get Queue Status" taskVersion="1.0" pg="default" svURL="custom">
+      <client clientVersion="1.0">
+        <displayItems>
+           <displayItem itemType="Item" 
+                        label=" " 
+                        widget="inputtable" 
+                        columnHeader="Item"
+                        rowCount="8"
+                        uppercase="true" 
+                        minLength="20" 
+                        maxLength="50"/>
+            <displayItem itemType="GetQueueTable" widget="button" action="Go"/>
+            <displayItem itemType="Queues" label="Queue Status" widget="rowset_sort" visible="false"/>
+        </displayItems>
+      </client>
+      <server>
+        <items>
+        </items>
+      </server>
+    </task>
+         <task name="Get Task History" taskVersion="1.0" pg="default" svURL="custom">
+      <client clientVersion="1.0">
+        <displayItems>
+           <displayItem itemType="latestRuns" label="Latest Runs" widget="href" visible="true"/>
+           <displayItem itemType="Task"
+                           label="Task"
+                           widget="dropdown"
+                           action="Go">
+           	<sql>select task as Task from TASK order by task</sql>
+          </displayItem>
+          <displayItem itemType="startDate" label="Start" widget="datepicker" uppercase="true" minLength="20" maxLength="50" dateFormat="mm/dd/yy" />
+		  <displayItem itemType="endDate" label="End" widget="datepicker" uppercase="true" minLength="20" maxLength="50" dateFormat="mm/dd/yy" />
+		  <displayItem itemType="Report1" label="History" widget="rowset_sort" visible="false" />
+        </displayItems>
+      </client>
+      <server>
+        <items>
+        </items>
+      </server>
+    </task>
+         <task name="Get Tran Report" taskVersion="1.0" pg="default" svURL="custom">
+      <client clientVersion="1.0">
+        <displayItems>
+           <displayItem itemType="tranID" label="Tran ID (leave blank for last transaction)" widget="textinput" minLength="20" maxLength="50"/>
+          <displayItem itemType="GetTranReport" label="Get Tran Report" widget="button" action="Get Report"/>
+          <displayItem itemType="Reports"  widget="rowsets_sort" visible="false"/>
+        </displayItems>
+      </client>
+      <server>
+        <items>
+        </items>
+      </server>
+    </task>
+         <task name="List Item Uses" taskVersion="1.0" pg="default" svURL="custom">
+      <client clientVersion="1.0">
+        <displayItems>
+           <displayItem itemType="Item" 
+                        label="Item" 
+                        widget="inputtable" 
+                        columnHeader="Item"
+                        rowCount="8"
+                        uppercase="true" 
+                        minLength="20" 
+                        maxLength="50"/>
+            <displayItem itemType="Find" widget="button" action="Go"/>
+            <displayItem itemType="Tables"  widget="rowsets_sort" visible="false"/>
+        </displayItems>
+      </client>
+      <server>
+        <items>
+        </items>
+      </server>
+    </task>
+         <task name="List Items on Queue" taskVersion="1.0" pg="default" svURL="custom">
+      <client clientVersion="1.0">
+        <displayItems>
+           <displayItem itemType="Queue"
+                           label="Queue"
+                           widget="dropdown"
+                           action="Go">
+           	<sql>select task from TASK order by task</sql>
+          </displayItem>
+            <displayItem itemType="Queues" widget="rowset_sort" visible="false"/>
+        </displayItems>
+      </client>
+      <server>
+        <items>
+        </items>
+      </server>
+    </task>
+    
+</linx>

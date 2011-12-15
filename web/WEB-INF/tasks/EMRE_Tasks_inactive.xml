@@ -1,0 +1,1227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE linx SYSTEM "linx_taskdef_3_1.dtd">
+<linx>
+	<task name="Environmental Subsurface Sample Logging" taskVersion="1.0" pg="default"
+		svURL="Task_Environmental_Plant_Sample_Logging" taskClass="com.sgsi.emre.task.LogEnvironmentalSample">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="EnvironmentalSample" label="New LIMS ID"
+					widget="textinput" />
+				<displayItem itemType="PhysicalForm" label="Physical Form"
+					widget="dropdown"  rowCount="2">
+					<values>
+						<value selected="true">(Select)</value>
+						<value>Liquid</value>
+						<value>Solid</value>
+					</values>
+				</displayItem>
+				<displayItem itemType="CollectionDate"
+					label="Collection Date (mm-dd-yyyy)" widget="datepicker"
+					dateFormat="mm-dd-yy" persist="true" />
+				<displayItem itemType="NotebookRef"
+					label="Page Ref [notebook-pg]" widget="textinput" persist="true" />
+				<displayItem itemType="InternalID" label="Internal ID (Optional)"
+					widget="textinput" />
+				<displayItem itemType="FieldName" label="Field Name (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Description" label="Description (Optional)"
+					widget="textarea" />
+				<displayItem itemType="Volume_liters"
+					label="Volume (liters) (Optional)" widget="textinput" />
+				<displayItem itemType="Weight_grams"
+					label="Weight (grams) (Optional)" widget="textinput" />
+				<displayItem itemType="InSituTemp_C"
+					label="In Situ Temperature (degrees C) (Optional)" widget="textinput" />
+				<displayItem itemType="Temperature_C"
+					label="Temperature (degrees C) (Optional)" widget="textinput" />
+				<displayItem itemType="pH" label="pH"
+					widget="textinput" />
+				<displayItem itemType="DissolvedOxygen_mg_per_L"
+					label="Dissolved Oxygen (mg/L) (Optional)" widget="textinput" />
+				<displayItem itemType="Conductivity_mS_per_cm"
+					label="Conductivity (mS/cm) (Optional)" widget="textinput" />
+				<displayItem itemType="Depth_m" label="Sample Depth (m) (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Salinity_ppt"
+					label="Salinity (ppt) (Optional)" widget="textinput" />
+				<displayItem itemType="WaterColumnDepth_m"
+					label="Water Column Depth (m) (Optional)" widget="textinput"/>
+				<displayItem itemType="DO_pct"
+					label="DO (%) (Optional)" widget="textinput"/>
+				<displayItem itemType="TDS_ppt"
+					label="TDS (ppt) (Optional)" widget="textinput"/>
+				<displayItem itemType="Latitude" label="Latitude (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Longitude" label="Longitude (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Altitude_m" label="Altitude (m) (Optional)"
+					widget="textinput" />
+				<displayItem itemType="SiteDescription"
+					label="Site Description (Optional)" widget="textarea" />
+				<displayItem itemType="StorageMethod"
+					label="Storage Method (Optional)" widget="textinput" />
+				<displayItem itemType="ClosestTown" label="Closest Town (Optional)"
+					widget="textinput" />
+				<displayItem itemType="City" label="City (Optional)"
+					widget="textinput" />
+				<displayItem itemType="County" label="County (Optional)"
+					widget="textinput" />
+				<displayItem itemType="State" label="State (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Country" label="Country (Optional)"
+					widget="textinput" />
+				<displayItem itemType="ArchiveLocation"
+					label="Archive Location (Optional)" widget="textinput" />
+				<displayItem itemType="Rowsets"
+					label=" " widget="rowsets" />
+				<displayItem itemType="Comment" label="Comment (Optional)"
+					widget="textarea" />
+				<displayItem itemType="PrintLabel"
+					label=" " widget="button"
+					action="Print Label" />
+				<displayItem itemType="Save" label=" "
+					widget="savebutton" />
+				<displayItem itemType="ExportButton" label=" "
+					widget="button" action="Export Samples" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="EnvironmentalSample" type="container" new="optional"
+					mask="SI1-SGI-E-[0-9]{6}">
+					<queueTo>Primary Enrichment</queueTo>
+				</item>
+				<item itemType="FieldName" type="string" optional="true">
+				</item>
+				<item itemType="CollectionDate" type="string">
+				</item>
+				<item itemType="NotebookRef" type="string" mask="[0-9]{4}-[0-9]{3}">
+				</item>
+				<item itemType="PhysicalForm" type="string">
+				</item>
+				<item itemType="Location" type="string" optional="true">
+				</item>
+				<item itemType="SampleImportFile" type="file"
+					optional="true" new="oncePerTran">
+					<addAsAppFile appliesTo="EnvironmentalSample"
+						fileType="SampleImportFile" copyFileTo="lookup" />
+					<addAsData appliesTo="EnvironmentalSample"
+						dataType="SampleImportFile" />
+				</item>
+			</items>
+		</server>
+	</task>
+	<task name="Update Environmental Subsurface Sample" taskVersion="1.0" pg="default"
+		svURL="Task_Update_Environmental_Sample" taskClass="com.sgsi.emre.task.UpdateSubsurfaceSample">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Placeholder1" label=" "
+					widget="label">
+					<value>
+						Please note that this task overwrites previously saved values.
+					</value>
+				</displayItem>
+				<displayItem itemType="EnvironmentalSample" label="LIMS ID"
+					widget="textinput" />
+				<displayItem itemType="FindData" label=" "
+					widget="button" action="Find Sample Data" />
+				<displayItem itemType="InternalID" label="Internal ID (Optional)"
+					widget="textinput" />
+				<displayItem itemType="FieldName" label="Field Name (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Description" label="Description (Optional)"
+					widget="textarea" />
+				<displayItem itemType="Volume_liters"
+					label="Volume (liters) (Optional)" widget="textinput" />
+				<displayItem itemType="Weight_grams"
+					label="Weight (grams) (Optional)" widget="textinput" />
+				<displayItem itemType="InSituTemp_C"
+					label="In Situ Temperature (degrees C) (Optional)" widget="textinput" />
+				<displayItem itemType="Temperature_C"
+					label="Temperature (degrees C) (Optional)" widget="textinput" />
+				<displayItem itemType="pH" label="pH"
+					widget="textinput" />
+				<displayItem itemType="DissolvedOxygen_mg_per_L"
+					label="Dissolved Oxygen (mg/L) (Optional)" widget="textinput" />
+				<displayItem itemType="Conductivity_mS_per_cm"
+					label="Conductivity (mS/cm) (Optional)" widget="textinput" />
+				<displayItem itemType="Depth_m" label="Sample Depth (m) (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Salinity_ppt"
+					label="Salinity (ppt) (Optional)" widget="textinput" />
+				<displayItem itemType="Latitude" label="Latitude (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Longitude" label="Longitude (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Altitude_m" label="Altitude (m) (Optional)"
+					widget="textinput" />
+				<displayItem itemType="SiteDescription"
+					label="Site Description (Optional)" widget="textarea" />
+				<displayItem itemType="StorageMethod"
+					label="Storage Method (Optional)" widget="textinput" />
+				<displayItem itemType="ClosestTown" label="Closest Town (Optional)"
+					widget="textinput" />
+				<displayItem itemType="City" label="City (Optional)"
+					widget="textinput" />
+				<displayItem itemType="County" label="County (Optional)"
+					widget="textinput" />
+				<displayItem itemType="State" label="State (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Country" label="Country (Optional)"
+					widget="textinput" />
+				<displayItem itemType="ArchiveLocation"
+					label="Archive Location (Optional)" widget="textinput" />
+				<displayItem itemType="Comment" label="Comment (Optional)"
+					widget="textarea" />
+				<displayItem itemType="Save" label=" "
+					widget="savebutton" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="EnvironmentalSample" type="container" 
+					mask="SI1-SGI-E-[0-9]{6}">
+					<allowQueue>Any</allowQueue>
+				</item>
+				<item itemType="InternalID" type="string" optional="true" />
+				<item itemType="FieldName" type="string" optional="true"/>
+				<item itemType="Description" type="string" optional="true" />
+				<item itemType="Volume_liters" type="string" optional="true" />
+				<item itemType="Weight_grams" type="string" optional="true" />
+				<item itemType="InSituTemp_C" type="string" optional="true" />
+				<item itemType="Temperature_C" type="string" optional="true"/>
+				<item itemType="pH" type="string" optional="true" />
+				<item itemType="DissolvedOxygen_mg_per_L" type="string" optional="true" />
+				<item itemType="Conductivity_mS_per_cm" type="string" optional="true"/>
+				<item itemType="Depth_m" type="string" optional="true" />
+				<item itemType="Salinity_ppt" type="string" optional="true" />
+				<item itemType="Latitude" type="string" optional="true" />
+				<item itemType="Longitude" type="string" optional="true"/>
+				<item itemType="Altitude_m" type="string" optional="true" />
+				<item itemType="SiteDescription" type="string" optional="true" />
+				<item itemType="StorageMethod" type="string" optional="true" />
+				<item itemType="ClosestTown" type="string" optional="true"/>
+				<item itemType="City" type="string" optional="true"/>
+				<item itemType="County" type="string" optional="true" />
+				<item itemType="State" type="string" optional="true"/>
+				<item itemType="Country" type="string" optional="true"/>
+				<item itemType="ArchiveLocation" type="string" optional="true" />
+				<item itemType="Comment" type="string" optional="true" />
+			</items>
+		</server>
+	</task>
+	<task name="Environmental Plant Sample Logging" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="com.sgsi.emre.task.LogEnvironmentalSample">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="EnvironmentalSample" label="New LIMS ID"
+					widget="textinput" />
+				<displayItem itemType="PhysicalForm" label="Physical Form"
+					widget="dropdown"  rowCount="2">
+					<values>
+						<value selected="true">(Select)</value>
+						<value>Liquid</value>
+						<value>Solid</value>
+					</values>
+				</displayItem>
+				<displayItem itemType="CollectionDate"
+					label="Collection Date (mm-dd-yyyy)" widget="datepicker"
+					dateFormat="mm-dd-yy" persist="true" />
+				<displayItem itemType="NotebookRef"
+					label="Page Ref [notebook-pg]" widget="textinput" persist="true" />
+				<displayItem itemType="InternalID" label="Internal ID (Optional)"
+					widget="textinput" />
+				<displayItem itemType="FieldName" label="Field Name (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Description" label="Description (Optional)"
+					widget="textarea" />
+				<displayItem itemType="Cultivar"
+					label="Cultivar or type (Optional)" widget="textinput" />
+				<displayItem itemType="Age" label="Age (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Weight_grams"
+					label="Weight (grams) (Optional)" widget="textinput" />
+				<displayItem itemType="Latitude" label="Latitude (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Longitude" label="Longitude (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Altitude_m" label="Altitude (m) (Optional)"
+					widget="textinput" />
+				<displayItem itemType="SiteDescription"
+					label="Site Description (Optional)" widget="textarea" />
+				<displayItem itemType="ClosestTown" label="Closest Town (Optional)"
+					widget="textinput" />
+				<displayItem itemType="City" label="City (Optional)"
+					widget="textinput" />
+				<displayItem itemType="County" label="County (Optional)"
+					widget="textinput" />
+				<displayItem itemType="State" label="State (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Country" label="Country (Optional)"
+					widget="textinput" />
+				<displayItem itemType="StorageMethod"
+					label="Storage Method (Optional)" widget="dropdown" rowCount="2">
+					<values>
+						<value selected="true">(Select)</value>
+						<value>Room Temp deg C</value>
+						<value>Wet Ice deg C</value>
+						<value>Dry Ice</value>
+						<value>Liquid N2</value>
+					</values>
+				</displayItem>
+				<displayItem itemType="ArchiveLocation"
+					label="Archive Location (Optional)" widget="textinput" />
+				<displayItem itemType="Location"
+					label="Freezer:Box:Position" widget="rowsets" />
+				<displayItem itemType="Comment" label="Comment (Optional)"
+					widget="textarea" />
+				<displayItem itemType="PrintLabel"
+					label=" " widget="button"
+					action="Print Label" />
+				<displayItem itemType="Save" label=" "
+					widget="savebutton" />
+				<displayItem itemType="ExportButton" label=" "
+					widget="button" action="Export Samples" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="EnvironmentalSample" type="container" new="optional"
+					mask="SI1-SGI-E-[0-9]{6}">
+					<queueTo>Primary Enrichment</queueTo>
+				</item>
+				<item itemType="CollectionDate" type="string">
+				</item>
+				<item itemType="NotebookRef" type="string" mask="[0-9]{4}-[0-9]{3}">
+				</item>
+				<item itemType="PhysicalForm" type="string">
+				</item>
+				<item itemType="Location" type="string">
+				</item>
+				<item itemType="SampleImportFile" type="file"
+					optional="true" new="oncePerTran">
+					<addAsAppFile appliesTo="EnvironmentalSample"
+						fileType="SampleImportFile" copyFileTo="lookup" />
+					<addAsData appliesTo="EnvironmentalSample"
+						dataType="SampleImportFile" />
+				</item>
+			</items>
+		</server>
+	</task>
+	<task name="Update Environmental Plant Sample" taskVersion="1.0" pg="default"
+		svURL="Task_Update_Environmental_Sample" taskClass="com.sgsi.emre.task.UpdatePlantSample">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Placeholder1" label=" "
+					widget="label">
+					<value>
+						Please note that this task overwrites previously saved values.
+					</value>
+				</displayItem>
+				<displayItem itemType="EnvironmentalSample" label="LIMS ID"
+					widget="textinput" />
+				<displayItem itemType="FindData" label=" "
+					widget="button" action="Find Sample Data" />
+				<displayItem itemType="InternalID" label="Internal ID (Optional)"
+					widget="textinput" />
+				<displayItem itemType="FieldName" label="Field Name (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Description" label="Description (Optional)"
+					widget="textarea" />
+				<displayItem itemType="Cultivar"
+					label="Cultivar or type (Optional)" widget="textinput" />
+				<displayItem itemType="Age" label="Age (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Weight_grams"
+					label="Weight (grams) (Optional)" widget="textinput" />
+				<displayItem itemType="Latitude" label="Latitude (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Longitude" label="Longitude (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Altitude_m" label="Altitude (m) (Optional)"
+					widget="textinput" />
+				<displayItem itemType="SiteDescription"
+					label="Site Description (Optional)" widget="textarea" />
+				<displayItem itemType="ClosestTown" label="Closest Town (Optional)"
+					widget="textinput" />
+				<displayItem itemType="City" label="City (Optional)"
+					widget="textinput" />
+				<displayItem itemType="County" label="County (Optional)"
+					widget="textinput" />
+				<displayItem itemType="State" label="State (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Country" label="Country (Optional)"
+					widget="textinput" />
+				<displayItem itemType="StorageMethod"
+					label="Storage Method (Optional)" widget="dropdown" rowCount="2">
+					<values>
+						<value selected="true">(Select)</value>
+						<value>Room Temp deg C</value>
+						<value>Wet Ice deg C</value>
+						<value>Dry Ice</value>
+						<value>Liquid N2</value>
+					</values>
+				</displayItem>
+				<displayItem itemType="ArchiveLocation"
+					label="Archive Location (Optional)" widget="textinput" />
+				<displayItem itemType="Comment" label="Comment (Optional)"
+					widget="textarea" />
+				<displayItem itemType="Save" label=" "
+					widget="savebutton" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="EnvironmentalSample" type="container" 
+					mask="SI1-SGI-E-[0-9]{6}">
+					<allowQueue>Any</allowQueue>
+				</item>
+				<item itemType="EnvironmentalSample" type="string" optional="true"/>
+				<item itemType="InternalID" type="string" optional="true" />
+				<item itemType="FieldName" type="string" optional="true" />
+				<item itemType="Description" type="string" optional="true"/>
+				<item itemType="Cultivar" type="string" optional="true"/>
+				<item itemType="Age" type="string" optional="true" />
+				<item itemType="Weight_grams" type="string" optional="true"/>
+				<item itemType="Latitude" type="string" optional="true"/>
+				<item itemType="Longitude" type="string" optional="true"/>
+				<item itemType="Altitude_m" type="string" optional="true"/>
+				<item itemType="SiteDescription" type="string" optional="true" />
+				<item itemType="ClosestTown" type="string" optional="true" />
+				<item itemType="City" type="string" optional="true" />
+				<item itemType="County" type="string" optional="true"/>
+				<item itemType="State" type="string" optional="true"/>
+				<item itemType="Country" type="string" optional="true" />
+				<item itemType="StorageMethod" type="string" optional="true"/>
+				<item itemType="ArchiveLocation" type="string" optional="true" />
+			</items>
+		</server>
+	</task>
+	<task name="Environmental Composite Sample Logging" taskVersion="1.0" pg="default"
+		svURL="Task_Environmental_Plant_Sample_Logging" taskClass="com.sgsi.emre.task.LogEnvironmentalSample">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="EnvironmentalSample" label="New LIMS ID"
+					widget="textinput" />
+				<displayItem itemType="PhysicalForm" label="Physical Form"
+					widget="dropdown"  rowCount="2">
+					<values>
+						<value selected="true">(Select)</value>
+						<value>Liquid</value>
+						<value>Solid</value>
+					</values>
+				</displayItem>
+				<displayItem itemType="CollectionDate"
+					label="Collection Date (mm-dd-yyyy)" widget="datepicker"
+					dateFormat="mm-dd-yy" persist="true" />
+				<displayItem itemType="NotebookRef"
+					label="Page Ref [notebook-pg]" widget="textinput" persist="true" />
+				<displayItem itemType="InternalID" label="Internal ID (Optional)"
+					widget="textinput" />
+				<displayItem itemType="FieldName" label="Field Name (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Description" label="Description (Optional)"
+					widget="textarea" />
+				<displayItem itemType="Volume_liters"
+					label="Volume (liters) (Optional)" widget="textinput" />
+				<displayItem itemType="Weight_grams"
+					label="Weight (grams) (Optional)" widget="textinput" />
+				<displayItem itemType="InSituTemp_C"
+					label="In Situ Temperature (degrees C) (Optional)" widget="textinput" />
+				<displayItem itemType="Temperature_C"
+					label="Temperature (degrees C) (Optional)" widget="textinput" />
+				<displayItem itemType="pH" label="pH (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Depth_m" label="Sample Depth (m) (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Latitude" label="Latitude (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Longitude" label="Longitude (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Altitude_m"
+					label="Altitude (m) (negative ok) (Optional)" widget="textinput" />
+				<displayItem itemType="SiteDescription"
+					label="Site Description (Optional)" widget="textarea" />
+				<displayItem itemType="StorageMethod"
+					label="Storage Method (Optional)" widget="textinput" />
+				<displayItem itemType="ClosestTown" label="Closest Town (Optional)"
+					widget="textinput" />
+				<displayItem itemType="City" label="City (Optional)"
+					widget="textinput" />
+				<displayItem itemType="County" label="County (Optional)"
+					widget="textinput" />
+				<displayItem itemType="State" label="State (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Country" label="Country (Optional)"
+					widget="textinput" />
+				<displayItem itemType="ArchiveLocation"
+					label="Archive Location (Optional)" widget="textinput" />
+				<displayItem itemType="Location"
+					label="Freezer:Box:Position" widget="rowsets" />
+				<displayItem itemType="Comment" label="Comment (Optional)"
+					widget="textarea" />
+				<displayItem itemType="PrintLabel"
+					label=" " widget="button"
+					action="Print Label" />
+				<displayItem itemType="Save" label=" "
+					widget="savebutton" />
+				<displayItem itemType="ExportButton" label=" "
+					widget="button" action="Export Samples" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="EnvironmentalSample" type="container" new="optional"
+					mask="SI1-SGI-E-[0-9]{6}">
+					<queueTo>Primary Enrichment</queueTo>
+				</item>
+				<item itemType="CollectionDate" type="string">
+				</item>
+				<item itemType="NotebookRef" type="string" mask="[0-9]{4}-[0-9]{3}">
+				</item>
+				<item itemType="PhysicalForm" type="string">
+				</item>
+				<item itemType="Location" type="string">
+				</item>
+				<item itemType="SampleImportFile" type="file"
+					optional="true" new="oncePerTran">
+					<addAsAppFile appliesTo="EnvironmentalSample"
+						fileType="SampleImportFile" copyFileTo="lookup" />
+					<addAsData appliesTo="EnvironmentalSample"
+						dataType="SampleImportFile" />
+				</item>
+			</items>
+		</server>
+	</task>
+	<task name="Update Environmental Composite Sample" taskVersion="1.0" pg="default"
+		svURL="Task_Update_Environmental_Sample" taskClass="com.sgsi.emre.task.UpdateCompositeSample">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Placeholder1" label=" "
+					widget="label">
+					<value>
+						Please note that this task overwrites previously saved values.
+					</value>
+				</displayItem>
+				<displayItem itemType="EnvironmentalSample" label="LIMS ID"
+					widget="textinput" />
+				<displayItem itemType="FindData" label=" "
+					widget="button" action="Find Sample Data" />
+				<displayItem itemType="InternalID" label="Internal ID (Optional)"
+					widget="textinput" />
+				<displayItem itemType="FieldName" label="Field Name (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Description" label="Description (Optional)"
+					widget="textarea" />
+				<displayItem itemType="Volume_liters"
+					label="Volume (liters) (Optional)" widget="textinput" />
+				<displayItem itemType="Weight_grams"
+					label="Weight (grams) (Optional)" widget="textinput" />
+				<displayItem itemType="InSituTemp_C"
+					label="In Situ Temperature (degrees C) (Optional)" widget="textinput" />
+				<displayItem itemType="Temperature_C"
+					label="Temperature (degrees C) (Optional)" widget="textinput" />
+				<displayItem itemType="pH" label="pH (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Depth_m" label="Sample Depth (m) (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Latitude" label="Latitude (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Longitude" label="Longitude (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Altitude_m"
+					label="Altitude (m) (negative ok) (Optional)" widget="textinput" />
+				<displayItem itemType="SiteDescription"
+					label="Site Description (Optional)" widget="textarea" />
+				<displayItem itemType="StorageMethod"
+					label="Storage Method (Optional)" widget="textinput" />
+				<displayItem itemType="ClosestTown" label="Closest Town (Optional)"
+					widget="textinput" />
+				<displayItem itemType="City" label="City (Optional)"
+					widget="textinput" />
+				<displayItem itemType="County" label="County (Optional)"
+					widget="textinput" />
+				<displayItem itemType="State" label="State (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Country" label="Country (Optional)"
+					widget="textinput" />
+				<displayItem itemType="ArchiveLocation"
+					label="Archive Location (Optional)" widget="textinput" />
+				<displayItem itemType="Comment" label="Comment (Optional)"
+					widget="textarea" />
+				<displayItem itemType="Save" label=" "
+					widget="savebutton" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="EnvironmentalSample" type="container" 
+					mask="SI1-SGI-E-[0-9]{6}">
+					<allowQueue>Any</allowQueue>
+				</item>
+				<item itemType="InternalID" type="string" optional="true" />
+				<item itemType="FieldName" type="string" optional="true" />
+				<item itemType="Description" type="string" optional="true"/>
+				<item itemType="Volume_liters" type="string" optional="true" />
+				<item itemType="Weight_grams" type="string" optional="true" />
+				<item itemType="InSituTemp_C" type="string" optional="true" />
+				<item itemType="Temperature_C" type="string" optional="true" />
+				<item itemType="pH" type="string" optional="true" />
+				<item itemType="Depth_m" type="string" optional="true" />
+				<item itemType="Latitude" type="string" optional="true" />
+				<item itemType="Longitude" type="string" optional="true" />
+				<item itemType="Altitude_m" type="string" optional="true" />
+				<item itemType="SiteDescription" type="string" optional="true" />
+				<item itemType="StorageMethod" type="string" optional="true" />
+				<item itemType="ClosestTown" type="string" optional="true" />
+				<item itemType="City" type="string" optional="true" />
+				<item itemType="County" type="string" optional="true" />
+				<item itemType="State" type="string" optional="true" />
+				<item itemType="Country" type="string" optional="true" />
+				<item itemType="ArchiveLocation" type="string" optional="true" />
+				<item itemType="Comment" type="string" optional="true" />
+			</items>
+		</server>
+	</task>
+	<task name="Environmental Animal Sample Logging" taskVersion="1.0" pg="default"
+		svURL="Task_Environmental_Plant_Sample_Logging" taskClass="com.sgsi.emre.task.LogEnvironmentalSample">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="EnvironmentalSample" label="New LIMS ID"
+					widget="textinput" />
+				<displayItem itemType="PhysicalForm" label="Physical Form"
+					widget="dropdown"  rowCount="2">
+					<values>
+						<value selected="true">(Select)</value>
+						<value>Liquid</value>
+						<value>Solid</value>
+					</values>
+				</displayItem>
+				<displayItem itemType="CollectionDate"
+					label="Collection Date (mm-dd-yyyy)" widget="datepicker"
+					dateFormat="mm-dd-yy" persist="true" />
+				<displayItem itemType="NotebookRef"
+					label="Page Ref [notebook-pg]" widget="textinput" persist="true" />
+				<displayItem itemType="InternalID" label="Internal ID (Optional)"
+					widget="textinput" />
+				<displayItem itemType="FieldName" label="Field Name (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Description" label="Description (Optional)"
+					widget="textarea" />
+				<displayItem itemType="Taxonomy" label="Taxonomy (Optional)"
+					widget="textinput" minLength="50" />
+				<displayItem itemType="Tissue" label="Tissue (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Volume_liters"
+					label="Volume (liters) (Optional)" widget="textinput" />
+				<displayItem itemType="Weight_grams"
+					label="Weight (grams) (Optional)" widget="textinput" />
+				<displayItem itemType="Temperature_C"
+					label="Temperature (degrees C) (Optional)" widget="textinput" />
+				<displayItem itemType="pH" label="pH (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Latitude" label="Latitude (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Longitude" label="Longitude (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Altitude_m" label="Altitude (m) (Optional)"
+					widget="textinput" />
+				<displayItem itemType="SiteDescription"
+					label="Site Description (Optional)" widget="textarea" />
+				<displayItem itemType="ClosestTown" label="Closest Town (Optional)"
+					widget="textinput" />
+				<displayItem itemType="City" label="City (Optional)"
+					widget="textinput" />
+				<displayItem itemType="County" label="County (Optional)"
+					widget="textinput" />
+				<displayItem itemType="State" label="State (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Country" label="Country (Optional)"
+					widget="textinput" />
+				<displayItem itemType="StorageMethod"
+					label="Storage Method (Optional)" widget="dropdown" rowCount="2">
+					<values>
+						<value selected="true">(Select)</value>
+						<value>Room Temp deg C</value>
+						<value>Wet Ice deg C</value>
+						<value>Dry Ice</value>
+						<value>Liquid N2</value>
+					</values>
+				</displayItem>
+				<displayItem itemType="ArchiveLocation"
+					label="Archive Location (Optional)" widget="textinput" />
+				<displayItem itemType="Location"
+					label="Freezer:Box:Position" widget="rowsets" />
+				<displayItem itemType="Comment" label="Comment (Optional)"
+					widget="textarea" />
+				<displayItem itemType="PrintLabel"
+					label=" " widget="button"
+					action="Print Label" />
+				<displayItem itemType="Save" label=" "
+					widget="savebutton" />
+				<displayItem itemType="ExportButton" label=" "
+					widget="button" action="Export Samples" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="EnvironmentalSample" type="container" new="optional"
+					mask="SI1-SGI-E-[0-9]{6}">
+					<queueTo>Primary Enrichment</queueTo>
+				</item>
+				<item itemType="CollectionDate" type="string">
+				</item>
+				<item itemType="NotebookRef" type="string" mask="[0-9]{4}-[0-9]{3}">
+				</item>
+				<item itemType="PhysicalForm" type="string">
+				</item>
+				<item itemType="Location" type="string">
+				</item>
+				<item itemType="SampleImportFile" type="file"
+					optional="true" new="oncePerTran">
+					<addAsAppFile appliesTo="EnvironmentalSample"
+						fileType="SampleImportFile" copyFileTo="lookup" />
+					<addAsData appliesTo="EnvironmentalSample"
+						dataType="SampleImportFile" />
+				</item>
+			</items>
+		</server>
+	</task>
+	<task name="Update Environmental Animal Sample" taskVersion="1.0" pg="default"
+		svURL="Task_Update_Environmental_Sample" taskClass="com.sgsi.emre.task.UpdateAnimalSample">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Placeholder1" label=" "
+					widget="label">
+					<value>
+						Please note that this task overwrites previously saved values.
+					</value>
+				</displayItem>
+				<displayItem itemType="EnvironmentalSample" label="LIMS ID"
+					widget="textinput" />
+				<displayItem itemType="FindData" label=" "
+					widget="button" action="Find Sample Data" />
+				<displayItem itemType="InternalID" label="Internal ID (Optional)"
+					widget="textinput" />
+				<displayItem itemType="FieldName" label="Field Name (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Description" label="Description (Optional)"
+					widget="textarea" />
+				<displayItem itemType="Taxonomy" label="Taxonomy (Optional)"
+					widget="textinput" minLength="50" />
+				<displayItem itemType="Tissue" label="Tissue (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Volume_liters"
+					label="Volume (liters) (Optional)" widget="textinput" />
+				<displayItem itemType="Weight_grams"
+					label="Weight (grams) (Optional)" widget="textinput" />
+				<displayItem itemType="Temperature_C"
+					label="Temperature (degrees C) (Optional)" widget="textinput" />
+				<displayItem itemType="pH" label="pH (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Latitude" label="Latitude (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Longitude" label="Longitude (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Altitude_m" label="Altitude (m) (Optional)"
+					widget="textinput" />
+				<displayItem itemType="SiteDescription"
+					label="Site Description (Optional)" widget="textarea" />
+				<displayItem itemType="ClosestTown" label="Closest Town (Optional)"
+					widget="textinput" />
+				<displayItem itemType="City" label="City (Optional)"
+					widget="textinput" />
+				<displayItem itemType="County" label="County (Optional)"
+					widget="textinput" />
+				<displayItem itemType="State" label="State (Optional)"
+					widget="textinput" />
+				<displayItem itemType="Country" label="Country (Optional)"
+					widget="textinput" />
+				<displayItem itemType="StorageMethod"
+					label="Storage Method (Optional)" widget="dropdown" rowCount="2">
+					<values>
+						<value selected="true">(Select)</value>
+						<value>Room Temp deg C</value>
+						<value>Wet Ice deg C</value>
+						<value>Dry Ice</value>
+						<value>Liquid N2</value>
+					</values>
+				</displayItem>
+				<displayItem itemType="ArchiveLocation"
+					label="Archive Location (Optional)" widget="textinput" />
+				<displayItem itemType="Comment" label="Comment (Optional)"
+					widget="textarea" />
+				<displayItem itemType="Save" label=" "
+					widget="savebutton" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="EnvironmentalSample" type="container"
+					mask="SI1-SGI-E-[0-9]{6}">
+					<allowQueue>Any</allowQueue>
+				</item>
+				<item itemType="InternalID" type="string" optional="true"/>
+				<item itemType="FieldName" type="string" optional="true"/>
+				<item itemType="Description" type="string" optional="true"/>
+				<item itemType="Taxonomy" type="string" optional="true" />
+				<item itemType="Tissue" type="string" optional="true" />
+				<item itemType="Volume_liters" type="string" optional="true" />
+				<item itemType="Weight_grams" type="string" optional="true"/>
+				<item itemType="Temperature_C" type="string" optional="true" />
+				<item itemType="pH" type="string" optional="true"/>
+				<item itemType="Latitude" type="string" optional="true"/>
+				<item itemType="Longitude" type="string" optional="true"/>
+				<item itemType="Altitude_m" type="string" optional="true" />
+				<item itemType="SiteDescription" type="string" optional="true" />
+				<item itemType="ClosestTown" type="string" optional="true"/>
+				<item itemType="City" type="string" optional="true" />
+				<item itemType="County" type="string" optional="true"/>
+				<item itemType="State" type="string" optional="true"/>
+				<item itemType="Country" type="string" optional="true"/>
+				<item itemType="StorageMethod" type="string" optional="true"/>
+				<item itemType="ArchiveLocation" type="string" optional="true"/>
+				<item itemType="Comment" type="string" optional="true"/>
+			</items>
+		</server>
+	</task>
+	<task name="Sample Depleted" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="default">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Placeholder3" label=" "
+					widget="label">
+					<value>
+						(Optional) Browse for a file containing depleted samples,
+						then click 'Import':
+					</value>
+				</displayItem>
+				<displayItem itemType="DepletionImportFile"
+					label="Bulk import file (*.xls)" widget="filebrowse" />
+				<displayItem itemType="ImportButton" label=" "
+					widget="button" action="Import" />
+				<displayItem itemType="Placeholder4" label=" "
+					widget="label">
+					<value>
+					</value>
+				</displayItem>
+				<displayItem itemType="Placeholder3" label=" "
+					widget="label">
+					<value>Or, record a single depleted sample:</value>
+				</displayItem>
+				<displayItem itemType="Sample" label="Depleted Sample"
+					widget="textinput">
+				</displayItem>
+				<displayItem itemType="Comment" label="Comments"
+					widget="textarea" minLength="300" />
+				<displayItem itemType="Verify" label=" "
+					widget="verifybutton" />
+				<displayItem itemType="Save" label=" "
+					widget="savebutton" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="Sample" type="container" new="optional">
+					<allowQueue>ANY</allowQueue>
+					<dequeueFrom>Available Samples</dequeueFrom>
+					<queueTo>Depleted Samples</queueTo>
+				</item>
+				<item itemType="Comment" type="comment" optional="true"
+				 commentType="SAMPLE_COMMENTTYPE"
+						appliesTo="Sample" >
+				</item>	
+				<item itemType="DepletionImportFile" type="file"
+					optional="true" new="oncePerTran">
+					<addAsAppFile fileType="DepletionImportFile" copyFileTo="lookup" />
+					<addAsData appliesTo="Sample"
+						dataType="DepletionImportFile" />
+				</item>
+			</items>
+		</server>
+	</task>
+	<task name="Retire Sample" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="default">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Placeholder3" label=" "
+					widget="label">
+					<value>
+						(Optional) Browse for a file containing samples to retire,
+						then click 'Import':
+					</value>
+				</displayItem>
+				<displayItem itemType="RetirementImportFile"
+					label="Bulk import file (*.xls)" widget="filebrowse" />
+				<displayItem itemType="ImportButton" label=" "
+					widget="button" action="Import" />
+				<displayItem itemType="Placeholder4" label=" "
+					widget="label">
+					<value>
+					</value>
+				</displayItem>
+				<displayItem itemType="Placeholder3" label=" "
+					widget="label">
+					<value>Or, record a single sample to retire:</value>
+				</displayItem>
+				<displayItem itemType="Sample" label="Retired Sample"
+					widget="textinput">
+				</displayItem>
+				<displayItem itemType="Comment" label="Comments"
+					widget="textarea" minLength="300" />
+				<displayItem itemType="Verify" label=" "
+					widget="verifybutton" />
+				<displayItem itemType="Save" label=" "
+					widget="savebutton" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="Sample" type="container"
+					new="optional">
+					<allowQueue>ANY</allowQueue>
+					<dequeueFrom>Available Samples</dequeueFrom>
+					<queueTo>Retired Samples</queueTo>
+				</item>
+				<item itemType="Comment" type="comment" optional="true"
+				 commentType="SAMPLE_COMMENTTYPE"
+						appliesTo="Sample" >
+				</item>	
+				<item itemType="RetirementImportFile" type="file"
+					optional="true" new="oncePerTran">
+					<addAsAppFile fileType="RetirementImportFile" copyFileTo="lookup" />
+					<addAsData appliesTo="Sample"
+						dataType="RetirementImportFile" />
+				</item>
+			</items>
+		</server>
+	</task>
+	<task name="Discard Sample" taskVersion="1.0" pg="default"
+		svURL="default" taskClass="default">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Sample" label="Discarded Sample"
+					widget="textinput">
+				</displayItem>
+				<displayItem itemType="Comment" label="Comments"
+					widget="textarea" minLength="300" />
+				<displayItem itemType="Verify" label=" "
+					widget="verifybutton" />
+				<displayItem itemType="Save" label=" "
+					widget="savebutton" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="Sample" type="container"
+					new="optional">
+					<allowQueue>ANY</allowQueue>
+					<dequeueFrom>Available Samples</dequeueFrom>
+					<queueTo>Discarded Samples</queueTo>
+				</item>
+				<item itemType="Comment" type="comment"
+					optional="true" commentType="SAMPLE_COMMENTTYPE" appliesTo="Sample" >
+				</item>
+			</items>
+		</server>
+	</task>
+	<task name="Place Sample on Hold" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="default">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Placeholder3" label=" "
+					widget="label">
+					<value>
+						(Optional) Browse for a file containing samples to put on hold,
+						then click 'Import':
+					</value>
+				</displayItem>
+				<displayItem itemType="HoldImportFile"
+					label="Bulk import file (*.xls)" widget="filebrowse" />
+				<displayItem itemType="ImportButton" label=" "
+					widget="button" action="Import" />
+				<displayItem itemType="Placeholder4" label=" "
+					widget="label">
+					<value>
+					</value>
+				</displayItem>
+				<displayItem itemType="Placeholder3" label=" "
+					widget="label">
+					<value>Or, record a single sample to put on hold:</value>
+				</displayItem>
+				<displayItem itemType="Sample"
+					label="Sample to place on HOLD" widget="textinput">
+				</displayItem>
+				<displayItem itemType="Comment" label="Comments"
+					widget="textarea" minLength="300" />
+				<displayItem itemType="Verify" label=" "
+					widget="verifybutton" />
+				<displayItem itemType="Save" label=" "
+					widget="savebutton" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="Sample" type="container">
+					<allowQueue>ANY</allowQueue>
+					<dequeueFrom>Available Samples</dequeueFrom>
+					<queueTo>Samples On HOLD</queueTo>
+				</item>
+				<item itemType="Comment" type="comment" optional="true"
+				 commentType="SAMPLE_COMMENTTYPE"
+						appliesTo="Sample" >
+				</item>	
+				<item itemType="HoldImportFile" type="file"
+					optional="true" new="oncePerTran">
+					<addAsAppFile fileType="HoldImportFile" copyFileTo="lookup" />
+					<addAsData appliesTo="Sample"
+						dataType="HoldImportFile" />
+				</item>
+			</items>
+		</server>
+	</task>
+	<task name="Reactivate Sample" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="default">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Placeholder3" label=" "
+					widget="label">
+					<value>
+						(Optional) Browse for a file containing samples to reactivate,
+						then click 'Import':
+					</value>
+				</displayItem>
+				<displayItem itemType="ReactivateImportFile"
+					label="Bulk import file (*.xls)" widget="filebrowse" />
+				<displayItem itemType="ImportButton" label=" "
+					widget="button" action="Import" />
+				<displayItem itemType="Placeholder4" label=" "
+					widget="label">
+					<value>
+					</value>
+				</displayItem>
+				<displayItem itemType="Placeholder2" label=" "
+					widget="label">
+					<value>Or, record a single sample to reactivate:</value>
+				</displayItem>
+				<displayItem itemType="Sample"
+					label="Sample to reactivate" widget="textinput">
+				</displayItem>
+				<displayItem itemType="Comment" label="Comments"
+					widget="textarea" minLength="300" />
+				<displayItem itemType="Verify" label=" "
+					widget="verifybutton" />
+				<displayItem itemType="Save" label=" "
+					widget="savebutton" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="Sample" type="container"
+					new="optional">
+					<allowQueue>Samples On HOLD</allowQueue>
+					<dequeueFrom>Samples On HOLD</dequeueFrom>
+					<queueTo>Available Samples</queueTo>
+				</item>
+				<item itemType="Comment" type="comment" optional="true"
+				 commentType="SAMPLE_COMMENTTYPE"
+						appliesTo="Sample" >
+				</item>	
+				<item itemType="ReactivateImportFile" type="file"
+					optional="true" new="oncePerTran">
+					<addAsAppFile fileType="ReactivateImportFile" copyFileTo="lookup" />
+					<addAsData appliesTo="Sample"
+						dataType="ReactivateImportFile" />
+				</item>
+			</items>
+		</server>
+	</task>
+	<task name="Define Protocol" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="com.sgsi.emre.task.DefineProtocol">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="Placeholder" label=" "
+					widget="label">
+					<value>
+						Name a set of conditions for use later:
+					</value>
+				</displayItem>
+				<displayItem itemType="Save" label=" "
+					widget="savebutton" />
+				<displayItem itemType="Protocol" label="Protocol Name"
+					widget="textinput">
+				</displayItem>
+				<displayItem itemType="ProtocolType"
+					label="Protocol Type" widget="dropdown" rowCount="3">
+					<values>
+						<value selected="true">(Select)</value>
+						<value>Extract DNA</value>
+						<value>Extract RNA</value>
+						<value>Extract Protein</value>
+						<value>PCR</value>
+						<value>Make PCR Clone</value>
+						<value>Start Culture</value>
+						<value>Cultivation</value>
+						<value>Growth</value>
+						<value>Isolation</value>
+						<value>Start Fermenter</value>
+						<value>Deliver DNA into Cells</value>
+					</values>
+				</displayItem>
+				<displayItem itemType="Conditions"
+					label="Specific Conditions" widget="textarea">
+				</displayItem>
+				<displayItem itemType="Comment" label="Comments"
+					widget="textarea">
+				<displayItem itemType="Placeholder" label=" "
+					widget="label">
+					<value>
+						
+					</value>
+				</displayItem>
+				<displayItem itemType="Placeholder" label=" "
+					widget="label">
+					<value>
+					
+					</value>
+				</displayItem>
+				<displayItem itemType="Protocols"
+					label="Existing Protocols" widget="rowsets_sort" rowCount="10" />
+				</displayItem>
+			</displayItems>
+		</client>
+		<server>
+			<items>
+				<item itemType="Protocol" type="container" new="true">
+					<queueTo>Active Protocols</queueTo>
+				</item>
+			</items>
+		</server>
+	</task>
+	<task name="Strain FACS Report" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="default">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="EnrichmentFACSPlate" label="LIMS ID"
+					widget="textinput"/>
+				<displayItem itemType="EnrichmentSample" label="Origin LIMS ID"
+					widget="textinput">
+				</displayItem>
+				<displayItem itemType="NotebookRef" label="Page Ref [notebook-pg]"
+					widget="textinput">
+				</displayItem>
+				<displayItem itemType="VesselType"
+					label="Vessel Type" widget="dropdown">
+					<values>				
+					  <value selected="true">96-well 2mL</value>
+					</values>
+				</displayItem>
+				<displayItem itemType="DateArchived" label="Archive Date (YYMMDD)"
+					widget="datepicker" dateFormat="ymmdd" />
+				<displayItem itemType="ArchiveMethod"
+					label="Archive Method" widget="dropdown" rowCount="3">
+					<values>				
+					  <value>(Select)</value>
+						<value>5% DMSO</value>
+						<value>10% glycerol</value>
+					</values>
+				</displayItem>
+				<displayItem itemType="Comment" label="Comments"
+					widget="textarea" minLength="200" />
+				<displayItem itemType="Location"
+					label="Freezer:Box:Position" widget="textinput" visible="false"/>
+				<displayItem itemType="Run"
+					label=" " widget="button" action="Run Query" />
+				<displayItem itemType="Results" label=" "
+					widget="rowsets_sort" visible="false" />
+			</displayItems>
+		</client>
+		<server>
+			<items>		
+			</items>
+		</server>
+	</task>
+	<task name="Axenic Strain Collection Report" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="default">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="EnrichmentFACSPlate" label="LIMS ID"
+					widget="textinput" />
+				<displayItem itemType="WellNumber" label="Well Number (01-96)"
+					widget="textinput" />
+				<displayItem itemType="Taxonomy" label="Taxonomic ID"
+					widget="textinput" minLength="100" maxLength="100" />
+				<displayItem itemType="NotebookRef"
+					label="Page Ref [notebook-pg]" widget="textinput" />
+				<displayItem itemType="DateArchived" label="Archive Date (YYMMDD)"
+					widget="datepicker" dateFormat="ymmdd" />
+				<displayItem itemType="ArchiveMethod"
+					label="Archive Method" widget="dropdown" rowCount="3">
+					<values>				
+					  <value>(Select)</value>
+						<value>5% DMSO</value>
+						<value>10% glycerol</value>
+					</values>
+				</displayItem>
+				<displayItem itemType="Location"
+					label="Freezer:Box:Position" widget="textinput" />
+				<displayItem itemType="Comment" label="Comment"
+					widget="textarea" />
+				<displayItem itemType="Run"
+					label=" " widget="button"
+					action="Run Report" />
+				<displayItem itemType="Results" label=" "
+					widget="rowsets_sort" visible="false" />
+			</displayItems>
+		</client>
+		<server>
+			<items>
+			</items>
+		</server>
+	</task>
+	<task name="Strain Taxonomic ID Report" taskVersion="1.0" pg="default"
+		svURL="custom" taskClass="default">
+		<client clientVersion="1.0">
+			<displayItems>
+				<displayItem itemType="EnrichmentFACSPlate" label="LIMS ID"
+					widget="textinput" />
+				<displayItem itemType="NotebookRef" label="Page Ref [notebook-pg]"
+					widget="textinput">
+				</displayItem>
+				<displayItem itemType="SampleType"
+					label="Sample Type" widget="dropdown"
+					rowCount="2">
+					<values>
+						<value selected="true">(Select)</value>
+						<value>PCR Product</value>
+						<value>Clone</value>
+					</values>
+				</displayItem>
+				<displayItem itemType="SequencingVendor"
+					label="Sequencing Vendor" widget="dropdown"
+					rowCount="2">
+					<values>
+						<value selected="true">(Select)</value>
+						<value>JCVI</value>
+						<value>JTC</value>
+						<value>Other 1</value>
+						<value>Other 2</value>
+					</values>
+				</displayItem>
+				<displayItem itemType="DateSubmitted" label="Date Submitted (YYMMDD)"
+					widget="datepicker" dateFormat="ymmdd" />
+				<displayItem itemType="VendorID"
+					label="Vendor ID" widget="textinput" />
+				<displayItem itemType="Run"
+					label=" " widget="button"
+					action="Run Report" />
+				<displayItem itemType="Results" label=" "
+					widget="rowsets_sort" visible="false" />
+			</displayItems>
+		</client>
+		<server>
+			<items>	
+			</items>
+		</server>
+	</task>
+</linx>

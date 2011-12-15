@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!ELEMENT linx ( config ) >
+<!--
+Under the config node are all the Linx database configurable
+parameters to control Linx core behavior. 
+Either j2eeConnPool or linxConnPool MUST be specified for use by LIMS
+-->
+<!ELEMENT config ( j2eeConnPool?, linxConnPool?) >
+
+<!-- j2eeConnPool
+node indicates whether Linx should use a J2EE server's connection pool
+to specify the database connection to use for LIMS
+-->
+<!ELEMENT j2eeConnPool ( connectionPoolName, helperClass, lookupConnectionSpid? ) >
+
+<!-- connectionPoolName specifies the JNDI pool name (created on J2EE server) to
+use with Linx
+-->
+<!ELEMENT connectionPoolName ( #PCDATA ) >
+
+<!-- helperClass specifies the Linx core class to use for all DB access methods
+(should be either com.wildtype.linx.db.NormDbHelper or com.wildtype.linx.db.DbHelper)
+-->
+<!ELEMENT helperClass ( #PCDATA ) >
+
+<!-- lookupConnectionSpid will determine if server should
+lookup the Spid (calling getSpid() sql) when getting a connection for a 
+transaction.  Setting this value to 'true' will cause the lookup (and thus
+debug messages can report the spid).  Setting to 'false' will skip the lookup 
+(and thus debug messages won't show a spid).  Setting to 'false' will reduce
+the total number of SQL transactions required per request.
+-->
+<!ELEMENT lookupConnectionSpid ( #PCDATA ) >
+
+
+<!-- linxConnPool
+node indicates whether Linx should use a connection pool created/maintained by Linx core
+to specify the database connection to use for LIMS
+-->
+
+<!ELEMENT linxConnPool ( url, helperClass, lookupConnectionSpid?, username, password, driverClass,
+						connectionCount, maxPoolSize, cleanupInterval_mins, cullingInterval_mins, maxConnAge_hrs, 
+						waitForConnection, openConnectionTest? ) >
+<!ATTLIST linxConnPool  name CDATA #REQUIRED>
+
+<!-- url specifies the database connection string be used in creating DB connection
+e.g. jdbc:sqlserver://192.168.1.101;instanceName=mssql;databaseName=MyDbTest
+-->
+<!ELEMENT url ( #PCDATA ) >
+<!-- helperClass specifies the Linx core class to use for all DB access methods
+(should be either com.wildtype.linx.db.NormDbHelper or com.wildtype.linx.db.DbHelper)
+-->
+<!ELEMENT helperClass ( #PCDATA ) >
+<!-- lookupConnectionSpid will determine if server should
+lookup the Spid (calling getSpid() sql) when getting a connection for a 
+transaction.  Setting this value to 'true' will cause the lookup (and thus
+debug messages can report the spid).  Setting to 'false' will skip the lookup 
+(and thus debug messages won't show a spid).  Setting to 'false' will reduce
+the total number of SQL transactions required per request.
+-->
+<!ELEMENT lookupConnectionSpid ( #PCDATA ) >
+<!-- username specifies the database connection user name -->
+<!ELEMENT username ( #PCDATA ) >
+<!-- password specifies the database connection user password -->
+<!ELEMENT password ( #PCDATA ) >
+<!-- driverClass specifies the database driver class to be used in creating DB connection
+e.g. com.microsoft.sqlserver.jdbc.SQLServerDriver
+-->
+<!ELEMENT driverClass ( #PCDATA ) >
+<!-- connectionCount specifies the number of db connection to put in pool at start -->
+<!ELEMENT connectionCount ( #PCDATA ) >
+<!-- maxPoolSize specifies the max number of db connections to put in pool -->
+<!ELEMENT maxPoolSize ( #PCDATA ) >
+<!-- cleanupInterval_mins specifies how often (in minutes) pool should be checked for unused connections -->
+<!ELEMENT cleanupInterval_mins ( #PCDATA ) >
+<!-- cullingInterval_mins specifies how often (in minutes) pool should be checked for "dead" connections -->
+<!ELEMENT cullingInterval_mins ( #PCDATA ) >
+<!-- maxConnAge_hrs specifies how often (in hours) a single connection is allowed to be open 
+(before being declared dead)
+ -->
+<!ELEMENT maxConnAge_hrs ( #PCDATA ) >
+<!-- waitForConnection (true/false) specifies if Linx server should wait for a DB connection
+before accepting any Linx user connections.  Typically false.
+ -->
+<!ELEMENT waitForConnection ( #PCDATA ) >
+
+ <!-- openConnectionTest specifies external call to be used to test connections to DB
+ e.g. exec spLinx_GetSPID
+ -->
+<!ELEMENT openConnectionTest ( #PCDATA ) >

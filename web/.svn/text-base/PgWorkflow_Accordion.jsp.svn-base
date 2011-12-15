@@ -1,0 +1,43 @@
+<%@ page language="java" %>
+<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
+
+<jsp:useBean id="myWorkflow" class="com.wildtype.linx.task.Workflow" scope="page"></jsp:useBean>
+
+<div class="accordion" id="workflow" style="width:225px">
+	<c:set var="count" scope="page" value="-1" />
+	<c:set var="activeGroup" scope="page" value="false" />
+	<c:forEach var="groupName" items="${sessionScope.user.taskGroupNames}">
+		<c:set var="count" scope="page"  value="${count +1}" />
+		<div>
+			<a href="#">${groupName}</a>
+				<c:if test="${groupName == sessionScope.selGroupName}">
+					<%-- set proper accordion index as active --%>
+					<c:set var="activeGroup" scope="page" value="${count}" />
+				</c:if>
+		</div>
+		<ul>
+			<%-- Set current group in Workflow class static var shared by all Workflow objs --%>
+			<jsp:setProperty name="myWorkflow" property="group" value="${groupName}" />
+
+			<c:forEach var="task1" items="${workflow.tasksByGroup}">
+				<li>
+					<%-- calling the servlet below will save both the selected current "task" and "groupName" 
+				     	in sessionScope.  Use task.taskName and sessionScope.selGroupName if needed later --%>
+					<a href="${pageContext.request.contextPath}/${task1.taskSv}?menuSelected=true&groupName=${groupName}&taskName=${task1.taskName}">${task1.taskName}</a>	
+				</li>
+			</c:forEach>
+		</ul>
+	</c:forEach>
+</div>
+
+<%-- Update accordion widget to show proper group as "open"  --%>
+<%-- By default accordion widget can't close all tabs, but turn that one for user convenience.
+     This must be done *after* we've set the active tab or we can't open tab 0
+--%>
+<script language="Javascript" type="text/javascript">
+	$(function(){
+		$("#workflow").accordion('activate', ${activeGroup});
+		$("#workflow").accordion('option', 'collapsible', true);
+	 });
+	 // alert('activeGroup is: ' + '${activeGroup}');
+</script>

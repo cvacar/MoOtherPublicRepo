@@ -1,0 +1,107 @@
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/limsdev/!svn/ver/222/SGI/EMRE2/tags/v2.0.3/web/WEB-INF/tld
+END
+sql.tld
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/limsdev/!svn/ver/222/SGI/EMRE2/tags/v2.0.3/web/WEB-INF/tld/sql.tld
+END
+sql-1_0-rt.tld
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/limsdev/!svn/ver/222/SGI/EMRE2/tags/v2.0.3/web/WEB-INF/tld/sql-1_0-rt.tld
+END
+c-1_0.tld
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/limsdev/!svn/ver/222/SGI/EMRE2/tags/v2.0.3/web/WEB-INF/tld/c-1_0.tld
+END
+permittedTaglibs.tld
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/limsdev/!svn/ver/222/SGI/EMRE2/tags/v2.0.3/web/WEB-INF/tld/permittedTaglibs.tld
+END
+fn.tld
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/limsdev/!svn/ver/222/SGI/EMRE2/tags/v2.0.3/web/WEB-INF/tld/fn.tld
+END
+fmt-1_0.tld
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/limsdev/!svn/ver/222/SGI/EMRE2/tags/v2.0.3/web/WEB-INF/tld/fmt-1_0.tld
+END
+taglibs-session.tld
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/limsdev/!svn/ver/222/SGI/EMRE2/tags/v2.0.3/web/WEB-INF/tld/taglibs-session.tld
+END
+scriptfree.tld
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/limsdev/!svn/ver/222/SGI/EMRE2/tags/v2.0.3/web/WEB-INF/tld/scriptfree.tld
+END
+x-1_0-rt.tld
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/limsdev/!svn/ver/222/SGI/EMRE2/tags/v2.0.3/web/WEB-INF/tld/x-1_0-rt.tld
+END
+x.tld
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/limsdev/!svn/ver/222/SGI/EMRE2/tags/v2.0.3/web/WEB-INF/tld/x.tld
+END
+sql-1_0.tld
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/limsdev/!svn/ver/222/SGI/EMRE2/tags/v2.0.3/web/WEB-INF/tld/sql-1_0.tld
+END
+c.tld
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/limsdev/!svn/ver/222/SGI/EMRE2/tags/v2.0.3/web/WEB-INF/tld/c.tld
+END
+c-1_0-rt.tld
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/limsdev/!svn/ver/222/SGI/EMRE2/tags/v2.0.3/web/WEB-INF/tld/c-1_0-rt.tld
+END
+x-1_0.tld
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/limsdev/!svn/ver/222/SGI/EMRE2/tags/v2.0.3/web/WEB-INF/tld/x-1_0.tld
+END
+fmt.tld
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/limsdev/!svn/ver/222/SGI/EMRE2/tags/v2.0.3/web/WEB-INF/tld/fmt.tld
+END
+fmt-1_0-rt.tld
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/limsdev/!svn/ver/222/SGI/EMRE2/tags/v2.0.3/web/WEB-INF/tld/fmt-1_0-rt.tld
+END
+ilmnButtonTag.tld
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/limsdev/!svn/ver/222/SGI/EMRE2/tags/v2.0.3/web/WEB-INF/tld/ilmnButtonTag.tld
+END
